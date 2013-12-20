@@ -1,0 +1,1375 @@
+dn: CN=Pm-Assoc-Attr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.1
+attributeSyntax: 2.5.5.12
+cn: Pm-Assoc-Attr
+isSingleValued: TRUE
+lDAPDisplayName: pmAssocAttr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Assoc-Attr
+
+dn: CN=Pm-Assoc-Obj, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.2
+attributeSyntax: 2.5.5.12
+cn: Pm-Assoc-Obj
+isSingleValued: TRUE
+lDAPDisplayName: pmAssocObj
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Assoc-Obj
+
+dn: CN=Pm-Attr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.3
+attributeSyntax: 2.5.5.12
+cn: Pm-Attr
+isSingleValued: FALSE
+lDAPDisplayName: pmAttr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Attr
+
+dn: CN=Pm-Attr-Set, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.4
+attributeSyntax: 2.5.5.12
+cn: Pm-Attr-Set
+isSingleValued: FALSE
+lDAPDisplayName: pmAttrSet
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Attr-Set
+
+dn: CN=Pm-Description, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.5
+attributeSyntax: 2.5.5.12
+cn: Pm-Description
+isSingleValued: TRUE
+lDAPDisplayName: pmDescription
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Description
+
+dn: CN=Pm-From-Attr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.6
+attributeSyntax: 2.5.5.12
+cn: Pm-From-Attr
+isSingleValued: FALSE
+lDAPDisplayName: pmFromAttr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-From-Attr
+
+dn: CN=Pm-From-Obj-Attr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.7
+attributeSyntax: 2.5.5.12
+cn: Pm-From-Obj-Attr
+isSingleValued: FALSE
+lDAPDisplayName: pmFromObjAttr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-From-Obj-Attr
+
+dn: CN=Pm-From-Op-Set, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.8
+attributeSyntax: 2.5.5.12
+cn: Pm-From-Op-Set
+isSingleValued: FALSE
+lDAPDisplayName: pmFromOpSet
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-From-Op-Set
+
+dn: CN=Pm-From-User, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.9
+attributeSyntax: 2.5.5.12
+cn: Pm-From-User
+isSingleValued: FALSE
+lDAPDisplayName: pmFromUser
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-From-User
+
+dn: CN=Pm-From-User-Attr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.10
+attributeSyntax: 2.5.5.12
+cn: Pm-From-User-Attr
+isSingleValued: FALSE
+lDAPDisplayName: pmFromUserAttr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-From-User-Attr
+
+dn: CN=Pm-Full-Name, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.11
+attributeSyntax: 2.5.5.12
+cn: Pm-Full-Name
+isSingleValued: TRUE
+lDAPDisplayName: pmFullName
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-FullName
+
+dn: CN=Pm-Host, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.12
+attributeSyntax: 2.5.5.12
+cn: Pm-Host
+isSingleValued: TRUE
+lDAPDisplayName: pmHost
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Host
+
+dn: CN=Pm-Id, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.13
+attributeSyntax: 2.5.5.12
+cn: Pm-Id
+isSingleValued: TRUE
+lDAPDisplayName: pmId
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Id
+
+dn: CN=Pm-Name, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.15
+attributeSyntax: 2.5.5.12
+cn: Pm-Name
+isSingleValued: TRUE
+lDAPDisplayName: pmName
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Name
+
+dn: CN=Pm-Obj-Class, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.16
+attributeSyntax: 2.5.5.12
+cn: Pm-Obj-Class
+isSingleValued: TRUE
+lDAPDisplayName: pmObjClass
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Obj-Class
+
+dn: CN=Pm-Op, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.17
+attributeSyntax: 2.5.5.12
+cn: Pm-Op
+isSingleValued: FALSE
+lDAPDisplayName: pmOp
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Op
+
+dn: CN=Pm-Other-Info, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.18
+attributeSyntax: 2.5.5.12
+cn: Pm-Other-Info
+isSingleValued: TRUE
+lDAPDisplayName: pmOtherInfo
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Other-Info
+
+dn: CN=Pm-Password, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.19
+attributeSyntax: 2.5.5.12
+cn: Pm-Password
+isSingleValued: TRUE
+lDAPDisplayName: pmPassword
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Password
+
+dn: CN=Pm-Timestamp, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.21
+attributeSyntax: 2.5.5.12
+cn: Pm-Timestamp
+isSingleValued: TRUE
+lDAPDisplayName: pmTimestamp
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Timestamp
+
+dn: CN=Pm-To-Attr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.22
+attributeSyntax: 2.5.5.12
+cn: Pm-To-Attr
+isSingleValued: FALSE
+lDAPDisplayName: pmToAttr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-To-Attr
+
+dn: CN=Pm-To-Op-Set, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.23
+attributeSyntax: 2.5.5.12
+cn: Pm-To-Op-Set
+isSingleValued: FALSE
+lDAPDisplayName: pmToOpSet
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-To-Op-Set
+
+dn: CN=Pm-To-Policy, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.24
+attributeSyntax: 2.5.5.12
+cn: Pm-To-Policy
+isSingleValued: FALSE
+lDAPDisplayName: pmToPolicy
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-To-Policy
+
+dn: CN=Pm-To-Connector, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.26
+attributeSyntax: 2.5.5.12
+cn: Pm-To-Connector
+isSingleValued: TRUE
+lDAPDisplayName: pmToConnector
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-To-Connector
+
+dn: CN=Pm-From-Policy-Class, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.27
+attributeSyntax: 2.5.5.12
+cn: Pm-From-Policy-Class
+isSingleValued: FALSE
+lDAPDisplayName: pmFromPolicyClass
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-From-Policy-Class
+
+dn: CN=Pm-Ip-Address, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.32
+attributeSyntax: 2.5.5.12
+cn: Pm-Ip-Address
+isSingleValued: FALSE
+lDAPDisplayName: pmIpAddress
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Ip-Address
+
+dn: CN=Pm-Is-Dom-Controller, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.34
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Dom-Controller
+isSingleValued: TRUE
+lDAPDisplayName: pmIsDomController
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Dom-Controller
+
+dn: CN=Pm-Event, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.35
+attributeSyntax: 2.5.5.12
+cn: Pm-Event
+isSingleValued: TRUE
+lDAPDisplayName: pmEvent
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Event
+
+dn: CN=Pm-User-Id, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.36
+attributeSyntax: 2.5.5.12
+cn: Pm-User-Id
+isSingleValued: TRUE
+lDAPDisplayName: pmUserId
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-User-Id
+
+dn: CN=Pm-User-Name, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.37
+attributeSyntax: 2.5.5.12
+cn: Pm-User-Name
+isSingleValued: TRUE
+lDAPDisplayName: pmUserName
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-User-Name
+
+dn: CN=Pm-Is-Obj, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.38
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Obj
+isSingleValued: TRUE
+lDAPDisplayName: pmIsObj
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Obj
+
+dn: CN=Pm-Asc-Node, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.39
+attributeSyntax: 2.5.5.12
+cn: Pm-Asc-Node
+isSingleValued: FALSE
+lDAPDisplayName: pmAscNode
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Asc-Node
+
+dn: CN=Pm-Desc-Node, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.40
+attributeSyntax: 2.5.5.12
+cn: Pm-Desc-Node
+isSingleValued: FALSE
+lDAPDisplayName: pmDescNode
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Desc-Node
+
+dn: CN=Pm-Original-Id, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.41
+attributeSyntax: 2.5.5.12
+cn: Pm-Original-Id
+isSingleValued: TRUE
+lDAPDisplayName: pmOriginalId
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Original-Id
+
+dn: CN=Pm-Original-Name, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.42
+attributeSyntax: 2.5.5.12
+cn: Pm-Original-Name
+isSingleValued: TRUE
+lDAPDisplayName: pmOriginalName
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Original-Name
+
+
+dn: CN=Pm-Sess-Id, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.43
+attributeSyntax: 2.5.5.12
+cn: Pm-Sess-Id
+isSingleValued: TRUE
+lDAPDisplayName: pmSessId
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Sess-Id
+
+dn: CN=Pm-Includes-Ascendants, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.46
+attributeSyntax: 2.5.5.8
+cn: Pm-Includes-Ascendants
+isSingleValued: TRUE
+lDAPDisplayName: pmIncludesAscendants
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Includes-Ascendants
+
+dn: CN=Pm-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.47
+attributeSyntax: 2.5.5.12
+cn: Pm-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Path
+
+
+dn: CN=Pm-Ks-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.51
+attributeSyntax: 2.5.5.12
+cn: Pm-Ks-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmKsPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Ks-Path
+
+dn: CN=Pm-Ts-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.52
+attributeSyntax: 2.5.5.12
+cn: Pm-Ts-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmTsPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Ts-Path
+
+dn: CN=Pm-Atool-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.53
+attributeSyntax: 2.5.5.12
+cn: Pm-Atool-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmAtoolPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Atool-Path
+
+dn: CN=Pm-Rtfed-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.54
+attributeSyntax: 2.5.5.12
+cn: Pm-Rtfed-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmRtfedPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Rtfed-Path
+
+dn: CN=Pm-Event-Pattern, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.56
+attributeSyntax: 2.5.5.12
+cn: Pm-Event-Pattern
+isSingleValued: TRUE
+lDAPDisplayName: pmEventPattern
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Event-Pattern
+
+dn: CN=Pm-Action, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.57
+attributeSyntax: 2.5.5.12
+cn: Pm-Action
+isSingleValued: FALSE
+lDAPDisplayName: pmAction
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Action
+
+dn: CN=Pm-User-Spec, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.58
+attributeSyntax: 2.5.5.12
+cn: Pm-User-Spec
+isSingleValued: FALSE
+lDAPDisplayName: pmUserSpec
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-User-Spec
+
+dn: CN=Pm-Is-Active, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.59
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Active
+isSingleValued: TRUE
+lDAPDisplayName: pmIsActive
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Active
+
+dn: CN=Pm-Is-Any, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.60
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Any
+isSingleValued: TRUE
+lDAPDisplayName: pmIsAny
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Any
+
+dn: CN=Pm-Policy-Spec, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.61
+attributeSyntax: 2.5.5.12
+cn: Pm-Policy-Spec
+isSingleValued: FALSE
+lDAPDisplayName: pmPolicySpec
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Policy-Spec
+
+dn: CN=Pm-Op-Spec, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.62
+attributeSyntax: 2.5.5.12
+cn: Pm-Op-Spec
+isSingleValued: FALSE
+lDAPDisplayName: pmOpSpec
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Op-Spec
+
+dn: CN=Pm-Obj-Spec, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.63
+attributeSyntax: 2.5.5.12
+cn: Pm-Obj-Spec
+isSingleValued: FALSE
+lDAPDisplayName: pmObjSpec
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Obj-Spec
+
+dn: CN=Pm-Type, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.64
+attributeSyntax: 2.5.5.12
+cn: Pm-Type
+isSingleValued: TRUE
+lDAPDisplayName: pmType
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Type
+
+dn: CN=Pm-Opnd-1, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.65
+attributeSyntax: 2.5.5.12
+cn: Pm-Opnd-1
+isSingleValued: FALSE
+lDAPDisplayName: pmOpnd1
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Opnd-1
+
+dn: CN=Pm-Opnd-2, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.66
+attributeSyntax: 2.5.5.12
+cn: Pm-Opnd-2
+isSingleValued: FALSE
+lDAPDisplayName: pmOpnd2
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Opnd-2
+
+dn: CN=Pm-Opnd-3, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.67
+attributeSyntax: 2.5.5.12
+cn: Pm-Opnd-3
+isSingleValued: FALSE
+lDAPDisplayName: pmOpnd3
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Opnd-3
+
+dn: CN=Pm-Opnd-4, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.68
+attributeSyntax: 2.5.5.12
+cn: Pm-Opnd-4
+isSingleValued: FALSE
+lDAPDisplayName: pmOpnd4
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Opnd-4
+
+dn: CN=Pm-Is-Function, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.69
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Function
+isSingleValued: TRUE
+lDAPDisplayName: pmIsFunction
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Function
+
+dn: CN=Pm-Args, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.70
+attributeSyntax: 2.5.5.12
+cn: Pm-Args
+isSingleValued: TRUE
+lDAPDisplayName: pmArgs
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Args
+
+dn: CN=Pm-Count, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.72
+attributeSyntax: 2.5.5.9
+cn: Pm-Count
+isSingleValued: TRUE
+lDAPDisplayName: pmCount
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 2
+name: Pm-Count
+
+dn: CN=Pm-Rank, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.74
+attributeSyntax: 2.5.5.9
+cn: Pm-Rank
+isSingleValued: TRUE
+lDAPDisplayName: pmRank
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 2
+name: Pm-Rank
+
+dn: CN=Pm-First, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.75
+attributeSyntax: 2.5.5.12
+cn: Pm-First
+isSingleValued: TRUE
+lDAPDisplayName: pmFirst
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-First
+
+dn: CN=Pm-Last, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.76
+attributeSyntax: 2.5.5.12
+cn: Pm-Last
+isSingleValued: TRUE
+lDAPDisplayName: pmLast
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Last
+
+dn: CN=Pm-Next, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.77
+attributeSyntax: 2.5.5.12
+cn: Pm-Next
+isSingleValued: TRUE
+lDAPDisplayName: pmNext
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Next
+
+dn: CN=Pm-Prev, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.78
+attributeSyntax: 2.5.5.12
+cn: Pm-Prev
+isSingleValued: TRUE
+lDAPDisplayName: pmPrev
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Prev
+
+dn: CN=Pm-Property, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.79
+attributeSyntax: 2.5.5.12
+cn: Pm-Property
+isSingleValued: FALSE
+lDAPDisplayName: pmProperty
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Property
+
+dn: CN=Pm-Is-Subgraph, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.81
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Subgraph
+isSingleValued: TRUE
+lDAPDisplayName: pmIsSubgraph
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Subgraph
+
+dn: CN=Pm-Is-Negated, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.82
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Negated
+isSingleValued: TRUE
+lDAPDisplayName: pmIsNegated
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Negated
+
+dn: CN=Pm-Condition, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.83
+attributeSyntax: 2.5.5.12
+cn: Pm-Condition
+isSingleValued: FALSE
+lDAPDisplayName: pmCondition
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Condition
+
+dn: CN=Pm-Is-Complement, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.84
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Complement
+isSingleValued: TRUE
+lDAPDisplayName: pmIsComplement
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Complement
+
+dn: CN=Pm-Is-Intrasession, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.85
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Intrasession
+isSingleValued: TRUE
+lDAPDisplayName: pmIsIntrasession
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Intrasession
+
+dn: CN=Pm-Is-Intersection, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.86
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Intersection
+isSingleValued: TRUE
+lDAPDisplayName: pmIsIntersection
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Intersection
+
+dn: CN=Pm-Label, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.87
+attributeSyntax: 2.5.5.12
+cn: Pm-Label
+isSingleValued: TRUE
+lDAPDisplayName: pmLabel
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Label
+
+dn: CN=Pm-Cap, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.88
+attributeSyntax: 2.5.5.12
+cn: Pm-Cap
+isSingleValued: FALSE
+lDAPDisplayName: pmCap
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Cap
+
+dn: CN=Pm-Threshold, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.89
+attributeSyntax: 2.5.5.9
+cn: Pm-Threshold
+isSingleValued: TRUE
+lDAPDisplayName: pmThreshold
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 2
+name: Pm-Threshold
+
+dn: CN=Pm-Task, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.90
+attributeSyntax: 2.5.5.12
+cn: Pm-Task
+isSingleValued: FALSE
+lDAPDisplayName: pmTask
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Task
+
+dn: CN=Pm-User-Attr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.91
+attributeSyntax: 2.5.5.12
+cn: Pm-User-Attr
+isSingleValued: TRUE
+lDAPDisplayName: pmUserAttr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-User-Attr
+
+dn: CN=Pm-Obj-Attr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.92
+attributeSyntax: 2.5.5.12
+cn: Pm-Obj-Attr
+isSingleValued: TRUE
+lDAPDisplayName: pmObjAttr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Obj-Attr
+
+dn: CN=Pm-Pc, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.93
+attributeSyntax: 2.5.5.12
+cn: Pm-Pc
+isSingleValued: TRUE
+lDAPDisplayName: pmPc
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Pc
+
+dn: CN=Pm-Wkf-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.94
+attributeSyntax: 2.5.5.12
+cn: Pm-Wkf-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmWkfPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Wkf-Path
+
+dn: CN=Pm-Cont-Spec, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.95
+attributeSyntax: 2.5.5.12
+cn: Pm-Cont-Spec
+isSingleValued: FALSE
+lDAPDisplayName: pmContSpec
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Cont-Spec
+
+dn: CN=Pm-Script-Id, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.96
+attributeSyntax: 2.5.5.12
+cn: Pm-Script-Id
+isSingleValued: TRUE
+lDAPDisplayName: pmScriptId
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Script-Id
+
+dn: CN=Pm-Is-Enabled, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.97
+attributeSyntax: 2.5.5.8
+cn: Pm-Is-Enabled
+isSingleValued: TRUE
+lDAPDisplayName: pmIsEnabled
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Is-Enabled
+
+dn: CN=Pm-Source-Id, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.98
+attributeSyntax: 2.5.5.12
+cn: Pm-Source-Id
+isSingleValued: TRUE
+lDAPDisplayName: pmSourceId
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Source-Id
+
+dn: CN=Pm-Text, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.99
+attributeSyntax: 2.5.5.12
+cn: Pm-Text
+isSingleValued: TRUE
+lDAPDisplayName: pmText
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Text
+
+dn: CN=Pm-Email-Addr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.100
+attributeSyntax: 2.5.5.12
+cn: Pm-Email-Addr
+isSingleValued: TRUE
+lDAPDisplayName: pmEmailAddr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Email-Addr
+
+dn: CN=Pm-Pop-Server, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.101
+attributeSyntax: 2.5.5.12
+cn: Pm-Pop-Server
+isSingleValued: TRUE
+lDAPDisplayName: pmPopServer
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Pop-Server
+
+dn: CN=Pm-Smtp-Server, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.102
+attributeSyntax: 2.5.5.12
+cn: Pm-Smtp-Server
+isSingleValued: TRUE
+lDAPDisplayName: pmSmtpServer
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Smtp-Server
+
+dn: CN=Pm-Acct-Name, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.103
+attributeSyntax: 2.5.5.12
+cn: Pm-Acct-Name
+isSingleValued: TRUE
+lDAPDisplayName: pmAcctName
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Acct-Name
+
+dn: CN=Pm-Eml-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.104
+attributeSyntax: 2.5.5.12
+cn: Pm-Eml-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmEmlPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Eml-Path
+
+dn: CN=Pm-Exp-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.105
+attributeSyntax: 2.5.5.12
+cn: Pm-Exp-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmExpPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Exp-Path
+
+dn: CN=Pm-Eml-Sender, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.106
+attributeSyntax: 2.5.5.12
+cn: Pm-Eml-Sender
+isSingleValued: TRUE
+lDAPDisplayName: pmEmlSender
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Eml-Sender
+
+dn: CN=Pm-Eml-Subject, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.107
+attributeSyntax: 2.5.5.12
+cn: Pm-Eml-Subject
+isSingleValued: TRUE
+lDAPDisplayName: pmEmlSubject
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Eml-Subject
+
+dn: CN=Pm-Eml-Attached, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.108
+attributeSyntax: 2.5.5.12
+cn: Pm-Eml-Attached
+isSingleValued: FALSE
+lDAPDisplayName: pmEmlAttached
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Eml-Attached
+
+dn: CN=Pm-Eml-Recip, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.109
+attributeSyntax: 2.5.5.12
+cn: Pm-Eml-Recip
+isSingleValued: FALSE
+lDAPDisplayName: pmEmlRecip
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Eml-Recip
+
+dn: CN=Pm-Open-Obj, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.110
+attributeSyntax: 2.5.5.12
+cn: Pm-Open-Obj
+isSingleValued: FALSE
+lDAPDisplayName: pmOpenObj
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Open-Obj
+
+dn: CN=Pm-Launcher-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.111
+attributeSyntax: 2.5.5.12
+cn: Pm-Launcher-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmLauncherPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Launcher-Path
+
+dn: CN=Pm-Obj-Class-2, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.112
+attributeSyntax: 2.5.5.12
+cn: Pm-Obj-Class-2
+isSingleValued: TRUE
+lDAPDisplayName: pmObjClass2
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Obj-Class-2
+
+dn: CN=Pm-Original-Id-2, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.113
+attributeSyntax: 2.5.5.12
+cn: Pm-Original-Id-2
+isSingleValued: TRUE
+lDAPDisplayName: pmOriginalId2
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Original-Id-2
+
+dn: CN=Pm-Original-Name-2, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.114
+attributeSyntax: 2.5.5.12
+cn: Pm-Original-Name-2
+isSingleValued: TRUE
+lDAPDisplayName: pmOriginalName2
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Original-Name-2
+
+dn: CN=Pm-Includes-Ascendants-2, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.115
+attributeSyntax: 2.5.5.8
+cn: Pm-Includes-Ascendants-2
+isSingleValued: TRUE
+lDAPDisplayName: pmIncludesAscendants2
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 1
+name: Pm-Includes-Ascendants-2
+
+dn: CN=Pm-Startup, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.116
+attributeSyntax: 2.5.5.12
+cn: Pm-Startup
+isSingleValued: FALSE
+lDAPDisplayName: pmStartup
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Startup
+
+dn: CN=Pm-Key, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.117
+attributeSyntax: 2.5.5.12
+cn: Pm-Key
+isSingleValued: FALSE
+lDAPDisplayName: pmKey
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Key
+
+dn: CN=Pm-Components, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.118
+attributeSyntax: 2.5.5.12
+cn: Pm-Components
+isSingleValued: TRUE
+lDAPDisplayName: pmComponents
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Components
+
+dn: CN=Pm-Template-Id, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.119
+attributeSyntax: 2.5.5.12
+cn: Pm-Template-Id
+isSingleValued: TRUE
+lDAPDisplayName: pmTemplateId
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Template-Id
+
+dn: CN=Pm-Medrec-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.120
+attributeSyntax: 2.5.5.12
+cn: Pm-Medrec-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmMedrecPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Medrec-Path
+
+dn: CN=Pm-Value, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.121
+attributeSyntax: 2.5.5.12
+cn: Pm-Value
+isSingleValued: TRUE
+lDAPDisplayName: pmValue
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Value
+
+dn: CN=Pm-Acctrec-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.122
+attributeSyntax: 2.5.5.12
+cn: Pm-Acctrec-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmAcctrecPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Acctrec-Path
+
+dn: CN=Pm-Msoffice-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.123
+attributeSyntax: 2.5.5.12
+cn: Pm-Msoffice-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmMsofficePath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Msoffice-Path
+
+dn: CN=Pm-External-Mail-Stamp, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.124
+attributeSyntax: 2.5.5.12
+cn: Pm-External-Mail-Stamp
+isSingleValued: TRUE
+lDAPDisplayName: pmExternalMailStamp
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-External-Mail-Stamp
+
+dn: CN=Pm-Internal-Mail-Stamp, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.125
+attributeSyntax: 2.5.5.12
+cn: Pm-Internal-Mail-Stamp
+isSingleValued: TRUE
+lDAPDisplayName: pmInternalMailStamp
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Internal-Mail-Stamp
+
+dn: CN=Pm-To-Acl, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.126
+attributeSyntax: 2.5.5.12
+cn: Pm-To-Acl
+isSingleValued: TRUE
+lDAPDisplayName: pmToAcl
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-To-Acl
+
+dn: CN=Pm-To-Oattr, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.127
+attributeSyntax: 2.5.5.12
+cn: Pm-To-Oattr
+isSingleValued: TRUE
+lDAPDisplayName: pmToOattr
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-To-Oattr
+
+dn: CN=Pm-Ace, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.128
+attributeSyntax: 2.5.5.12
+cn: Pm-Ace
+isSingleValued: FALSE
+lDAPDisplayName: pmAce
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-Ace
+
+dn: CN=Pm-App-Path, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.129
+attributeSyntax: 2.5.5.12
+cn: Pm-App-Path
+isSingleValued: TRUE
+lDAPDisplayName: pmAppPath
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-App-Path
+
+dn: CN=Pm-App-Main-Class, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.130
+attributeSyntax: 2.5.5.12
+cn: Pm-App-Main-Class
+isSingleValued: TRUE
+lDAPDisplayName: pmAppMainClass
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-App-Main-Class
+
+dn: CN=Pm-App-Prefix, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+attributeID: 2.16.840.1.101.3.10.1.131
+attributeSyntax: 2.5.5.12
+cn: Pm-App-Prefix
+isSingleValued: TRUE
+lDAPDisplayName: pmAppPrefix
+objectCategory: CN=Attribute-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: attributeSchema
+oMSyntax: 64
+name: Pm-App-Prefix
+
+DN:
+changetype: modify
+add: schemaUpdateNow
+schemaUpdateNow: 1
+-

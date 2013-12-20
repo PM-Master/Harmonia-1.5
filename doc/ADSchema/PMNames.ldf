@@ -1,0 +1,277 @@
+dn: CN=AclClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: AclClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassAcl
+
+dn: CN=ActionClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: ActionClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassAction
+
+dn: CN=AdminVosNodeClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: AdminVosNodeClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassNewVosNode
+
+dn: CN=AttributeSetClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: AttributeSetClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassAttributeSet
+
+dn: CN=ConditionClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: ConditionClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassCondition
+
+dn: CN=ConnectorClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: ConnectorClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassConnector
+
+dn: CN=DenyClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: DenyClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassDeny
+
+dn: CN=EmailAcctClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: EmailAcctClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassEmailAcct
+
+dn: CN=EventClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: EventClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassEvent
+
+dn: CN=EventPatternClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: EventPatternClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassEventPattern
+
+dn: CN=HostClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: HostClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassHost
+
+dn: CN=ObjectAttributeClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: ObjectAttributeClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassObjectAttribute
+
+dn: CN=ObjectClassClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: ObjectClassClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassObjectClass
+
+dn: CN=OperandClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: OperandClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassOperand
+
+dn: CN=OperationSetClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: OperationSetClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassOperationSet
+
+dn: CN=OsConfigClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: OsConfigClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassOsConfig
+
+dn: CN=PolicyClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: PolicyClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassPolicy
+
+dn: CN=PropertyClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: PropertyClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassProperty
+
+dn: CN=RuleClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: RuleClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassRule
+
+dn: CN=SacClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: SacClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassSac
+
+dn: CN=SconaClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: SconaClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassScona
+
+dn: CN=ScriptClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: ScriptClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassScript
+
+dn: CN=ScriptSourceClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: ScriptSourceClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassScriptSource
+
+dn: CN=SessionClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: SessionClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassSession
+
+dn: CN=SourceLineClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: SourceLineClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassSourceLine
+
+dn: CN=StartupClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: StartupClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassStartup
+
+dn: CN=StaticConstraintClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: StaticConstraintClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassStaticConstraint
+
+dn: CN=TaskClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: TaskClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassTask
+
+dn: CN=TemplateClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: TemplateClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassTemplate
+
+dn: CN=UserAttributeClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: UserAttributeClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassUserAttribute
+
+dn: CN=UserClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: UserClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassUser
+
+dn: CN=UserConfigClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: UserConfigClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassUserConfig
+
+dn: CN=VirtualObjectClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: VirtualObjectClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassVirtualObject
+
+dn: CN=VosNodeClassName, CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: VosNodeClassName
+objectCategory: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: pmClassNameMap
+instanceType: 4
+pmName: pmClassVosNode
+
+DN:
+changetype: modify
+add: schemaUpdateNow
+schemaUpdateNow: 1
+-

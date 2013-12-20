@@ -1,0 +1,758 @@
+dn: CN=Pm-Class-Attribute-Set, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Attribute-Set
+cn: Pm-Class-Attribute-Set
+governsID: 2.16.840.1.101.3.10.2.1
+lDAPDisplayName: pmClassAttributeSet
+mayContain: pmAttr
+mustContain: pmId
+mustContain: pmName
+distinguishedName: CN=Pm-Class-Attribute-Set, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Attribute-Set
+subClassOf: top
+
+dn: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Name-Map
+cn: Pm-Class-Name-Map
+governsID: 2.16.840.1.101.3.10.2.2
+lDAPDisplayName: pmClassNameMap
+mustContain: pmName
+distinguishedName: CN=Pm-Class-Name-Map, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Name-Map
+subClassOf: top
+
+dn: CN=Pm-Class-Object-Attribute, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Object-Attribute
+cn: Pm-Class-Object-Attribute
+governsID: 2.16.840.1.101.3.10.2.4
+lDAPDisplayName: pmClassObjectAttribute
+mayContain: pmOtherInfo
+mayContain: pmAssocObj
+mayContain: pmToAttr
+mayContain: pmFromAttr
+mayContain: pmToConnector
+mayContain: pmToPolicy
+mayContain: pmFromOpSet
+mayContain: pmProperty
+mayContain: pmKey
+mayContain: pmTemplateId
+mayContain: pmComponents
+mayContain: pmToAcl
+mayContain: pmDescription
+mustContain: pmId
+mustContain: pmName
+distinguishedName: CN=Pm-Class-Object-Attribute, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Object-Attribute
+subClassOf: top
+
+dn: CN=Pm-Class-Object-Class, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Object-Class
+cn: Pm-Class-Object-Class
+governsID: 2.16.840.1.101.3.10.2.5
+lDAPDisplayName: pmClassObjectClass
+mayContain: pmOp
+mayContain: pmOtherInfo
+mayContain: pmDescription
+mustContain: pmId
+mustContain: pmName
+distinguishedName: CN=Pm-Class-Object-Class, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Object-Class
+subClassOf: top
+
+dn: CN=Pm-Class-Operation-Set, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Operation-Set
+cn: Pm-Class-Operation-Set
+governsID: 2.16.840.1.101.3.10.2.6
+lDAPDisplayName: pmClassOperationSet
+mayContain: pmOtherInfo
+mayContain: pmOp
+mayContain: pmFromAttr
+mayContain: pmToAttr
+mayContain: pmToConnector
+mayContain: pmDescription
+mayContain: pmObjClass
+mustContain: pmId
+mustContain: pmName
+distinguishedName: CN=Pm-Class-Operation-Set, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Operation-Set
+subClassOf: top
+
+dn: CN=Pm-Class-Policy, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Policy
+cn: Pm-Class-Policy
+governsID: 2.16.840.1.101.3.10.2.7
+lDAPDisplayName: pmClassPolicy
+mayContain: pmOtherInfo
+mayContain: pmFromUserAttr
+mayContain: pmFromObjAttr
+mayContain: pmProperty
+mayContain: pmDescription
+mustContain: pmId
+mustContain: pmName
+mustContain: pmToConnector
+distinguishedName: CN=Pm-Class-Policy, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Policy
+subClassOf: top
+
+dn: CN=Pm-Class-Sac, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Sac
+cn: Pm-Class-Sac
+governsID: 2.16.840.1.101.3.10.2.8
+lDAPDisplayName: pmClassSac
+mayContain: pmOtherInfo
+mayContain: pmAttrSet
+mustContain: pmId
+mustContain: pmName
+mayContain: pmDescription
+mustContain: pmType
+distinguishedName: CN=Pm-Class-Sac, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Sac
+subClassOf: top
+
+dn: CN=Pm-Class-Session, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Session
+cn: Pm-Class-Session
+governsID: 2.16.840.1.101.3.10.2.37
+lDAPDisplayName: pmClassSession
+mayContain: pmAttr
+mayContain: pmOpenObj
+mustContain: pmId
+mustContain: pmName
+mustContain: pmHost
+mustContain: pmUserId
+mustContain: pmTimestamp
+distinguishedName: CN=Pm-Class-Session, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Session
+subClassOf: top
+
+dn: CN=Pm-Class-User, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-User
+cn: Pm-Class-User
+governsID: 2.16.840.1.101.3.10.2.10
+lDAPDisplayName: pmClassUser
+mayContain: pmProperty
+mayContain: pmToAttr
+mayContain: pmToConnector
+mayContain: pmOtherInfo
+mustContain: pmId
+mustContain: pmName
+mustContain: pmPassword
+mustContain: pmFullName
+distinguishedName: CN=Pm-Class-User, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-User
+subClassOf: top
+
+dn: CN=Pm-Class-User-Attribute, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-User-Attribute
+cn: Pm-Class-User-Attribute
+governsID: 2.16.840.1.101.3.10.2.11
+lDAPDisplayName: pmClassUserAttribute
+mayContain: pmOtherInfo
+mayContain: pmFromUser
+mayContain: pmToAttr
+mayContain: pmFromAttr
+mayContain: pmToPolicy
+mayContain: pmToConnector
+mayContain: pmToOpSet
+mayContain: pmProperty
+mayContain: pmDescription
+mustContain: pmId
+mustContain: pmName
+distinguishedName: CN=Pm-Class-User-Attribute, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-User-Attribute
+subClassOf: top
+
+dn: CN=Pm-Class-Connector, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Connector
+cn: Pm-Class-Connector
+governsID: 2.16.840.1.101.3.10.2.12
+lDAPDisplayName: pmClassConnector
+mayContain: pmFromUser
+mayContain: pmFromUserAttr
+mayContain: pmFromObjAttr
+mayContain: pmFromPolicyClass
+mayContain: pmFromOpSet
+mustContain: pmId
+mustContain: pmName
+distinguishedName: CN=Pm-Class-Connector, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Connector
+subClassOf: top
+
+dn: CN=Pm-Class-Host, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Host
+cn: Pm-Class-Host
+governsID: 2.16.840.1.101.3.10.2.13
+lDAPDisplayName: pmClassHost
+mayContain: pmOtherInfo
+mayContain: pmIpAddress
+mayContain: pmDescription
+mustContain: pmId
+mustContain: pmName
+mustContain: pmIsDomController
+mustContain: pmPath
+distinguishedName: CN=Pm-Class-Host, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Host
+subClassOf: top
+
+dn: CN=Pm-Class-Event, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Event
+cn: Pm-Class-Event
+governsID: 2.16.840.1.101.3.10.2.14
+lDAPDisplayName: pmClassEvent
+mustContain: pmId
+mustContain: pmEvent
+mustContain: pmOriginalId
+mustContain: pmObjClass
+mustContain: pmTimestamp
+distinguishedName: CN=Pm-Class-Event, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Event
+subClassOf: top
+
+dn: CN=Pm-Class-Vos-Node, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Vos-Node
+cn: Pm-Class-Vos-Node
+governsID: 2.16.840.1.101.3.10.2.15
+lDAPDisplayName: pmClassVosNode
+mayContain: pmAscNode
+mayContain: pmDescNode
+mustContain: pmId
+mustContain: pmOriginalId
+mustContain: pmOriginalName
+mustContain: pmSessId
+mustContain: pmUserId
+mustContain: pmUserName
+mustContain: pmObjClass
+mustContain: pmIsObj
+distinguishedName: CN=Pm-Class-Vos-Node, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Vos-Node
+subClassOf: top
+
+dn: CN=Pm-Class-Virtual-Object, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Virtual-Object
+cn: Pm-Class-Virtual-Object
+governsID: 2.16.840.1.101.3.10.2.16
+lDAPDisplayName: pmClassVirtualObject
+mayContain: pmOtherInfo
+mayContain: pmHost
+mayContain: pmPath
+mayContain: pmOriginalId
+mayContain: pmOriginalName
+mayContain: pmIncludesAscendants
+mayContain: pmTimestamp
+mayContain: pmEmlRecip
+mayContain: pmEmlSender
+mayContain: pmEmlSubject
+mayContain: pmEmlAttached
+mayContain: pmExternalMailStamp
+mayContain: pmInternalMailStamp
+mayContain: pmDescription
+mustContain: pmId
+mustContain: pmName
+mustContain: pmAssocAttr
+mustContain: pmObjClass
+distinguishedName: CN=Pm-Class-Virtual-Object, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Virtual-Object
+subClassOf: top
+
+dn: CN=Pm-Class-User-Config, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-User-Config
+cn: Pm-Class-User-Config
+governsID: 2.16.840.1.101.3.10.2.19
+lDAPDisplayName: pmClassUserConfig
+mayContain: pmUserId
+mayContain: pmHost
+mayContain: pmKsPath
+mayContain: pmTsPath
+mustContain: pmId
+distinguishedName: CN=Pm-Class-User-Config, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-User-Config
+subClassOf: top
+
+dn: CN=Pm-Class-Os-Config, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Os-Config
+cn: Pm-Class-Os-Config
+governsID: 2.16.840.1.101.3.10.2.20
+lDAPDisplayName: pmClassOsConfig
+mayContain: pmHost
+mayContain: pmAppMainClass
+mayContain: pmAppPath
+mayContain: pmAppPrefix
+mayContain: pmAtoolPath
+mayContain: pmRtfedPath
+mayContain: pmWkfPath
+mayContain: pmEmlPath
+mayContain: pmExpPath
+mayContain: pmLauncherPath
+mayContain: pmMsofficePath
+mayContain: pmMedrecPath
+mayContain: pmAcctrecPath
+mustContain: pmId
+distinguishedName: CN=Pm-Class-Os-Config, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Os-Config
+subClassOf: top
+
+dn: CN=Pm-Class-Rule, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Rule
+cn: Pm-Class-Rule
+governsID: 2.16.840.1.101.3.10.2.23
+lDAPDisplayName: pmClassRule
+mayContain: pmLabel
+mayContain: pmNext
+mayContain: pmPrev
+mayContain: pmRank
+mayContain: pmFirst
+mayContain: pmLast
+mayContain: pmCount
+mayContain: pmAction
+mayContain: pmEventPattern
+mustContain: pmId
+distinguishedName: CN=Pm-Class-Rule, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Rule
+subClassOf: top
+
+dn: CN=Pm-Class-Event-Pattern, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Event-Pattern
+cn: Pm-Class-Event-Pattern
+governsID: 2.16.840.1.101.3.10.2.24
+lDAPDisplayName: pmClassEventPattern
+mayContain: pmUserSpec
+mayContain: pmPolicySpec
+mayContain: pmOpSpec
+mayContain: pmObjSpec
+mayContain: pmContSpec
+mustContain: pmId
+mustContain: pmIsActive
+mustContain: pmIsAny
+distinguishedName: CN=Pm-Class-Event-Pattern, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Event-Pattern
+subClassOf: top
+
+dn: CN=Pm-Class-Action, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Action
+cn: Pm-Class-Action
+governsID: 2.16.840.1.101.3.10.2.25
+lDAPDisplayName: pmClassAction
+mayContain: pmOpnd1
+mayContain: pmOpnd2
+mayContain: pmOpnd3
+mayContain: pmOpnd4
+mayContain: pmRank
+mayContain: pmPrev
+mayContain: pmNext
+mayContain: pmCondition
+mustContain: pmId
+mustContain: pmType
+mustContain: pmIsIntrasession
+mustContain: pmIsIntersection
+distinguishedName: CN=Pm-Class-Action, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Action
+subClassOf: top
+
+dn: CN=Pm-Class-Operand, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Operand
+cn: Pm-Class-Operand
+governsID: 2.16.840.1.101.3.10.2.26
+lDAPDisplayName: pmClassOperand
+mayContain: pmOriginalId
+mayContain: pmOriginalName
+mayContain: pmArgs
+mustContain: pmId
+mustContain: pmType
+mustContain: pmIsFunction
+mustContain: pmIsSubgraph
+mustContain: pmIsComplement
+distinguishedName: CN=Pm-Class-Operand, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Operand
+subClassOf: top
+
+dn: CN=Pm-Class-Script, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Script
+cn: Pm-Class-Script
+governsID: 2.16.840.1.101.3.10.2.29
+lDAPDisplayName: pmClassScript
+mayContain: pmSourceId
+mayContain: pmFirst
+mayContain: pmLast
+mayContain: pmCount
+mustContain: pmId
+mustContain: pmName
+mustContain: pmIsEnabled
+distinguishedName: CN=Pm-Class-Script, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Script
+subClassOf: top
+
+dn: CN=Pm-Class-Condition, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Condition
+cn: Pm-Class-Condition
+governsID: 2.16.840.1.101.3.10.2.31
+lDAPDisplayName: pmClassCondition
+mayContain: pmOpnd1
+mayContain: pmOpnd2
+mustContain: pmId
+mustContain: pmType
+mustContain: pmIsNegated
+distinguishedName: CN=Pm-Class-Condition, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Condition
+subClassOf: top
+
+dn: CN=Pm-Class-Deny, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Deny
+cn: Pm-Class-Deny
+governsID: 2.16.840.1.101.3.10.2.33
+lDAPDisplayName: pmClassDeny
+mayContain: pmOp
+mayContain: pmAttr
+mustContain: pmId
+mustContain: pmName
+mustContain: pmType
+mustContain: pmOriginalId
+mustContain: pmIsIntersection
+distinguishedName: CN=Pm-Class-Deny, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Deny
+subClassOf: top
+
+dn: CN=Pm-Class-Task, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Task
+cn: Pm-Class-Task
+governsID: 2.16.840.1.101.3.10.2.34
+lDAPDisplayName: pmClassTask
+mayContain: pmCap
+mustContain: pmId
+mustContain: pmName
+distinguishedName: CN=Pm-Class-Task, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Task
+subClassOf: top
+
+dn: CN=Pm-Class-Static-Constraint, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Static-Constraint
+cn: Pm-Class-Static-Constraint
+governsID: 2.16.840.1.101.3.10.2.35
+lDAPDisplayName: pmClassStaticConstraint
+mayContain: pmTask
+mustContain: pmId
+mustContain: pmName
+mustContain: pmThreshold
+distinguishedName: CN=Pm-Class-Static-Constraint, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Static-Constraint
+subClassOf: top
+
+dn: CN=Pm-Class-Scona, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Scona
+cn: Pm-Class-Scona
+governsID: 2.16.840.1.101.3.10.2.36
+lDAPDisplayName: pmClassScona
+mayContain: pmOp
+mustContain: pmId
+mustContain: pmName
+mustContain: pmPc
+mustContain: pmUserAttr
+mustContain: pmObjAttr
+distinguishedName: CN=Pm-Class-Scona, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Scona
+subClassOf: top
+
+dn: CN=Pm-Class-New-Vos-Node, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-New-Vos-Node
+cn: Pm-Class-New-Vos-Node
+governsID: 2.16.840.1.101.3.10.2.38
+lDAPDisplayName: pmClassNewVosNode
+mayContain: pmAscNode
+mayContain: pmDescNode
+mayContain: pmUserId
+mayContain: pmUserName
+mustContain: pmId
+mustContain: pmOriginalId
+mustContain: pmName
+mustContain: pmSessId
+mustContain: pmType
+distinguishedName: CN=Pm-Class-New-Vos-Node, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-New-Vos-Node
+subClassOf: top
+
+dn: CN=Pm-Class-Script-Source, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Script-Source
+cn: Pm-Class-Script-Source
+governsID: 2.16.840.1.101.3.10.2.40
+lDAPDisplayName: pmClassScriptSource
+mayContain: pmScriptId
+mayContain: pmFirst
+mayContain: pmLast
+mustContain: pmId
+mustContain: pmName
+distinguishedName: CN=Pm-Class-Script-Source, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Script-Source
+subClassOf: top
+
+dn: CN=Pm-Class-Source-Line, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Source-Line
+cn: Pm-Class-Source-Line
+governsID: 2.16.840.1.101.3.10.2.41
+lDAPDisplayName: pmClassSourceLine
+mayContain: pmPrev
+mayContain: pmNext
+mayContain: pmText
+mustContain: pmId
+distinguishedName: CN=Pm-Class-Source-Line, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Source-Line
+subClassOf: top
+
+dn: CN=Pm-Class-Email-Acct, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Email-Acct
+cn: Pm-Class-Email-Acct
+governsID: 2.16.840.1.101.3.10.2.42
+lDAPDisplayName: pmClassEmailAcct
+mustContain: pmId
+mustContain: pmUserName
+mustContain: pmEmailAddr
+mustContain: pmPopServer
+mustContain: pmSmtpServer
+mustContain: pmAcctName
+mustContain: pmPassword
+distinguishedName: CN=Pm-Class-Email-Acct, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Email-Acct
+subClassOf: top
+
+dn: CN=Pm-Class-Startup, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Startup
+cn: Pm-Class-Startup
+governsID: 2.16.840.1.101.3.10.2.43
+lDAPDisplayName: pmClassStartup
+mayContain: pmStartup
+mustContain: pmId
+distinguishedName: CN=Pm-Class-Startup, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Startup
+subClassOf: top
+
+dn: CN=Pm-Class-Template, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Template
+cn: Pm-Class-Template
+governsID: 2.16.840.1.101.3.10.2.44
+lDAPDisplayName: pmClassTemplate
+mayContain: pmKey
+mustContain: pmId
+mustContain: pmName
+mustContain: pmComponents
+distinguishedName: CN=Pm-Class-Template, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Template
+subClassOf: top
+
+dn: CN=Pm-Class-Property, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Property
+cn: Pm-Class-Property
+governsID: 2.16.840.1.101.3.10.2.45
+lDAPDisplayName: pmClassProperty
+mustContain: pmValue
+distinguishedName: CN=Pm-Class-Property, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Property
+subClassOf: top
+
+dn: CN=Pm-Class-Acl, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-Acl
+cn: Pm-Class-Acl
+governsID: 2.16.840.1.101.3.10.2.46
+lDAPDisplayName: pmClassAcl
+mayContain: pmAce
+mustContain: pmId
+mustContain: pmToOattr
+distinguishedName: CN=Pm-Class-Acl, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-Acl
+subClassOf: top
+
+dn: CN=Pm-Class-App, CN=Schema, CN=Configuration, [DOMAIN]
+changetype: add
+adminDisplayName: Pm-Class-App
+cn: Pm-Class-App
+governsID: 2.16.840.1.101.3.10.2.47
+lDAPDisplayName: pmClassApp
+mayContain: pmAppMainClass
+mayContain: pmAppPrefix
+mayContain: pmAppPath
+mayContain: pmHost
+mustContain: pmId
+distinguishedName: CN=Pm-Class-App, CN=Schema, CN=Configuration, [DOMAIN]
+objectCategory: CN=Class-Schema, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: classSchema
+objectClassCategory: 1
+possSuperiors: container
+name: Pm-Class-App
+subClassOf: top
+
+DN:
+changetype: modify
+add: schemaUpdateNow
+schemaUpdateNow: 1
+-

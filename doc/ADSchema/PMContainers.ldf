@@ -1,0 +1,201 @@
+dn: CN=PmAclContainer, [DOMAIN]
+changetype: add
+cn: PmAclContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmAdminVosNodeContainer, [DOMAIN]
+changetype: add
+cn: PmAdminVosNodeContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmAttributeSetContainer, [DOMAIN]
+changetype: add
+cn: PmAttributeSetContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmConnectorContainer, [DOMAIN]
+changetype: add
+cn: PmConnectorContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmDenyContainer, [DOMAIN]
+changetype: add
+cn: PmDenyContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmEmailAcctContainer, [DOMAIN]
+changetype: add
+cn: PmEmailAcctContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmEventContainer, [DOMAIN]
+changetype: add
+cn: PmEventContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmHostContainer, [DOMAIN]
+changetype: add
+cn: PmHostContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmNameContainer, [DOMAIN]
+changetype: add
+cn: PmNameContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmObjectAttributeContainer, [DOMAIN]
+changetype: add
+cn: PmObjectAttributeContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmObjectClassContainer, [DOMAIN]
+changetype: add
+cn: PmObjectClassContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmOperationSetContainer, [DOMAIN]
+changetype: add
+cn: PmOperationSetContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmOsConfigContainer, [DOMAIN]
+changetype: add
+cn: PmOsConfigContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmPolicyContainer, [DOMAIN]
+changetype: add
+cn: PmPolicyContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmPropertyContainer, [DOMAIN]
+changetype: add
+cn: PmPropertyContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmRuleContainer, [DOMAIN]
+changetype: add
+cn: PmRuleContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmSacContainer, [DOMAIN]
+changetype: add
+cn: PmSacContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmSconaContainer, [DOMAIN]
+changetype: add
+cn: PmSconaContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmSconContainer, [DOMAIN]
+changetype: add
+cn: PmSconContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmSessionContainer, [DOMAIN]
+changetype: add
+cn: PmSessionContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmStartupContainer, [DOMAIN]
+changetype: add
+cn: PmStartupContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmTaskContainer, [DOMAIN]
+changetype: add
+cn: PmTaskContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmTemplateContainer, [DOMAIN]
+changetype: add
+cn: PmTemplateContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmUserAttributeContainer, [DOMAIN]
+changetype: add
+cn: PmUserAttributeContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmUserConfigContainer, [DOMAIN]
+changetype: add
+cn: PmUserConfigContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmUserContainer, [DOMAIN]
+changetype: add
+cn: PmUserContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmVirtualObjContainer, [DOMAIN]
+changetype: add
+cn: PmVirtualObjContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+dn: CN=PmVosNodeContainer, [DOMAIN]
+changetype: add
+cn: PmVosNodeContainer
+objectCategory: CN=Container, CN=Schema, CN=Configuration, [DOMAIN]
+objectClass: container
+instanceType: 4
+
+DN:
+changetype: modify
+add: schemaUpdateNow
+schemaUpdateNow: 1
+-

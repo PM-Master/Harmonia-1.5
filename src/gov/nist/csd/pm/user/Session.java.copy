@@ -1,0 +1,2605 @@
+/*
+ * Session.java
+ *
+ * Created on May 2, 2005, 10:09 AM
+ *
+ * Serban I. Gavrila
+ * VDG Inc.
+ *
+ */
+
+package gov.nist.csd.pm.user;
+
+import gov.nist.csd.pm.common.graphics.GraphicsUtil;
+import gov.nist.csd.pm.common.net.ItemType;
+import gov.nist.csd.pm.common.net.Packet;
+import java.util.*;
+import javax.swing.*;
+import javax.swing.Timer;
+import javax.swing.border.BevelBorder;
+import javax.swing.event.*;
+import javax.swing.tree.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.security.*;
+import java.net.*;
+import java.io.*;
+
+/**
+ * @author gavrila@nist.gov
+ * @version $Revision: 1.1 $, $Date: 2008/07/16 17:03:00 $
+ * @since 1.5
+ */
+public class Session extends JDialog implements ActionListener, TreeExpansionListener {
+  
+  public static final String PM_ALT_DELIM_PATTERN   = "\\|";
+  
+  public static final String PM_CONNECTOR_ID   = "1";
+  public static final String PM_CONNECTOR_NAME = "PM";
+
+  public static final String PM_NODE_USER    = "u";
+  public static final String PM_NODE_USERA   = "U";
+  public static final String PM_NODE_UATTR   = "a";
+  public static final String PM_NODE_UATTRA  = "A";
+  public static final String PM_NODE_POL     = "p";
+  public static final String PM_NODE_POLA    = "P";
+  public static final String PM_NODE_OATTR   = "b";
+  public static final String PM_NODE_OATTRA  = "B";
+  public static final String PM_NODE_ASSOC   = "o";
+  public static final String PM_NODE_ASSOCA  = "O";
+  public static final String PM_NODE_OPSET   = "s";
+  public static final String PM_NODE_OPSETA  = "S";
+  public static final String PM_NODE_CONN    = "c";
+  public static final String PM_NODE_CONNA   = "C";
+  public static final String PM_OBJ          = "ob";
+
+  public static final String PM_ARC         = "r";
+
+  public static final String PM_CLASS_FILE_NAME     = "File";
+  public static final String PM_CLASS_DIR_NAME      = "Directory";
+  public static final String PM_CLASS_SGRAPH_NAME    = "Subgraph";
+  public static final String PM_CLASS_USER_NAME      = "User";
+  public static final String PM_CLASS_UATTR_NAME     = "User attribute";
+  public static final String PM_CLASS_OBJ_NAME       = "Object";
+  public static final String PM_CLASS_OATTR_NAME     = "Object attribute";
+  public static final String PM_CLASS_CONN_NAME      = "Connector";
+  public static final String PM_CLASS_POL_NAME       = "Policy class";
+  public static final String PM_CLASS_OPSET_NAME     = "Operation set";
+  public static final String PM_CLASS_RECORD_NAME     = "Record";
+
+  public static final String PM_OFFICE = "OpenOffice";
+  public static final String PM_RTF = "PM RTF Editor";
+  public static final String PM_EMAIL = "PM Email";
+
+  public static final String PM_OBJTYPE_RTF = "rtf";
+  public static final String PM_OBJTYPE_EML = "eml";
+  public static final String PM_OBJTYPE_WKF = "wkf";
+  public static final String PM_OBJTYPE_DOC = "doc";
+  public static final String PM_OBJTYPE_PPT = "ppt";
+  public static final String PM_OBJTYPE_XLS = "xls";
+
+  public static final String WORD_EDITOR = "MS Word Editor";
+  public static final String ADMIN_TOOL = "PM Admin Tool";
+
+  public static final String PM_VOS_PRES_ADMIN = "admin";
+  public static final String PM_VOS_PRES_USER = "user";
+
+  public static final String PM_DIRECTION_UP = "up";
+  public static final String PM_DIRECTION_DOWN = "down";
+
+  private Session thisSession;
+
+  private SessionManager manager;
+  private SSLSocketClient simClient;
+  private CommandEditor cmdEditor;
+  private SessConfigEditor configEditor;
+  private PcEditor pcEditor;
+  private UserEditor userEditor;
+  private UattrEditor uattrEditor;
+  private OattrEditor oattrEditor;
+  private PermEditor permEditor;
+
+  private SSLSocketClient exporterClient;
+
+  private String sKsPath = null;
+  private String sTsPath = null;
+  
+  private String sSessionName = null;
+  private String sSessionId = null;
+  private String sSessionUser = null;
+  private String sSessionUserId = null;
+  private String sSessionHost = null;
+
+  private String sVosPresType = PM_VOS_PRES_USER;// The default presentation.
+
+  private PmGraph tree;
+  private PmNode connectorNode;
+  private String direction = PM_DIRECTION_UP;
+  private MouseListener mouseListener;
+
+  private Vector startupVector;
+  
+  private PmNode rightClickedNode;
+  private PmNode leftSelectedNode;
+  private PmNode markedNode;
+
+  private JLabel viewLabel;
+  private JLabel clientLabel;
+  
+  // Two pop-up menus, for the user presentation and the admin presentation.
+  private JPopupMenu pmUserPopup = null;
+  private JPopupMenu pmAdminPopup = null;
+  private JPopupMenu pmPopup = null;
+  private JMenuItem grantMenuItem;
+  
+  private static final Cursor SESS_DEFAULT_CURSOR = Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR);
+  private static final Cursor SESS_WAIT_CURSOR = Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR);
+  private static final Cursor SESS_HAND_CURSOR = Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR);
+
+  private Cursor crtDefaultCursor;
+  private Cursor crtHandCursor;
+
+  private HashSet threadSet;
+
+  private Timer refreshTimer;
+  private String sLastUpdateTimestamp;
+
+  private ImageIcon userImageIcon = null;
+    
+  public Session(SessionManager manager, SSLSocketClient simClient, String sSessName,
+  String sSessId, String sUserName, String sUserId, String sHostName, boolean noGui) {
+    threadSet = new HashSet();
+
+    this.thisSession = this;
+    this.manager = manager;
+    this.simClient = simClient;
+    this.sSessionName = sSessName;
+    this.sSessionId = sSessId;
+    this.sSessionUser = sUserName;
+    this.sSessionUserId = sUserId;
+    this.sSessionHost = sHostName;
+
+    // (steveq) Get the user image
+    try {
+      userImageIcon = 
+        	GraphicsUtil.getImageIcon("/images/users/" + sUserName + ".gif", getClass());
+    } catch (Exception e) {
+    	userImageIcon = 
+          	GraphicsUtil.getImageIcon("/images/users/unknown-person.gif", getClass());
+    }
+    
+    configEditor = new SessConfigEditor(this);
+    configEditor.pack();
+
+    if (!checkKeyStores()) {
+      JOptionPane.showMessageDialog(this, "No keystores found or set for " + sUserName +
+        " and host " + sHostName + "!");
+      doClose(false); // don't ask
+    }
+
+    refreshTimer = new Timer(7000, this);
+    // Don't start it.
+  }
+  
+  public Session(SessionManager manager, SSLSocketClient simClient, String sSessName,
+  String sSessId, String sUserName, String sUserId, String sHostName) {
+    super(manager, false);
+    setTitle(sSessName);
+    setLocation(200, 200);
+    
+    setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+    addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent we) {
+        doClose(true);// ask
+      }
+    });
+    
+    threadSet = new HashSet();
+  
+    this.thisSession = this;
+    this.manager = manager;
+    this.simClient = simClient;
+    this.sSessionName = sSessName;
+    this.sSessionId = sSessId;
+    this.sSessionUser = sUserName;
+    this.sSessionUserId = sUserId;
+    this.sSessionHost = sHostName;
+    
+    // (steveq) Get the user image
+    
+    try {    	
+      userImageIcon = 
+        	GraphicsUtil.getImageIcon("/images/users/" + sUserName + ".gif", getClass());
+    } catch (Exception e) {
+    	userImageIcon = 
+          	GraphicsUtil.getImageIcon("/images/users/unknown-person.gif", getClass());
+    }
+    
+    pcEditor = new PcEditor(this, simClient);
+    pcEditor.pack();
+    userEditor = new UserEditor(this, simClient);
+    userEditor.pack();
+    uattrEditor = new UattrEditor(this, simClient);
+    uattrEditor.pack();
+    oattrEditor = new OattrEditor(this, simClient);
+    oattrEditor.pack();
+    permEditor = new PermEditor(this, simClient);
+    permEditor.pack();
+
+    if (manager.getExporterSession() != null) {
+      int exporterPort = manager.getExporterPort();
+      System.out.println("Trying to create the exporter client socket with port " + exporterPort);
+      try {
+        exporterClient = new SSLSocketClient("localhost", exporterPort, true, "c,Sess");
+      } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Unable to create SSL socket for Exporter on the local host.");
+        e.printStackTrace();
+        doClose(false);// don't ask
+      }
+    }
+    
+    crtDefaultCursor = SESS_DEFAULT_CURSOR;
+    crtHandCursor = SESS_HAND_CURSOR;
+        
+    // Tell the engine to prepare the VOS graph for the user of this session.
+    // At this time there is no session yet (we are in the constructor).
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("computeVos", sVosPresType, sSessionUserId, sSessionId);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in computeVos: " + res.getErrorMessage());
+        doClose(false);      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in computeVos: " + e.getMessage());
+      doClose(false);
+    }
+    sLastUpdateTimestamp = res.getStringValue(0);
+    
+    // Select the connector node as root node and ask the engine
+    // for the tree data.
+    connectorNode = new PmNode(PM_NODE_CONN, PM_CONNECTOR_ID, PM_CONNECTOR_NAME);
+    getTwoLevels(connectorNode);
+    tree = new PmGraph(connectorNode);
+
+    mouseListener = new PmMouseListener();
+    tree.addMouseListener(mouseListener);
+    tree.addTreeExpansionListener(this);
+    ToolTipManager.sharedInstance().registerComponent(tree);
+
+    // Build the GUI.
+    JToolBar toolBar = new JToolBar(null);
+    toolBar.setFloatable(false);
+    addButtons(toolBar);
+    
+    // steveq
+    JPanel toolBarPanel = new JPanel();
+    toolBarPanel.setLayout(new BorderLayout());
+
+    JLabel userImageLabel = new JLabel(userImageIcon);
+    userImageLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+    int maxButtonSize = 30;
+    userImageLabel.setPreferredSize(new Dimension(maxButtonSize, maxButtonSize));
+    userImageLabel.setMaximumSize(new Dimension(maxButtonSize, maxButtonSize));
+    toolBarPanel.add(toolBar, BorderLayout.WEST);
+    toolBarPanel.add(userImageLabel, BorderLayout.EAST);
+    
+    JScrollPane treeScrollPane = new JScrollPane(tree);
+    treeScrollPane.setPreferredSize(new Dimension(400, 500));
+
+    
+    viewLabel = new JLabel("Now viewing: " + sSessionUser + " POS");
+    clientLabel = new JLabel("Running as: " + sSessionUser);
+    JPanel labelPane = new JPanel();
+    labelPane.setBorder(new BevelBorder(BevelBorder.LOWERED));
+    labelPane.setLayout(new BorderLayout());
+    labelPane.add(viewLabel, BorderLayout.WEST);
+    labelPane.add(clientLabel, BorderLayout.EAST);
+
+    JPanel labelAndScrollPane = new JPanel();
+    labelAndScrollPane.setLayout(new BorderLayout());
+    labelAndScrollPane.add(labelPane, BorderLayout.NORTH);
+    labelAndScrollPane.add(treeScrollPane, BorderLayout.CENTER);
+    //labelAndScrollPane.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+    
+    
+    JPanel contentPane = (JPanel)getContentPane();
+    contentPane.setLayout(new BorderLayout());
+    contentPane.add(toolBarPanel, BorderLayout.NORTH);
+    contentPane.add(labelAndScrollPane, BorderLayout.CENTER);
+
+    // The Menu bar.
+    JMenuBar menuBar = new JMenuBar();
+    setJMenuBar(menuBar);
+    
+    // The File menu.
+    JMenu fileMenu = new JMenu("File");
+    menuBar.add(fileMenu);
+    
+    JMenuItem menuItem = new JMenuItem("New");
+    menuItem.addActionListener(this);
+    fileMenu.add(menuItem);
+
+    fileMenu.addSeparator();
+
+    menuItem = new JMenuItem("Open");
+    menuItem.addActionListener(this);
+    fileMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Print");
+    menuItem.addActionListener(this);
+    fileMenu.add(menuItem);
+
+    fileMenu.addSeparator();
+
+    grantMenuItem = new JMenuItem("Grant To...");
+    grantMenuItem.addActionListener(this);
+    fileMenu.add(grantMenuItem);
+
+    menuItem = new JMenuItem("Send To...");
+    menuItem.addActionListener(this);
+    fileMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Export To");
+    menuItem.addActionListener(this);
+    fileMenu.add(menuItem);
+
+    fileMenu.addSeparator();
+
+    menuItem = new JMenuItem("Delete");
+    menuItem.addActionListener(this);
+    fileMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Rename");
+    menuItem.addActionListener(this);
+    fileMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Properties");
+    menuItem.addActionListener(this);
+    fileMenu.add(menuItem);
+
+    fileMenu.addSeparator();
+
+    menuItem = new JMenuItem("Exit", KeyEvent.VK_Q);
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(
+            KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+    menuItem.addActionListener(this);
+    fileMenu.add(menuItem);
+    
+    // The Edit menu.
+    JMenu editMenu = new JMenu("Edit");
+    menuBar.add(editMenu);
+    
+    menuItem = new JMenuItem("Cut");
+    menuItem.addActionListener(this);
+    editMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Copy");
+    menuItem.addActionListener(this);
+    editMenu.add(menuItem);
+    
+    menuItem = new JMenuItem("Paste");
+    menuItem.addActionListener(this);
+    editMenu.add(menuItem);
+
+    // The View menu.
+    JMenu viewMenu = new JMenu("View");
+    menuBar.add(viewMenu);
+    
+    menuItem = new JMenuItem("More tiers");
+    menuItem.addActionListener(this);
+    viewMenu.add(menuItem);
+    
+    menuItem = new JMenuItem("Fewer tiers");
+    menuItem.addActionListener(this);
+    viewMenu.add(menuItem);
+    
+    viewMenu.addSeparator();
+    
+    menuItem = new JMenuItem("Admin view");
+    menuItem.addActionListener(this);
+    viewMenu.add(menuItem);
+
+    menuItem = new JMenuItem("User view");
+    menuItem.addActionListener(this);
+    viewMenu.add(menuItem);
+
+    viewMenu.addSeparator();
+
+    menuItem = new JMenuItem("Refresh");
+    menuItem.addActionListener(this);
+    viewMenu.add(menuItem);
+
+    // The Tools menu.
+    JMenu toolsMenu = new JMenu("Tools");
+    menuBar.add(toolsMenu);
+    
+    menuItem = new JMenuItem("Change password...");
+    menuItem.addActionListener(this);
+    toolsMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Run command...");
+    menuItem.addActionListener(this);
+    toolsMenu.add(menuItem);
+    
+    menuItem = new JMenuItem("E-grant");
+    menuItem.addActionListener(this);
+    toolsMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Medical Record Editor");
+    menuItem.addActionListener(this);
+    toolsMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Accounts Editor");
+    menuItem.addActionListener(this);
+    toolsMenu.add(menuItem);
+
+    /* (steveq) deleted */
+//    menuItem = new JMenuItem("Composer");
+//    menuItem.addActionListener(this);
+//    toolsMenu.add(menuItem);
+//
+//    menuItem = new JMenuItem("Composite Viewer");
+//    menuItem.addActionListener(this);
+//    toolsMenu.add(menuItem);
+
+    menuItem = new JMenuItem("RTF Editor");
+    menuItem.addActionListener(this);
+    toolsMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Admin Tool");
+    menuItem.addActionListener(this);
+    toolsMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Word");
+    menuItem.addActionListener(this);
+    toolsMenu.add(menuItem);
+
+    toolsMenu.addSeparator();
+
+    JMenu configureMenu = new JMenu("Configure");
+    
+    menuItem = new JMenuItem("Key stores...");
+    menuItem.addActionListener(this);
+    configureMenu.add(menuItem);
+
+//    menuItem = new JMenuItem("Add startups");
+//    menuItem.addActionListener(this);
+//    configureMenu.add(menuItem);
+
+    menuItem = new JMenuItem("Set startups");
+    menuItem.addActionListener(this);
+    configureMenu.add(menuItem);
+    
+    toolsMenu.add(configureMenu);
+
+    // The user popup menu.
+    pmUserPopup = new JPopupMenu();
+    
+    menuItem = new JMenuItem("Test connect");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+
+    menuItem = new JMenuItem("Test read file");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+    
+    menuItem = new JMenuItem("Test request permissions...");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+    
+    pmUserPopup.addSeparator();
+    
+    menuItem = new JMenuItem("New");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+    
+    pmUserPopup.addSeparator();
+    
+    menuItem = new JMenuItem("Open");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+        
+    menuItem = new JMenuItem("Open With TH");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+        
+    pmUserPopup.addSeparator();
+    
+    menuItem = new JMenuItem("Grant To...");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+
+    menuItem = new JMenuItem("Send To...");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+
+    menuItem = new JMenuItem("Export To...");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+
+    pmUserPopup.addSeparator();
+
+    menuItem = new JMenuItem("Cut");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+    
+    menuItem = new JMenuItem("Copy");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+    
+    menuItem = new JMenuItem("Delete");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+    
+    menuItem = new JMenuItem("Rename");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+    
+    pmUserPopup.addSeparator();
+    
+    menuItem = new JMenuItem("Select as startup");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+
+    pmUserPopup.addSeparator();
+    
+    menuItem = new JMenuItem("Properties");
+    menuItem.addActionListener(this);
+    pmUserPopup.add(menuItem);
+    
+    // The admin popup menu.
+    pmAdminPopup = new JPopupMenu();
+    
+    menuItem = new JMenuItem("Edit");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+
+    pmAdminPopup.addSeparator();
+
+    menuItem = new JMenuItem("Add policy class...");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+    
+    pmAdminPopup.addSeparator();
+    
+    menuItem = new JMenuItem("Add user attribute...");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+
+    menuItem = new JMenuItem("Add user...");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+    
+    pmAdminPopup.addSeparator();
+    
+    menuItem = new JMenuItem("Add object attribute...");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+
+    menuItem = new JMenuItem("Add object...");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+
+    pmAdminPopup.addSeparator();
+
+    menuItem = new JMenuItem("Mark node");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+
+    menuItem = new JMenuItem("Assign marked node");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+
+    menuItem = new JMenuItem("Delete assignment");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+
+    pmAdminPopup.addSeparator();
+
+    menuItem = new JMenuItem("Delete node");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+
+    pmAdminPopup.addSeparator();
+
+    menuItem = new JMenuItem("Set permissions on...");
+    menuItem.addActionListener(this);
+    pmAdminPopup.add(menuItem);
+
+    // Set the user popup as default.
+    pmPopup = pmUserPopup;
+    
+    
+//    contentPane.setBackground(Color.cyan);
+//    menuBar.setBackground(Color.cyan);
+//    fileMenu.setBackground(Color.cyan);
+//    editMenu.setBackground(Color.cyan);
+//    viewMenu.setBackground(Color.cyan);
+//    toolsMenu.setBackground(Color.cyan);
+//    //viewLabel.setBackground(Color.cyan);
+//    //clientLabel.setBackground(Color.cyan);
+//    labelPane.setBackground(Color.cyan);
+
+    configEditor = new SessConfigEditor(this);
+    configEditor.pack();
+
+    checkKeyStores();
+
+    cmdEditor = new CommandEditor(manager, this, simClient);
+    cmdEditor.pack();
+    
+    refreshTimer = new Timer(7000, this);
+    //refreshTimer.start();
+  }
+
+  // Try to obtain the keystores paths from the engine,
+  // or else from the user.
+  private boolean checkKeyStores() {
+    if (sKsPath != null && sKsPath.length() > 0 &&
+        sTsPath != null && sTsPath.length() > 0) return true;
+    
+    // Try to get the paths from the engine.
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("getKStorePaths");
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in getKStorePaths: " + res.getErrorMessage());
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in getKStorePaths: " + e.getMessage());
+      return false;
+    }
+
+    // If the keystores paths are stored in the engine, then the answer contains:
+    // item 0: absolute path of the user keystore or the empty string;
+    // item 1: absolute path of the user truststore or the empty string.
+    if (res.size() >= 2) {
+      sKsPath = res.getStringValue(0);
+      sTsPath = res.getStringValue(1);
+    }
+
+    // Even now, a path may be empty. Give the user a chance to set it.
+    if (sKsPath != null && sKsPath.length() > 0 &&
+        sTsPath != null && sTsPath.length() > 0) return true;
+    
+    // Otherwise ask the user to configure.
+    doKeyStores();
+
+    if (sKsPath != null && sKsPath.length() > 0 &&
+        sTsPath != null && sTsPath.length() > 0) return true;
+    
+    return false;
+  }
+  
+  public void setKStorePaths(String sKsPath, String sTsPath) {
+    this.sKsPath = sKsPath;
+    this.sTsPath = sTsPath;
+
+    // Store the paths in the engine for later.
+    String sHost = SessionManager.getLocalHost();
+    if (sHost == null) {
+      JOptionPane.showMessageDialog(this, "Failed to obtain the local host name!");
+      return;
+    }
+    
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("setKStorePaths", sSessionUserId ,sHost, sKsPath, sTsPath);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in setKStorePaths: " + res.getErrorMessage());
+        return;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in setKStorePaths: " + e.getMessage());
+      return;
+    }
+  }
+    
+  private void addButtons(JToolBar toolBar) {
+    JButton button = new JButton();
+    int maxButtonSize = 30;
+    button.setPreferredSize(new Dimension(maxButtonSize, maxButtonSize));
+    button.setMaximumSize(new Dimension(maxButtonSize, maxButtonSize));
+    button.setActionCommand("Change direction");
+    button.addActionListener(this);
+    button.setToolTipText("Change navigation direction");
+    button.setIcon(GraphicsUtil.getImageIcon("/images/changeDir.gif", getClass()));
+    toolBar.add(button);
+    
+    button = new JButton();
+    button.setPreferredSize(new Dimension(maxButtonSize, maxButtonSize));
+    button.setMaximumSize(new Dimension(maxButtonSize, maxButtonSize));
+    button.setActionCommand("Refresh");
+    button.addActionListener(this);
+    button.setToolTipText("Restart");
+    /* (steveq) Can't find start.gif */
+//    button.setText("Refresh");
+    button.setIcon(GraphicsUtil.getImageIcon("/images/start.gif", getClass()));
+    toolBar.add(button);
+
+  }
+    
+  // Rebuild the tree starting with the specified root node,
+  // and using the current direction and the current graph type.
+  public void resetTree(PmNode rootNode) {
+    if (rootNode == null) {
+      if (leftSelectedNode == null) rootNode = connectorNode;
+      else rootNode = leftSelectedNode;
+    }
+    rootNode.children.removeAllElements();
+    getTwoLevels(rootNode);
+    tree.setModel(new PmGraphModel(rootNode));
+  }
+
+  private void doChangeDirection() {
+    TreePath selPath = tree.getSelectionPath();
+    if (direction.equalsIgnoreCase(PM_DIRECTION_DOWN)) direction = PM_DIRECTION_UP;
+    else direction = PM_DIRECTION_DOWN;
+    if (selPath == null) resetTree(connectorNode);
+    else resetTree((PmNode)selPath.getLastPathComponent());
+  }
+  
+  // Get two levels of descendants or ancestors and hook them up the
+  // argument node.
+  public void getTwoLevels(PmNode node) {
+    if (! node.children.isEmpty()) {
+      System.out.println("children exist - bad");
+      PmNode childNode = null;
+      for (int i = 0; i < node.children.size(); i++) {
+        childNode = (PmNode)node.children.get(i);
+        if (childNode.children.isEmpty()) {
+
+          // Now get level2 children data from this node
+          Vector level2ChildrenData;
+          if (direction.equalsIgnoreCase(PM_DIRECTION_UP)) {
+            level2ChildrenData = getPosMembersOf(childNode.sLabel, childNode.sId, childNode.sType);
+          } else {
+            level2ChildrenData = getPosContainersOf(childNode.sLabel, childNode.sId, childNode.sType);
+          }
+
+          if (level2ChildrenData != null) {
+            String[] grandChildData = null;
+            for (int j = 0; j < level2ChildrenData.size(); j++) {
+              grandChildData = (String[])level2ChildrenData.get(j);
+              PmNode grandChildNode = new PmNode(grandChildData);
+              PmNode.linkNodes(childNode, grandChildNode);
+
+            }
+          }
+        }
+      }
+    
+    } else if (node.children.isEmpty()) {
+      System.out.println("children empty - good");
+      // Get level1 children data
+      Vector level1ChildrenData;
+      if (direction.equalsIgnoreCase(PM_DIRECTION_UP)) {
+        level1ChildrenData = getPosMembersOf(node.sLabel, node.sId, node.sType);
+      } else {
+        level1ChildrenData = getPosContainersOf(node.sLabel, node.sId, node.sType);
+      }
+
+      if (level1ChildrenData != null) {
+        // Create level1 children nodes
+        String[] childData = null;
+	for (int i = 0; i < level1ChildrenData.size(); i++) {
+          childData = (String[])level1ChildrenData.get(i);
+          PmNode childNode = new PmNode(childData);
+          PmNode.linkNodes(node, childNode);
+
+          // Now get level2 children data from this node
+          Vector level2ChildrenData;
+          if (direction.equalsIgnoreCase(PM_DIRECTION_UP)) {
+            level2ChildrenData = getPosMembersOf(childNode.sLabel, childNode.sId, childNode.sType);
+          } else {
+            level2ChildrenData = getPosContainersOf(childNode.sLabel, childNode.sId, childNode.sType);
+          }
+
+          if (level2ChildrenData != null) {
+            String[] grandChildData = null;  
+            for (int j = 0; j < level2ChildrenData.size(); j++) {
+              grandChildData = (String[])level2ChildrenData.get(j);
+              PmNode grandChildNode = new PmNode(grandChildData);
+              PmNode.linkNodes(childNode, grandChildNode);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  private Vector getPosMembersOf(String sLabel, String sId, String sType) {
+    System.out.println("GetPosMembersOf(label=" + sLabel + ", id=" + sId + ", type=" + sType);
+
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("getPosMembersOf", sLabel, sId, sType, sVosPresType);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in getPosMembersOf: " + res.getErrorMessage());
+        return null;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in getPosMembersOf: " + e.getMessage());
+      return null;
+    }
+    
+    Vector v = new Vector();
+    for (int i = 0; i < res.size(); i++) {
+      String sLine = res.getStringValue(i);
+      String[] pieces = sLine.split(SessionManager.PM_FIELD_DELIM);
+      v.add(new String[] {pieces[0], pieces[1], pieces[2]});
+    }
+    return v;
+  }
+  
+  // Returns a vector of string arrays. Each string array has 3 elements,
+  // the type, id, and label/name of a container that contains the clicked node.
+  // The containment is defined by the assignment relation: we say that
+  // x contains y if there is an assignment y ---> x, regardless
+  // of the types of x, y.
+  private Vector getPosContainersOf(String sLabel, String sId, String sType) {
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("getPosContainersOf", sLabel, sId, sType, sVosPresType);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in getPosContainersOf: " + res.getErrorMessage());
+        return null;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in getPosContainersOf: " + e.getMessage());
+      return null;
+    }
+
+    Vector v = new Vector();
+    for (int i = 0; i < res.size(); i++) {
+      String sLine = res.getStringValue(i);
+      String[] pieces = sLine.split(SessionManager.PM_FIELD_DELIM);
+      v.add(new String[] {pieces[0], pieces[1], pieces[2]});
+    }
+    return v;
+  }
+
+
+  class PmMouseListener extends MouseAdapter {
+    public void mousePressed(MouseEvent e) {
+      int selRow = tree.getRowForLocation(e.getX(), e.getY());
+      TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
+
+      if(selRow != -1) {
+        PmNode node = (PmNode) selPath.getLastPathComponent();
+        if (SwingUtilities.isRightMouseButton(e)) {
+          // Handle right-click events. Remember the node and display the pop up menu.
+          rightClickedNode = node;
+          pmPopup.show(e.getComponent(), e.getX(), e.getY());
+        } else if (e.getClickCount() == 2) {
+          
+          // A double click typically means we want to open 
+          // the selected node.  This is where code for the policy
+          // machine to retrieve nodes (or open the file) should
+          // be inserted.
+          System.out.println("double click on " + leftSelectedNode.sType + ", " +
+            leftSelectedNode.sId + ", " + leftSelectedNode.sLabel);
+          // Here, we should really check if the node that we
+          // clicked on should be opened as a directory or as a file.
+          // Instead, we just open it as a directory (i.e., we
+          // acquire nodes using createNodes()).
+          getTwoLevels(node);
+        } else {
+          leftSelectedNode = node;
+          System.out.println("single click on " + leftSelectedNode.sType + ", " +
+            leftSelectedNode.sId + ", " + leftSelectedNode.sLabel);
+        }
+      }
+    }
+  }
+  
+  public void treeExpanded(TreeExpansionEvent e) {
+    TreePath selPath = e.getPath();
+    System.out.println("selpath: " + selPath.toString());
+    PmNode node = (PmNode)selPath.getLastPathComponent();
+    getTwoLevels(node);
+  }
+  
+  public void treeCollapsed(TreeExpansionEvent e) {
+    // Do nothing.
+  }
+
+  private void processRefreshTimerEvent() {
+    //crtDefaultCursor = SESS_WAIT_CURSOR;
+    //crtHandCursor = SESS_WAIT_CURSOR;
+    //picture.setCursor(SESS_WAIT_CURSOR);
+    
+    conditionalRefresh();
+  }
+  
+  private void conditionalRefresh() {
+    final SwingWorker worker = new SwingWorker() {
+      ArrayList result = null;
+      
+      public Object construct() {
+        Packet res = null;
+        try {
+          Packet cmd = makeCmd("isTimeToRefresh", sLastUpdateTimestamp);
+          res = simClient.sendReceive(cmd, null);
+          if (res.hasError()) {
+            JOptionPane.showMessageDialog(thisSession, "Error in isTimeToRefresh: " + res.getErrorMessage());
+            return null;
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
+          JOptionPane.showMessageDialog(thisSession, "Exception in isTimeToRefresh: " + e.getMessage());
+          return null;
+        }
+
+        if (!(res.getStringValue(0)).equals("yes")) return null; // No need to refresh.
+        
+        try {
+          Packet cmd = makeCmd("computeVos", sVosPresType, sSessionUserId, sSessionId);
+          res = simClient.sendReceive(cmd, null);
+          if (res.hasError()) {
+            JOptionPane.showMessageDialog(thisSession, "Error in computeVos: " + res.getErrorMessage());
+            return null;
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
+          JOptionPane.showMessageDialog(thisSession, "Exception in computeVos: " + e.getMessage());
+          return null;
+        }
+        sLastUpdateTimestamp = res.getStringValue(0);
+        
+        resetTree(connectorNode);
+        return SessionManager.success();
+      }
+      
+      public void finished() {
+        if (sVosPresType.equalsIgnoreCase(PM_VOS_PRES_USER))
+          viewLabel.setText("Now viewing: user POS");
+        else
+          viewLabel.setText("Now viewing: admin POS");
+      }
+    };
+    worker.start();
+  }
+ 
+  public String getName() {
+    return sSessionName;
+  }
+
+  public String getId() {
+    return sSessionId;
+  }
+  
+  public String getUser() {
+    return sSessionUser;
+  }
+
+  public String getUserId() {
+    return sSessionUserId;
+  }
+  
+  public String getHost() {
+    return sSessionHost;
+  }
+  
+  public void actionPerformed(ActionEvent e) {
+    Object src = e.getSource();
+    
+    if (src.equals(refreshTimer)) {
+      processRefreshTimerEvent();
+      return;
+    }
+
+    String sCommand = null;
+    if (src instanceof JButton) sCommand = ((JButton)src).getActionCommand();
+    else sCommand = ((JMenuItem)src).getText();
+
+    if (sCommand.equals("Exit")) {
+      doClose(true);
+    } else if (sCommand.equalsIgnoreCase("Change direction")) {
+      doChangeDirection();
+    } else if (sCommand.equalsIgnoreCase("Admin view")) {
+      doAdminView();
+    } else if (sCommand.equalsIgnoreCase("User view")) {
+      doUserView();
+    } else if (sCommand.equalsIgnoreCase("Refresh")) {
+      doRefresh();
+      
+    } else if (sCommand.equalsIgnoreCase("Grant to...")) {
+      // This event could come from the user right-clicking an object
+      // and selecting "Grant to..." popup menu, or from the user
+      // selecting the menu "File/Grant to...".
+      if (src == grantMenuItem) doGrantOnSelObj();
+      else doGrantOnRcObj();
+    } else if (sCommand.equalsIgnoreCase("Send to...")) {
+      doEmail();
+    } else if (sCommand.equalsIgnoreCase("Export to...")) {
+      doExport();
+    } else if (sCommand.equalsIgnoreCase("Change password...")) {
+      doChangePassword();
+    } else if (sCommand.equals("Run command...")) {
+      doCommand();
+    } else if (sCommand.equals("E-grant")) {
+      doLaunchGrantor(null, true);// true doesn't matter.
+    } else if (sCommand.equals("Medical Record Editor")) {
+      doLaunchMREditor(null);
+    } else if (sCommand.equals("Accounts Editor")) {
+      doLaunchAcctEditor(null);
+    } else if (sCommand.equals("Composer")) {
+    	System.err.println("Composer is not installed!");
+      ///doLaunchComposer();
+    } else if (sCommand.equals("Composite Viewer")) {
+    	System.err.println("Composite Viewer is not installed!");
+      ///doLaunchCompositeViewer(null);
+    } else if (sCommand.equals("RTF Editor")) {
+      doLaunchRTFEditor(null);
+    } else if (sCommand.equals("Admin Tool")) {
+      doLaunchAdminTool(null, null);
+    } else if (sCommand.equals("Word")) {
+      doLaunchWord();
+    } else if (sCommand.equals("Key stores...")) {
+      doKeyStores();
+//    } else if (sCommand.equals("Add startups")) {
+//      doAddStartups();
+    } else if (sCommand.equals("Set startups")) {
+      doSetStartups();
+    } else if (sCommand.equals("Select as startup")) {
+      doSelectStartup();
+    } else if (sCommand.equals("Test request permissions...")) {
+      doTestRequestPerms();
+//    } else if (sCommand.equals("Test read file")) {
+//      doTestReadFile();
+    } else if (sCommand.equals("Open")) {
+        doOpenObject();
+    } else if (sCommand.equals("Open With TH")) {
+        doOpenObjectWithTH();
+    } else if (sCommand.equals("Properties")) {
+      doProperties();
+    } else if (sCommand.equals("Edit")) {
+      doEdit();
+    } else if (sCommand.equals("Add policy class...")) {
+      doAddPolicyClass();
+    } else if (sCommand.equals("Add user attribute...")) {
+      doAddUattr();
+    } else if (sCommand.equals("Add user...")) {
+      doAddUser();
+    } else if (sCommand.equals("Add object attribute...")) {
+      doAddOattr();
+    } else if (sCommand.equals("Add object...")) {
+      doAddObject();
+    } else if (sCommand.equals("Mark node")) {
+      doMarkNode();
+    } else if (sCommand.equals("Assign marked node")) {
+      doAssignNode();
+    } else if (sCommand.equals("Delete assignment")) {
+      doDeleteAssignment();
+    } else if (sCommand.equals("Delete node")) {
+      doDeleteNode();
+    } else if (sCommand.equals("Set permissions on...")) {
+      doSetPerms();
+    }
+  }
+
+  private void doEmail() {
+  }
+  
+  // The user has clicked the File/Grant To... menu item. The object
+  // is the (left click) selected one.
+  private void doGrantOnSelObj() {
+    if (leftSelectedNode == null) {
+      JOptionPane.showMessageDialog(this, "You have to select an object!");
+      return;
+    }
+
+    System.out.println("Granting access rights on the selected object " +
+      leftSelectedNode.sLabel + " " + leftSelectedNode.sType);
+    
+    if (!leftSelectedNode.sType.equalsIgnoreCase(PM_NODE_ASSOC)) {
+      JOptionPane.showMessageDialog(this, "The entity you selected is not an object!");
+      return;
+    }
+    
+    doLaunchGrantor(leftSelectedNode.sLabel, true);      
+  }
+  
+  // The user has right-clicked on an object and selected the Grant To...
+  // menu item from the popup menu.
+  private void doGrantOnRcObj() {
+    System.out.println("Granting access rights on the right-clicked object " +
+      rightClickedNode.sLabel + " " + rightClickedNode.sType);
+
+    if (!rightClickedNode.sType.equalsIgnoreCase(PM_NODE_ASSOC)) {
+      JOptionPane.showMessageDialog(this, "The entity you selected is not an object!");
+      return;
+    }
+
+    doLaunchGrantor(rightClickedNode.sLabel, true);
+  }
+
+  // Export the selected object to one of the mounted devices.
+  // First ask the kernel to provide the list of mounted devices.
+  // Let the user select one of the devices and a folder where to save
+  // the object's underlying file.
+  private void doExport() {
+    System.out.println("Exporting the object " + rightClickedNode.sLabel + " " + rightClickedNode.sType);
+    if (exporterClient == null) {
+      JOptionPane.showMessageDialog(this, "No exporter present!");
+      return;
+    }
+    
+    String sObjName = rightClickedNode.sLabel;
+
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("getDevices");
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in getDevices: " + res.getErrorMessage());
+        return;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in getDevices: " + e.getMessage());
+      return;
+    }
+
+    if (res != null) for (int i = 0; i < res.size(); i++) {
+      System.out.println(res.getStringValue(i));
+    }
+
+    // Display a list of mounted devices and let the user select one.
+    JLabel devLabel = new JLabel("Mounted devices:");
+    DefaultListModel devListModel = new DefaultListModel();
+    JList devList = new JList(devListModel);
+    JScrollPane devListScrollPane = new JScrollPane(devList);
+    devListScrollPane.setPreferredSize(new Dimension(200, 200));
+
+    if (res != null) for (int i = 0; i < res.size(); i++) {
+      devListModel.addElement(res.getStringValue(i));
+    }
+
+    String message = "Please select a device:";
+    int ret = JOptionPane.showOptionDialog(null,
+              new Object[] {message, devLabel, devListScrollPane},
+              "Select a device", JOptionPane.OK_CANCEL_OPTION,
+              JOptionPane.QUESTION_MESSAGE, null, null, null);
+    if (ret == JOptionPane.CANCEL_OPTION || ret == JOptionPane.CLOSED_OPTION) return;
+
+    String sSelDev = (String)devList.getSelectedValue();
+    
+    // Grant the exporter read permission on the object.
+    res = null;
+    try {
+      Packet cmd = makeCmd("setPerms", "Exporter", "", "", "", "",
+        "File read", sObjName, PM_NODE_OATTR, "no");
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in setPerms: " + res.getErrorMessage());
+        return;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in setPerms: " + e.getMessage());
+      return;
+    }
+    
+    // Now send a message to the exporter asking it to read the object and
+    // create a copy of its underlying file on the selected device.
+    res = null;
+    try {
+      Packet cmd = makeCmd("exportObject", sObjName, sSelDev);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in exportObject: " + res.getErrorMessage());
+        return;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in exportObject: " + e.getMessage());
+      return;
+    }
+  }
+
+  private void pingExporter() {
+    if (exporterClient == null) {
+      JOptionPane.showMessageDialog(this, "No exporter present!");
+      return;
+    }
+    try {
+      Packet cmd = makeCmd("ping");
+      Packet res = exporterClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error while pinging the exporter: " + res.getErrorMessage());
+        return;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception while pinging the exporter: " + e.getMessage());
+      return;
+    }
+  }
+  
+  private void doSetPerms() {
+    permEditor.prepare(rightClickedNode.sLabel, rightClickedNode.sId, rightClickedNode.sType);
+    permEditor.setVisible(true);
+  }
+  
+  private void doDeleteNode() {
+    try {
+      Packet cmd = makeCmd("deleteNode", rightClickedNode.sId, rightClickedNode.sType,
+        "yes");
+      Packet res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in deleteNode: " + res.getErrorMessage());
+        return;      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in deleteNode: " + e.getMessage());
+      return;
+    }
+  }
+  
+  private void doEdit() {
+    String sType = rightClickedNode.sType;
+    if (sType.equalsIgnoreCase(PM_NODE_UATTR)) {
+      uattrEditor.prepareForEdit(rightClickedNode.sId);
+      uattrEditor.setVisible(true);
+    } else if (sType.equalsIgnoreCase(PM_NODE_OATTR) || sType.equalsIgnoreCase(PM_NODE_ASSOC)) {
+      oattrEditor.prepareForEdit(rightClickedNode.sId);
+      oattrEditor.setVisible(true);
+    } else if (sType.equalsIgnoreCase(PM_NODE_POL)) {
+      pcEditor.prepareForEdit(rightClickedNode.sId);
+      pcEditor.setVisible(true);
+    }
+  }
+
+  private void doAddOattr() {
+    System.out.println("You selected \"Add object attribute...\" clicking on:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+
+    // The clicked node must be the connector, a policy class, or an object attribute.
+    if (!rightClickedNode.sType.equalsIgnoreCase(PM_NODE_CONN) &&
+        !rightClickedNode.sType.equalsIgnoreCase(PM_NODE_POL) &&
+        !rightClickedNode.sType.equalsIgnoreCase(PM_NODE_OATTR)) {
+      JOptionPane.showMessageDialog(this, "You cannot add an object attribute to the selected node!");
+      return;
+    }
+    
+    oattrEditor.prepareForAdd(rightClickedNode.sId, rightClickedNode.sType);
+    oattrEditor.setVisible(true);
+  }
+
+  private void doAddObject() {
+    System.out.println("You selected \"Add object...\" clicking on:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+
+    // The clicked node must be the connector, a policy class, or an object attribute.
+    if (!rightClickedNode.sType.equalsIgnoreCase(PM_NODE_OATTR) &&
+        !rightClickedNode.sType.equalsIgnoreCase(PM_NODE_CONN) &&
+        !rightClickedNode.sType.equalsIgnoreCase(PM_NODE_POL)) {
+      JOptionPane.showMessageDialog(this, "You cannot add an object to the selected node!");
+      return;
+    }
+    JOptionPane.showMessageDialog(this, "Not yet implemented. Use an application to create objects!");
+  }
+
+  private void doDeleteAssignment() {
+    if (markedNode == null) {
+      JOptionPane.showMessageDialog(this, "Please mark a node for de-assignment!");
+      return;
+    }
+    try {
+      Packet cmd = makeCmd("deleteAssignment", markedNode.sId, markedNode.sType,
+        rightClickedNode.sId, rightClickedNode.sType, "yes");
+      Packet res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in deleteAssignment: " + res.getErrorMessage());
+        return;
+      }
+      markedNode = null;
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in deleteAssignment: " + e.getMessage());
+      return;
+    }
+  }
+  
+  private void doAssignNode() {
+    if (markedNode == null) {
+      JOptionPane.showMessageDialog(this, "Please mark a node for assignment!");
+      return;
+    }
+    try {
+      Packet cmd = makeCmd("assign", markedNode.sId, markedNode.sType,
+        rightClickedNode.sId, rightClickedNode.sType, "yes");
+      Packet res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in assign: " + res.getErrorMessage());
+        return;
+      }
+      markedNode = null;
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in assign: " + e.getMessage());
+      return;
+    }
+  }
+  
+  private void doMarkNode() {
+    markedNode = new PmNode(rightClickedNode.sType, rightClickedNode.sId, rightClickedNode.sLabel);
+  }
+  
+  private void doAddUattr() {
+    System.out.println("You selected \"Add user attribute...\" clicking on:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+
+    // The clicked node must be the connector, a policy class, or a user attribute.
+    if (!rightClickedNode.sType.equalsIgnoreCase(PM_NODE_UATTR) &&
+    !rightClickedNode.sType.equalsIgnoreCase(PM_NODE_CONN) &&
+    !rightClickedNode.sType.equalsIgnoreCase(PM_NODE_POL)) {
+      JOptionPane.showMessageDialog(this, "You cannot add a user attribute to the selected node!");
+      return;
+    }
+    
+    uattrEditor.prepareForAdd(rightClickedNode.sId, rightClickedNode.sType);
+    uattrEditor.setVisible(true);
+  }
+  
+  private void doAddUser() {
+    System.out.println("You selected \"Add user...\" clicking on:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+
+    // The clicked node must be the connector or a user attribute.
+    if (!rightClickedNode.sType.equalsIgnoreCase(PM_NODE_UATTR) &&
+    !rightClickedNode.sType.equalsIgnoreCase(PM_NODE_CONN)) {
+      JOptionPane.showMessageDialog(this, "You cannot add a user to the selected node!");
+      return;
+    }
+    
+    userEditor.prepare(rightClickedNode.sId, rightClickedNode.sType);
+    userEditor.setVisible(true);
+  }
+
+  private void doAddPolicyClass() {
+    System.out.println("You selected \"Add policy class...\" clicking on:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+
+    // It's an error if the clicked node is not the connector node.
+    if (!rightClickedNode.sType.equalsIgnoreCase(PM_NODE_CONN)) {
+      JOptionPane.showMessageDialog(this, "You cannot add a policy class to the selected node!");
+      return;
+    }
+    pcEditor.prepareForAdd();
+    pcEditor.setVisible(true);
+  }
+  
+  private void doAddStartups() {
+    // Empty or create an empty internal list of startups. An element of the list
+    // is <pos id>. 
+    JOptionPane.showMessageDialog(this, "Right-click desired node, click popup menu \"Select as startup\", repeat. When finished, select \"Tools/Configure/Set startups\"");
+    if (startupVector == null) startupVector = new Vector();
+    else startupVector.clear();
+  }
+  
+  // Sends a command to the engine to store the startups for the
+  // user of this session to the acative directory. The command arguments are
+  // the session id (from which the engine can find the user), and the
+  // startups (these are POS ids for this session). The engine must
+  // translate these POS ids to original ids before storing them
+  // to the AD.
+  private void doSetStartups() {
+    
+    if (startupVector == null) startupVector = new Vector();
+    
+    System.out.println("doSetStartups()");
+    for (int i = 0; i < startupVector.size(); i++) {
+      System.out.println("  POS id=" + (String)startupVector.get(i));
+    }
+    
+    // Prepare and send the command.
+    try {
+      Packet cmd = makeCmd("setStartups");
+      for (int i = 0; i < startupVector.size(); i++) {
+        cmd.addItem(ItemType.CMD_ARG, (String)startupVector.get(i));
+      }
+      Packet res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in setStartups: " + res.getErrorMessage());
+        return;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Exception in setStartups: " + e.getMessage());
+      return;
+    }    
+    startupVector.clear();
+  }
+  
+  private void doSelectStartup() {
+    System.out.println("You selected the following node as a startup:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+    if (startupVector == null) startupVector = new Vector();
+    if (startupVector.contains(rightClickedNode.sId)) return;
+    startupVector.add(rightClickedNode.sId);
+  }
+  
+
+  private void doKeyStores() {
+    configEditor.setKStorePaths(sKsPath, sTsPath);
+    configEditor.setVisible(true);
+  }
+  
+  // Include here any action you want to take before closing the session.
+  public void prepareToClose() {
+    Iterator hsiter = threadSet.iterator();
+    while (hsiter.hasNext()) {
+      LauncherThread et = (LauncherThread)hsiter.next();
+      //Process p = et.getProcess();
+      //p.destroy();
+      //et.destroy();
+    }
+    try {
+      if (exporterClient != null) exporterClient.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (refreshTimer != null) refreshTimer.stop();
+    setVisible(false);
+  }
+
+  // Close this session.
+  private void doClose(boolean ask) {
+    if (ask) {
+      int option = JOptionPane.showConfirmDialog(this, "Do you really want to end this session?", "Close Session", JOptionPane.YES_NO_OPTION);
+      if (option != JOptionPane.YES_OPTION) return;
+    }
+    
+    prepareToClose();
+    manager.closeSession(sSessionId);
+  }
+  
+  private void doCommand() {
+    cmdEditor.prepare();
+    cmdEditor.setVisible(true);
+  }
+
+  private void doProperties() {
+    System.out.println("You selected Open on:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("getObjEmailProps", rightClickedNode.sLabel);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in getObjEmailProps: " + res.getErrorMessage());
+        return;
+      }
+      markedNode = null;
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(this, "Exception in getObjEmailProps: " + e.getMessage());
+      return;
+    }
+    if (res.size() <= 0) {
+      JOptionPane.showMessageDialog(this, "Empty result from getObjEmailProps!");
+      return;
+    }
+    // The result returned by the engine contains:
+    // item 0: the sender
+    // item 1: recipients
+    // item 2: timestamp
+    // item 3: subject
+    // item 4,...: attached objects
+    DefaultListModel propListModel = new DefaultListModel();
+    final JList propList = new JList(propListModel);
+    JScrollPane propListScrollPane = new JScrollPane(propList);    
+    propListModel.addElement("From: " + res.getStringValue(0));
+    propListModel.addElement("To: " + res.getStringValue(1));
+    propListModel.addElement("Sent: " + res.getStringValue(2));
+    propListModel.addElement("Subject: " + res.getStringValue(3));
+    for (int i = 4; i < res.size(); i++) {
+      propListModel.addElement("Attached: " + res.getStringValue(i));
+    }
+
+    String message = "Properties of email message " + rightClickedNode.sLabel;
+    JOptionPane.showOptionDialog(this,
+                  new Object[] {message, propListScrollPane},
+                  null,
+                  JOptionPane.DEFAULT_OPTION,
+                  JOptionPane.INFORMATION_MESSAGE, null, null, null);
+  }
+    
+  private void doOpenObjectWithTH() {
+    System.out.println("You selected Open on:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+
+    // Get the properties of the object represented by this VOS node.
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("getVosIdProperties", sVosPresType, rightClickedNode.sId);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in getVosIdProperties: " + res.getErrorMessage());
+        return;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(this, "Exception in getVosIdProperties: " + e.getMessage());
+      return;
+    }
+    if (res.size() <= 0) {
+      JOptionPane.showMessageDialog(this, "Engine returned an empty result while getting VOS node properties");
+      return;
+    }
+
+    // <name>|<id>|<class>|<inh>|<host or orig or tpl name>|<path or orig id>
+    String s = res.getStringValue(0);
+    String[] pieces = s.split(PM_ALT_DELIM_PATTERN);
+    String sClass = pieces[2];
+    String sNameOrHost = null;
+    if (pieces.length >= 5) sNameOrHost = pieces[4];
+    String sIdOrPath = null;
+    if (pieces.length >= 6) sIdOrPath = pieces[5];
+
+    if (!sClass.equalsIgnoreCase(PM_CLASS_FILE_NAME)) {
+      JOptionPane.showMessageDialog(this, "Object not of File class!");
+      return;
+	}
+    if (!sIdOrPath.toLowerCase().endsWith(".rtf")) {
+      JOptionPane.showMessageDialog(this, "Object content is not RTF!");
+      return;
+    }
+    invokeRtfEditor(rightClickedNode.sLabel, true);
+  }
+
+  // Invoked when the user right-clicks on a VOS node and selects "Open" from the
+  // popup menu.
+  private void doOpenObject() {
+    System.out.println("You selected Open on:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+
+    // Get the properties of the object represented by this VOS node.
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("getVosIdProperties", sVosPresType, rightClickedNode.sId);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in getVosIdProperties: " + res.getErrorMessage());
+        return;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(this, "Exception in getVosIdProperties: " + e.getMessage());
+      return;
+    }
+    if (res.size() <= 0) {
+      JOptionPane.showMessageDialog(this, "Engine returned an empty result while getting VOS node properties");
+      return;
+    }
+    // The result returned by the engine contains a single item:
+    // <name>|<id>|<class>|<inh>|<host or orig or tpl name>|<path or orig id>
+    // where the name, id, class, host and path are those of the object
+    // of class File,
+    // and the orig name and id are those of the PM entity represented by
+    // the virtual object. The name, id, class, and inh are always present
+    // in the result. The others may be omitted.
+    // If the class is Record, only the name, id, class, inh ("no"),
+    // and <host or orig or tpl name> are present.
+
+    // Invoke the application that corresponds to the file object type.
+    String s = res.getStringValue(0);
+    String[] pieces = s.split(PM_ALT_DELIM_PATTERN);
+    String sClass = pieces[2];
+    String sNameOrHost = null;
+    if (pieces.length >= 5) sNameOrHost = pieces[4];
+    String sIdOrPath = null;
+    if (pieces.length >= 6) sIdOrPath = pieces[5];
+
+    if (sClass.equalsIgnoreCase(PM_CLASS_FILE_NAME)) {
+      if (sIdOrPath.toLowerCase().endsWith(".rtf")) {
+        invokeRtfEditor(rightClickedNode.sLabel, false);
+        
+      } else if (sIdOrPath.toLowerCase().endsWith(".wkf")) {
+        invokeWorkflow(rightClickedNode.sLabel);
+
+      } else if (sIdOrPath.toLowerCase().endsWith(".doc") ||
+                 sIdOrPath.toLowerCase().endsWith(".ppt") ||
+                 sIdOrPath.toLowerCase().endsWith(".xls")) {
+        String sObjType = sIdOrPath.substring(sIdOrPath.length() - 3);
+        invokeOffice(sObjType, rightClickedNode.sLabel);
+
+      } else if (sIdOrPath.toLowerCase().endsWith(".eml")) {
+        invokeEmailer(rightClickedNode.sLabel);
+        
+      } else {
+        JOptionPane.showMessageDialog(this, "Unknown content type for \"" + sIdOrPath.toLowerCase() + "\"!");
+        return;
+      }
+
+    } else if (sClass.equalsIgnoreCase(PM_CLASS_USER_NAME) ||
+               sClass.equalsIgnoreCase(PM_CLASS_UATTR_NAME) ||
+               sClass.equalsIgnoreCase(PM_CLASS_OATTR_NAME) ||
+               sClass.equalsIgnoreCase(PM_CLASS_OBJ_NAME) ||
+               sClass.equalsIgnoreCase(PM_CLASS_POL_NAME) ||
+               sClass.equalsIgnoreCase(PM_CLASS_CONN_NAME) ||
+               sClass.equalsIgnoreCase(PM_CLASS_OPSET_NAME)) {
+      invokeAdminTool(sNameOrHost, sClass);
+
+    // Change this asap! The account template is hard-coded!!!
+    } else if (sClass.equalsIgnoreCase(PM_CLASS_RECORD_NAME)) {
+      // sNameOrHost should contain the template name.
+      System.out.println("*****************************" + sNameOrHost);
+      
+      if (sNameOrHost.equals("acctTpl")) invokeAcctEditor(rightClickedNode.sLabel);
+      else invokeMREditor(rightClickedNode.sLabel);
+    }
+  }
+
+  // Similar to the SessionManager.makeCmd(), the session being
+  // the current session.
+  public Packet makeCmd(String sCode, String... sArgs) throws Exception {
+    Packet cmd = new Packet();
+
+    cmd.addItem(ItemType.CMD_CODE, sCode);
+    if (sSessionId == null) cmd.addItem(ItemType.CMD_ARG, "");
+    else cmd.addItem(ItemType.CMD_ARG, sSessionId);
+    
+    if (sArgs == null) return cmd;
+    for (String arg: sArgs) {
+      cmd.addItem(ItemType.CMD_ARG, arg);
+    }
+    return cmd;
+  }
+
+/*
+  public ArrayList makeCmdHeader(String sCmdCode) {
+    ArrayList cmd = new ArrayList();
+    cmd.add(SessionManager.PM_CMD + sCmdCode);
+    cmd.add(SessionManager.PM_SEP);
+    if (sSessionId != null) cmd.add(SessionManager.PM_ARG + sSessionId);
+    return cmd;
+  }
+  */
+
+  private String entityClassToType(String sClass) {
+    if (sClass.equalsIgnoreCase(PM_CLASS_USER_NAME)) return PM_NODE_USER;
+    else if (sClass.equalsIgnoreCase(PM_CLASS_UATTR_NAME)) return PM_NODE_UATTR;
+    else if (sClass.equalsIgnoreCase(PM_CLASS_OBJ_NAME)) return PM_OBJ;
+    else if (sClass.equalsIgnoreCase(PM_CLASS_OATTR_NAME)) return PM_NODE_OATTR;
+    else if (sClass.equalsIgnoreCase(PM_CLASS_POL_NAME)) return PM_NODE_POL;
+    else if (sClass.equalsIgnoreCase(PM_CLASS_OPSET_NAME)) return PM_NODE_OPSET;
+    else if (sClass.equalsIgnoreCase(PM_CLASS_CONN_NAME)) return PM_NODE_CONN;
+    else return null;
+  }
+
+  // Displays a table of object properties and returns the index
+  // of the object selected by the user.
+  private int selectObject(ArrayList list) {
+    if (list == null || list.size() == 0) return -1;
+    int n = list.size();
+    String[][] tableData = new String[n][5];
+    for (int i = 0; i < n; i++) {
+      String s = ((String)list.get(i)).substring(4);
+      String[] pieces = s.split(PM_ALT_DELIM_PATTERN);
+      String sClass = pieces[2];
+      String sNameOrHost = pieces[4];
+      String sIdOrPath = pieces[5];
+      String sYesNo = pieces[3];
+      tableData[i][0] = sClass;
+      tableData[i][4] = sYesNo;
+      if (sClass.equalsIgnoreCase(PM_CLASS_FILE_NAME) ||
+          sClass.equalsIgnoreCase(PM_CLASS_DIR_NAME)) {
+        tableData[i][1] = sNameOrHost;
+        tableData[i][2] = sIdOrPath;
+        tableData[i][3] = "";
+      } else {
+        tableData[i][1] = "";
+        tableData[i][2] = "";
+        tableData[i][3] = sNameOrHost;
+      }
+    }
+    String[] columnNames = {"Class", "Host", "Path", "Name", "With ascendants"};
+    JTable objTable = new JTable(tableData, columnNames);
+    JScrollPane objScrollPane = new JScrollPane(objTable);
+    objTable.setPreferredScrollableViewportSize(new Dimension(500, 150));
+    String message = "Select the object you want to open:";
+    int res = JOptionPane.showOptionDialog(this,
+              new Object[] {message, objScrollPane},
+              "Objects", JOptionPane.OK_CANCEL_OPTION,
+              JOptionPane.QUESTION_MESSAGE, null, null, null);
+    if (res != JOptionPane.OK_OPTION) return -1;
+    return objTable.getSelectedRow();
+  }
+
+  private void invokeWordEditor(String sVobjName) {
+    JOptionPane.showMessageDialog(this, "Not yet implemented!");
+  }
+
+  private void invokeAdminTool(String sEntityName, String sEntityClass) {
+    doLaunchAdminTool(sEntityName, entityClassToType(sEntityClass));
+  }
+
+  private void invokeWorkflow(String sVobjName) {
+    doLaunchWorkflow(sVobjName);
+  }
+  
+  private void invokeCompositeViewer(String sVobjName) {
+	  System.out.println("Method Session.invokeCompositeViewer() is not implemented");
+    ///doLaunchCompositeViewer(sVobjName);
+  }
+  
+  // Called when the user right-clicks on an .EML object to read a
+  // saved message.
+  private void invokeEmailer(String sVobjName) {
+    doLaunchGrantor(sVobjName, false);// to open a msg, not to grant.
+  }
+
+  // Invoke the OpenOffice application.
+  private void invokeOffice(String sVobjType, String sVobjName) {
+    doLaunchOffice(sVobjType, sVobjName);
+  }
+
+  private void invokeAcctEditor(String sRecName) {
+    doLaunchAcctEditor(sRecName);
+  }
+
+  private void invokeMREditor(String sRecName) {
+    // Before invoking the editor, ask the engine for permissions.
+    String sReqPerms = "File read,File write";
+    //...
+
+    doLaunchMREditor(sRecName);
+  }
+
+  // The RTFEditor application may be invoked from the current session
+  // or from the spawned one.
+  private void invokeRtfEditor(String sVobjName, boolean bTH) {
+    if (bTH) doLaunchTHEditor(sVobjName);
+    else doLaunchRTFEditor(sVobjName);
+  }
+  
+  // See whether a new session would lead to at least "File read" permission.
+  // The application to launch can be PM_OFFICE or PM_RTF.
+  private boolean createNewSession(String sVobjType, String sVobjName) {
+    // Create the engine part of a new session from the current session: same
+    // host and user, but empty active attributes.
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("spawnSession");
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in spawnSession: " + res.getErrorMessage());
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(this, "Exception in spawnSession: " + e.getMessage());
+      return false;
+    }
+
+    // The engine answer contains:
+    // item 0: <sess name>
+    // item 1: <sess id>
+    // item 2: <user id>
+    // Build the new session object.
+    String sSessName = res.getStringValue(0);
+    String sSessId = res.getStringValue(0);
+    //JOptionPane.showMessageDialog(this, "A new session " + sSessName + " was created");
+    
+    String sReqPerms = "File read,File write";
+    
+    // NOTE: it is essential to use the new session's id in the following command:
+    try {
+      Packet cmd = SessionManager.makeCmd("requestPerms", sSessId, rightClickedNode.sLabel,
+        sReqPerms);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in requestPerms: " + res.getErrorMessage());
+        return deleteSession(sSessId);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(this, "Exception in requestPerms: " + e.getMessage());
+      return deleteSession(sSessId);
+    }
+
+    HashSet perms = SessionManager.packetToSet(res);
+    if (!perms.contains("File read")) {
+      JOptionPane.showMessageDialog(this, "Not enough permissions to open the selected object!");
+      return deleteSession(sSessId);
+    }
+    if (!perms.contains("File write")) {
+      JOptionPane.showMessageDialog(this, "This object will be opened in read-only mode!");
+    }
+
+    // Construct the Session object. Note that the PM session already exists,
+    // and has the active attributes.
+    Session session = new Session(manager, simClient, sSessName, sSessId,
+                                  sSessionUser, sSessionUserId, sSessionHost);
+    session.pack();
+    session.setVisible(true);
+    manager.registerSession(session);
+    if (sVobjType.equalsIgnoreCase(PM_OBJTYPE_RTF)) {
+      session.doLaunchRTFEditor(sVobjName);
+    } else if (sVobjType.equalsIgnoreCase(PM_OBJTYPE_DOC) ||
+               sVobjType.equalsIgnoreCase(PM_OBJTYPE_PPT) ||
+               sVobjType.equalsIgnoreCase(PM_OBJTYPE_XLS)) {
+      session.doLaunchOffice(sVobjType, sVobjName);
+    } else if (sVobjType.equalsIgnoreCase(PM_OBJTYPE_EML)) {
+      //session.doLaunchEmailer(sVobjName);
+      session.doLaunchGrantor(sVobjName, false);// to open a msg, not to grant
+    }
+    return true;
+  }
+ 
+  // Get the workflow app path, the keystores for SSL, etc., and launch the app.
+  private void doLaunchWorkflow(String sVobjName) {
+    String sWkfPath = manager.getWorkflowPath();
+    if (sWkfPath == null || sWkfPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "The Workflow app path is not set. Please configure the Session Manager and try again!");
+      return;
+    }
+    
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+      return;
+    }
+
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sWkfPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.application.workflow.Wkflow ");
+    sb.append("-session " + sSessionId);
+    if (sVobjName != null)
+      sb.append(" \"" + sVobjName + "\"");
+    
+    LauncherThread et = new LauncherThread(sb.toString(), "WKF-");
+    threadSet.add(et);
+    
+    //lt.setDaemon(true);
+    et.start();
+  }
+
+  // Get the Office Launcher path, the keystores for SSL, etc., and launch Office component.
+  private void doLaunchOffice(String sVobjType, String sVobjName) {
+    String sLauncherPath = manager.getLauncherPath();
+    if (sLauncherPath == null || sLauncherPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "The Office Launcher's path is not set. Please configure the Session Manager and try again!");
+      return;
+    }
+    
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+      return;
+    }
+
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sLauncherPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.application.openoffice.OfficeLauncher");
+    sb.append(" -session " + sSessionId);
+    if (sVobjType != null)
+      sb.append(" -objtype " + sVobjType);
+    if (sVobjName != null)
+      sb.append(" \"" + sVobjName + "\"");
+    
+    System.out.println(sb.toString());
+    
+    LauncherThread et = new LauncherThread(sb.toString(), "Office-");
+    threadSet.add(et);
+    
+    //lt.setDaemon(true);
+    et.start();
+  }
+
+  // Get the editor path, the keystores for SSL, etc., and launch the editor.
+  private void doLaunchTHEditor(String sVobjName) {
+    String sEditorPath = manager.getEditorPath();
+    if (sEditorPath == null || sEditorPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "The RTF Editor path is not set. Please configure the Session Manager and try again!");
+      return;
+    }
+    
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+      return;
+    }
+
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sEditorPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.application.rtfth.RTFEditor ");
+    sb.append("-session " + sSessionId);
+    if (sVobjName != null)
+      sb.append(" \"" + sVobjName + "\"");
+    
+    LauncherThread et = new LauncherThread(sb.toString(), "RTF-");
+    threadSet.add(et);
+    
+    //lt.setDaemon(true);
+    et.start();
+  }
+
+  // Get the editor path, the keystores for SSL, etc., and launch the editor.
+  private void doLaunchRTFEditor(String sVobjName) {
+    String sEditorPath = manager.getEditorPath();
+    if (sEditorPath == null || sEditorPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "The RTF Editor path is not set. Please configure the Session Manager and try again!");
+      return;
+    }
+    
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+      return;
+    }
+
+    JOptionPane.showMessageDialog(this, "Launching the RTF Editor...");
+
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sEditorPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.application.rtf.RTFEditor ");
+    sb.append("-session " + sSessionId);
+    if (sVobjName != null)
+      sb.append(" \"" + sVobjName + "\"");
+    
+    LauncherThread et = new LauncherThread(sb.toString(), "RTF-");
+    threadSet.add(et);
+    
+    //lt.setDaemon(true);
+    et.start();
+  }
+
+  // The exporter is launched automatically by the session manager, within a
+  // session w/o GUI, by calling this method.
+  // The exporter's path can be set by using the Configure...
+  // menu of the session manager.
+  // The keystores for the user "exporter" can be set in the exporter's session.
+  public boolean doLaunchExporter() {
+    String sExporterPath = manager.getExporterPath();
+    //String sExporterPath = "E:\\PolicyMachine\\PmExporter\\exporter.jar";
+    if (sExporterPath == null || sExporterPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "Exporter path is not set. Please configure the Session Manager and try again!");
+      return false;
+    }
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "Certificate stores for user " +
+        sSessionUser + " not set. Please configure the session and try again!");
+      return false;
+    }
+
+    /* (steveq) The parameters for this should really be in a top-level
+     * configuration file. 
+     */
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sExporterPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.exporter.Exporter");
+    sb.append(" -export 8082 -session " + sSessionId);
+    sb.append(" -debug");
+
+System.out.println("Exporter command line: " + sb.toString());
+    
+    LauncherThread et = new LauncherThread(sb.toString(), "EXP-");
+    threadSet.add(et);
+    exporterThread = et;
+    et.start();
+
+    return true;
+  }
+
+  private LauncherThread exporterThread;
+  
+  public void destroyExporter() {
+    exporterThread.getProcess().destroy();
+  }
+  
+ // (steveq) No such component. 
+//  private void doLaunchCompositeViewer(String sObjName) {
+//    //String sCompoViewerPath = manager.getCompoViewerPath();
+//    String sViewerPath = "E:\\PolicyMachine\\PmCompositeViewer\\viewer.jar";
+//    if (sViewerPath == null || sViewerPath.length() == 0) {
+//      JOptionPane.showMessageDialog(this, "Composite viewer path is not set. Please configure the Session Manager and try again!");
+//      return;
+//    }
+//    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+//      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+//      return;
+//    }
+//
+//    StringBuffer sb = new StringBuffer();
+//    sb.append("javaw -cp ");
+//    sb.append("\"" + sViewerPath + "\"");
+//    sb.append(" -Djavax.net.ssl.keyStore=");
+//    sb.append("\"" + sKsPath + "\"");
+//    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+//    sb.append(" -Djavax.net.ssl.trustStore=");
+//    sb.append("\"" + sTsPath + "\"");
+//    sb.append(" viewer.CompositeSelector");
+//    sb.append(" -session " + sSessionId);
+//    if (sObjName != null)
+//      sb.append(" \"" + sObjName + "\"");
+//
+//System.out.println("Viewer cmd line: " + sb.toString());
+//
+//    LauncherThread et = new LauncherThread(sb.toString(), "VIEWER-");
+//    threadSet.add(et);
+//    et.start();
+//  }
+
+  private void doLaunchAcctEditor(String sRecName) {
+    String sAcctrecPath = manager.getAcctEditorPath();
+    if (sAcctrecPath == null || sAcctrecPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "Account record editor path is not set. Please configure the Session Manager and try again!");
+      return;
+    }
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+      return;
+    }
+
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sAcctrecPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.application.acctrec.AcctEditor");
+    sb.append(" -session " + sSessionId);
+    if (sRecName != null) sb.append(" " + sRecName);
+
+System.out.println("AcctEditor cmd line: " + sb.toString());
+
+    LauncherThread et = new LauncherThread(sb.toString(), "ACCTS-");
+    threadSet.add(et);
+    et.start();
+  }
+
+  private void doLaunchMREditor(String sRecName) {
+    String sMedrecPath = manager.getMREditorPath();
+    if (sMedrecPath == null || sMedrecPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "Medical record editor path is not set. Please configure the Session Manager and try again!");
+      return;
+    }
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+      return;
+    }
+
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sMedrecPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.application.medrec.MREditor");
+    sb.append(" -session " + sSessionId);
+    if (sRecName != null) sb.append(" " + sRecName);
+
+System.out.println("MREditor cmd line: " + sb.toString());
+
+    LauncherThread et = new LauncherThread(sb.toString(), "MRE-");
+    threadSet.add(et);
+    et.start();
+  }
+
+  /* (steveq) No such component. */
+//  private void doLaunchComposer() {
+//    //String sComposerPath = manager.getComposerPath();
+//    String sComposerPath = "E:\\PolicyMachine\\PmComposer\\composer.jar";
+//    if (sComposerPath == null || sComposerPath.length() == 0) {
+//      JOptionPane.showMessageDialog(this, "Composer path is not set. Please configure the Session Manager and try again!");
+//      return;
+//    }
+//    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+//      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+//      return;
+//    }
+//
+//    StringBuffer sb = new StringBuffer();
+//    sb.append("javaw -cp ");
+//    sb.append("\"" + sComposerPath + "\"");
+//    sb.append(" -Djavax.net.ssl.keyStore=");
+//    sb.append("\"" + sKsPath + "\"");
+//    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+//    sb.append(" -Djavax.net.ssl.trustStore=");
+//    sb.append("\"" + sTsPath + "\"");
+//    sb.append(" composer.CompositeEditor");
+//    sb.append(" -session " + sSessionId);
+//
+//System.out.println("Composer cmd line: " + sb.toString());
+//
+//    LauncherThread et = new LauncherThread(sb.toString(), "COMP-");
+//    threadSet.add(et);
+//    et.start();
+//  }
+
+  // Launch the Grantor tool to open or grant/send a given object.
+  // If the object is null, no object was yet selected for grant/send.
+  // If bGrant is true, read or read/write access to the object will
+  // be granted. Otherwise, the object must be a message (.eml) and
+  // will be open.
+  private void doLaunchGrantor(String sVobjName, boolean bGrant) {
+    String sGrantorPath = manager.getGrantorPath();
+    //String sGrantorPath = "E:\\PolicyMachine\\PmGrantor\\grantor.jar";
+    if (sGrantorPath == null || sGrantorPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "Grantor path is not set. Please configure the Session Manager and try again!");
+      return;
+    }
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+      return;
+    }
+
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sGrantorPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.application.grantor.Grantor");
+    sb.append(" -session " + sSessionId);
+    if (sVobjName != null)
+      sb.append(" \"" + sVobjName + "\"");
+    if (bGrant) sb.append(" -grant");
+    else sb.append(" -open");
+
+System.out.println("Grantor cmd line: " + sb.toString());
+
+    LauncherThread et = new LauncherThread(sb.toString(), "GRANT-");
+    threadSet.add(et);
+    et.start();
+  }
+
+  // TODO: steveq: Remove hardcoded paths below. 
+  private void doLaunchEmailer(String sVobjName) {
+    //String sEmailPath = manager.getEmailPath();
+    String sEmailPath = "E:\\PolicyMachine\\PmEmailer\\email.jar";
+    if (sEmailPath == null || sEmailPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "Email client path is not set. Please configure the Session Manager and try again!");
+      return;
+    }
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+      return;
+    }
+
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sEmailPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.application.emailer.Emailer");
+    sb.append(" -session " + sSessionId);
+    if (sVobjName != null)
+      sb.append(" \"" + sVobjName + "\"");
+
+System.out.println("EML cmd line: " + sb.toString());
+
+    LauncherThread et = new LauncherThread(sb.toString(), "EML-");
+    threadSet.add(et);
+    et.start();
+  }
+
+  private void doLaunchAdminTool(String sEntityName, String sEntityType) {
+    String sAtoolPath = manager.getAtoolPath();
+    if (sAtoolPath == null || sAtoolPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "Admin Tool path is not set. Please configure the Session Manager and try again!");
+      return;
+    }
+    if (sKsPath == null || sKsPath.length() == 0 || sTsPath == null || sTsPath.length() == 0) {
+      JOptionPane.showMessageDialog(this, "At least one certificate store path is not set. Please configure the session and try again!");
+      return;
+    }
+    String engineHost = manager.getEngineHost();
+    int enginePort = manager.getEnginePort();
+
+    StringBuffer sb = new StringBuffer();
+    sb.append("javaw -cp ");
+    sb.append("\"" + sAtoolPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStore=");
+    sb.append("\"" + sKsPath + "\"");
+    sb.append(" -Djavax.net.ssl.keyStorePassword=aaaaaa ");
+    sb.append(" -Djavax.net.ssl.trustStore=");
+    sb.append("\"" + sTsPath + "\"");
+    sb.append(" gov.nist.csd.pm.admin.PmAdmin -enginehost ");
+    sb.append(engineHost);
+    sb.append(" -engineport ");
+    sb.append(enginePort);
+    sb.append(" -debug ");
+    sb.append("-session " + sSessionId);
+    if (sEntityName != null) sb.append(" -entity \"" + sEntityName + "\"");
+    if (sEntityType != null) sb.append(" -type " + sEntityType);
+
+System.out.println("-=-=-=-=-");    
+System.out.println(sb.toString());    
+System.out.println("-=-=-=-=-");    
+    
+    LauncherThread et = new LauncherThread(sb.toString(), "AT-");
+    threadSet.add(et);
+    et.start();
+  }
+  
+  private void doLaunchWord() {
+    Runtime rt = Runtime.getRuntime();
+    try {
+      Process proc = rt.exec("word.bat f.doc");
+    } catch (Exception e) {
+      if (manager.debugFlag) e.printStackTrace();
+      JOptionPane.showMessageDialog(this, e.getMessage());
+      return;
+    }
+  }
+
+  private boolean deleteSession(String sId) {
+    try {
+      Packet cmd = SessionManager.makeCmd("deleteSession", null, sId);
+      Packet res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in deleteSession: " + res.getErrorMessage());
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(this, "Exception in deleteSession: " + e.getMessage());
+      return false;
+    }
+    return true;
+  }
+
+  private static String setToString(HashSet set) {
+    if (set == null || set.isEmpty()) return "";
+    
+    Iterator hsiter = set.iterator();
+    boolean firstTime = true;
+    StringBuffer sb = new StringBuffer();
+    
+    while (hsiter.hasNext()) {
+      String sId = (String)hsiter.next();
+      if (firstTime) {
+        sb.append(sId);
+        firstTime = false;
+      } else {
+        sb.append("," + sId);
+      }
+    }
+    return sb.toString();
+  }
+
+  private static ArrayList setToArrayList(HashSet set) {
+    ArrayList al = new ArrayList();
+    if (set != null && !set.isEmpty()) {
+      Iterator hsiter = set.iterator();
+      while (hsiter.hasNext()) {
+        al.add(SessionManager.PM_DATA + (String)hsiter.next());
+      }
+    }
+    al.add(SessionManager.PM_EOD);
+    return al;
+  }
+
+  private static void addSetToArayList(HashSet set, ArrayList al) {
+    if (set != null && !set.isEmpty()) {
+      Iterator hsiter = set.iterator();
+      while (hsiter.hasNext()) {
+        al.add(SessionManager.PM_DATA + (String)hsiter.next());
+      }
+    }
+  }
+  
+  // We assume that each item of the array list contains one set element.
+  private HashSet arrayListToSet(ArrayList al) {
+    HashSet set = new HashSet();
+    if (al == null) return set;
+    for (int i = 0; i < al.size(); i++) {
+      set.add(((String)al.get(i)).substring(4));
+    }
+    return set;
+  }
+
+  private HashSet stringToSet(String sArg) {
+    HashSet set = new HashSet();
+    if (sArg != null) {
+      String[] pieces = sArg.split(",");
+      for (int i = 0; i < pieces.length; i++) {
+        String t = pieces[i].trim();
+        if (t.length() > 0) set.add(t);
+      }
+    }
+    return set;
+  }
+
+  class LauncherThread extends Thread {
+    String sPrefix;
+    String cmd;
+    Process proc;
+    
+    LauncherThread(String cmd, String sPrefix) {
+      this.sPrefix = sPrefix;
+      this.cmd = cmd;
+    }
+ 
+    public Process getProcess() {
+      return proc;
+    }
+    
+    /*
+    public void destroy() {
+      proc.destroy();
+    }
+     */
+    
+    /* (steveq) I noticed that when this method throws an exception, it does
+     * say anything about Session, LauncherThread, or StreamGobbler in the
+     * stack trace. I would enhance the catch statements of these classes
+     * to make sure that when an exception is thrown, we can identify the
+     * class that invoked it.
+     */
+    public void run() {
+      Runtime rt = Runtime.getRuntime();
+      try {
+        proc = rt.exec(cmd);
+        StreamGobbler errGobbler = new StreamGobbler(proc.getErrorStream(), sPrefix);
+        StreamGobbler outGobbler = new StreamGobbler(proc.getInputStream(), sPrefix);
+        errGobbler.start();
+        outGobbler.start();
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+    }
+  }
+  
+  class StreamGobbler extends Thread {
+    InputStream is;
+    String sPrefix;
+
+    StreamGobbler(InputStream is, String sPrefix) {
+      this.sPrefix = sPrefix;
+      this.is = is;
+    }
+
+    public void run() {
+      try {
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        String line = null;
+        while ((line = br.readLine()) != null) {
+          System.out.println(sPrefix + line);
+        }
+      } catch (IOException ioe) {
+        ioe.printStackTrace();
+        System.out.println(sPrefix + ioe.getMessage());
+      }
+    }
+  }
+
+  private void doAdminView() {
+    sVosPresType = PM_VOS_PRES_ADMIN;
+    pmPopup = pmAdminPopup;
+    doRefresh();
+  }
+  
+  private void doUserView() {
+    sVosPresType = PM_VOS_PRES_USER;
+    pmPopup = pmUserPopup;
+    doRefresh();
+  }
+  
+  private void doRefresh() {
+    crtDefaultCursor = SESS_WAIT_CURSOR;
+    crtHandCursor = SESS_WAIT_CURSOR;    
+    refreshInternal();
+  }
+  
+  private void refreshInternal() {
+    final SwingWorker worker = new SwingWorker() {
+      ArrayList result = null;
+      
+      public Object construct() {
+        Packet res = null;
+        try {
+          Packet cmd = makeCmd("computeVos", sVosPresType, sSessionUserId, sSessionId);
+          res = simClient.sendReceive(cmd, null);
+          if (res.hasError()) {
+            JOptionPane.showMessageDialog(thisSession, "Error in computeVos: " + res.getErrorMessage());
+            return null;
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
+          JOptionPane.showMessageDialog(thisSession, "Exception in computeVos: " + e.getMessage());
+          return null;
+        }
+        sLastUpdateTimestamp = res.getStringValue(0);
+        resetTree(connectorNode);
+        return SessionManager.success();
+      }
+      
+      public void finished() {
+        if (sVosPresType.equalsIgnoreCase(PM_VOS_PRES_USER))
+          viewLabel.setText("Now viewing: user POS");
+        else
+          viewLabel.setText("Now viewing: admin POS");
+        crtDefaultCursor = SESS_DEFAULT_CURSOR;
+        crtHandCursor = SESS_HAND_CURSOR;
+      }
+    };
+    worker.start();
+  }
+    
+  private void doTestRequestPerms() {
+    String sReqPerms = JOptionPane.showInputDialog(null, "Please enter requested permissions, separated by commas:");
+    if (sReqPerms == null) return;
+    System.out.println("Request perms {" + sReqPerms + "} for:");
+    System.out.println("              id =  " + rightClickedNode.sId);
+    System.out.println("           label =  " + rightClickedNode.sLabel);
+    System.out.println("            type =  " + rightClickedNode.sType);
+
+    Packet res = null;
+    try {
+      Packet cmd = makeCmd("requestPerms", rightClickedNode.sLabel, sReqPerms);
+      res = simClient.sendReceive(cmd, null);
+      if (res.hasError()) {
+        JOptionPane.showMessageDialog(this, "Error in requestPerms: " + res.getErrorMessage());
+        return;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(this, "Exception in requestPerms: " + e.getMessage());
+      return;
+    }
+    
+    DefaultListModel permModel = new DefaultListModel();
+    JList permList = new JList(permModel);
+    JScrollPane permScrollPane = new JScrollPane(permList);
+    permScrollPane.setPreferredSize(new Dimension(300, 150));
+
+    for (int i = 0; i < res.size(); i++) {
+      permModel.addElement(res.getStringValue(i));
+    }
+    
+    String message = "List of granted permissions:";
+    int ret = JOptionPane.showOptionDialog(this,
+              new Object[] {message, permScrollPane},
+              "Permissions", JOptionPane.DEFAULT_OPTION,
+              JOptionPane.INFORMATION_MESSAGE, null, null, null);    
+  }
+  
+  private void doChangePassword() {
+    JPasswordField oldPassField = new JPasswordField();
+    JPasswordField newPassField = new JPasswordField();
+    JPasswordField conPassField = new JPasswordField();
+    String msgOld = "Old password:";
+    String msgNew = "New password:";
+    String msgCon = "Confirm new password:";
+    for (int j = 0; j < 3; j++) {
+      int ret = JOptionPane.showOptionDialog(this,
+              new Object[] {msgOld, oldPassField, msgNew, newPassField, msgCon, conPassField},
+              "Change password", JOptionPane.OK_CANCEL_OPTION,
+              JOptionPane.QUESTION_MESSAGE, null, null, null);
+      if (ret != JOptionPane.OK_OPTION) return;
+      
+      // Get old, new, and confirmation password.
+      char[] cOldPass = oldPassField.getPassword();
+      char[] cNewPass = newPassField.getPassword();
+      char[] cConPass = conPassField.getPassword();
+
+      try {
+        Packet cmd = makeCmd("changePassword", sSessionUser, new String(cOldPass),
+          new String(cNewPass), new String(cConPass));
+        for (int i = 0; i < cOldPass.length; i++) cOldPass[i] = 0;
+        for (int i = 0; i < cNewPass.length; i++) cNewPass[i] = 0;
+        for (int i = 0; i < cConPass.length; i++) cConPass[i] = 0;
+
+        Packet res = simClient.sendReceive(cmd, null);
+        if (res.hasError()) {
+          JOptionPane.showMessageDialog(this, "Error in changePassword: " + res.getErrorMessage());
+          return;
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Exception in changePassword: " + e.getMessage());
+        return;
+      }
+
+      // Success.
+      JOptionPane.showMessageDialog(this, "Password successfully changed.");
+      return;
+    }
+  }
+
+  // Recursively delete a directory.
+  private boolean deleteFile(File f) {
+    System.out.println("Deleting " + f.getName());
+    if (f.isFile()) return f.delete();
+    File[] files = f.listFiles();
+    for (int i = 0; i < files.length; i++) {
+      if (!deleteFile(files[i])) return false;
+    }
+    return f.delete();
+  }
+
+  private byte[] getBytes(String filename) {
+    try {
+      File f = new File(filename);
+      int bytesLeft = (int)f.length();
+      byte[] buffer = new byte[bytesLeft];
+      FileInputStream fis = new FileInputStream(f);
+      int n;
+      int index = 0;
+      while ((bytesLeft  > 0) && (n = fis.read(buffer, index, bytesLeft)) != -1) {
+        index += n;
+        bytesLeft -= n;
+      }
+      fis.close();
+      return buffer;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+}
+
