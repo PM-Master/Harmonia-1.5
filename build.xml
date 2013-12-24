@@ -73,7 +73,7 @@
     <import file="build-part-ivy-resolver.xml"/>
 
     <!-- Variables -->
-    <property name="pmversion" value="1.5.1"/>
+    <property name="pmversion" value="1.5"/>
     <!-- Project Directories  -->
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>

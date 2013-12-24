@@ -8,6 +8,9 @@ package gov.nist.csd.pm.application.medrec;
 import gov.nist.csd.pm.common.application.SysCaller;
 import gov.nist.csd.pm.common.application.SysCallerImpl;
 import gov.nist.csd.pm.common.net.Packet;
+import gov.nist.csd.pm.application.medrec.editors.DiagnosisEditor;
+import gov.nist.csd.pm.application.medrec.editors.HistoryEditor;
+import gov.nist.csd.pm.application.medrec.editors.TreatEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -255,6 +258,9 @@ public class MREditor extends JFrame implements ActionListener {
 	 * @uml.property  name="sTreatmentId"
 	 */
     private String sTreatmentId;
+
+	private TreatEditor treat;
+
 
     @SuppressWarnings("LeakingThisInConstructor")
     public MREditor(int nSimPort, String sSessId, String sProcId, boolean bDebug) {
@@ -616,8 +622,18 @@ public class MREditor extends JFrame implements ActionListener {
         }
 
         if (sClass.equalsIgnoreCase(SysCaller.PM_CLASS_FILE_NAME)) {
-            if (sIdOrPath.toLowerCase().endsWith(".rtf")) {
-                invokeRtfEditor(sObjName);
+                if (sIdOrPath.toLowerCase().endsWith(".rtf")) {
+                  invokeRtfEditor(sObjName);
+                  // new Editor code
+//                	if(sObjName.equals(sTreatmentName)){
+//                        createNewTreat();
+//                	}else if(sObjName.equals(sDiagName)){
+//                		createNewDiagnosis();
+//                	}else if(sObjName.equals(sHistoryName)){
+//                		createNewHistory();
+//                	}else{
+//                		invokeRtfEditor(sObjName);
+//                	}
 
                 // Doesn't happen
             } else if (sIdOrPath.toLowerCase().endsWith(".wkf")) {
@@ -635,6 +651,55 @@ public class MREditor extends JFrame implements ActionListener {
 
             }
         }
+    }
+
+    public void createNewTreat(){
+        TreatEditor treat = new TreatEditor(simport, sessid, pid, debug);
+        String sex = "";
+        if(butM.isSelected()){
+        	sex = "M";
+        }else{
+        	sex = "F";
+        }
+        
+        treat.setProps(tfFirst.getText(), tfMi.getText(), 
+        		tfLast.getText(), tfSsn.getText(), sex, tfDob.getText(), 
+        		(String)comboDr.getSelectedItem());
+        		
+        treat.setVisible(true);
+    }
+    
+    public void createNewDiagnosis(){
+    	DiagnosisEditor diag = new DiagnosisEditor(simport, sessid, pid, debug);
+        String sex = "";
+        if(butM.isSelected()){
+        	sex = "M";
+        }else{
+        	sex = "F";
+        }
+        
+        diag.setProps(tfFirst.getText(), tfMi.getText(), 
+        		tfLast.getText(), tfSsn.getText(), sex, tfDob.getText(), 
+        		(String)comboDr.getSelectedItem());
+        		
+        diag.setVisible(true);
+    	
+    }
+    
+    public void createNewHistory(){
+    	HistoryEditor hist = new HistoryEditor(simport, sessid, pid, debug);
+        String sex = "";
+        if(butM.isSelected()){
+        	sex = "M";
+        }else{
+        	sex = "F";
+        }
+        
+        hist.setProps(tfFirst.getText(), tfMi.getText(), 
+        		tfLast.getText(), tfSsn.getText(), sex, tfDob.getText(), 
+        		(String)comboDr.getSelectedItem());
+        		
+        hist.setVisible(true);
     }
 
     private void invokeRtfEditor(String sObjName) {

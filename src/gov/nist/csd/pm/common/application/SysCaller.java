@@ -113,7 +113,10 @@ public interface SysCaller {
 
     boolean deassignObjFromOutboxOf(String sObjName, String sUserName);
 
+    boolean deassignObjFromOattr3(String sObjName, String sUserName);
+    
     Packet deleteOpsetsBetween(String sUattrName, String sOattrName);
+    
 
     /**
      * This should not be called directly by an application rather you should use the  in the application manager for closing the application.

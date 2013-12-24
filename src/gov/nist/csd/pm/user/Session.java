@@ -446,20 +446,21 @@ public class Session extends JDialog implements ActionListener {
             // The File menu.
             JMenu fileMenu = new JMenu("File");
             menuBar.add(fileMenu);
-
+// Commented by Gopi - 12/16/2013
+// All unused/unimplemented Menu items have been commented out            
             JMenuItem menuItem = new JMenuItem("New");
-            menuItem.addActionListener(this);
-            fileMenu.add(menuItem);
+//            menuItem.addActionListener(this);
+//            fileMenu.add(menuItem);
 
             fileMenu.addSeparator();
 
-            openMenuItem = new JMenuItem("Open");
+            JMenuItem openMenuItem = new JMenuItem("Open");
             openMenuItem.addActionListener(this);
             fileMenu.add(openMenuItem);
 
-            menuItem = new JMenuItem("Print");
-            menuItem.addActionListener(this);
-            fileMenu.add(menuItem);
+//            menuItem = new JMenuItem("Print");
+//            menuItem.addActionListener(this);
+//            fileMenu.add(menuItem);
 
             fileMenu.addSeparator();
 
@@ -467,23 +468,23 @@ public class Session extends JDialog implements ActionListener {
             grantMenuItem.addActionListener(this);
             fileMenu.add(grantMenuItem);
 
-            menuItem = new JMenuItem("Send To...");
-            menuItem.addActionListener(this);
-            fileMenu.add(menuItem);
+//            menuItem = new JMenuItem("Send To...");
+//            menuItem.addActionListener(this);
+//            fileMenu.add(menuItem);
 
-            menuItem = new JMenuItem("Export To");
-            menuItem.addActionListener(this);
-            fileMenu.add(menuItem);
+//            menuItem = new JMenuItem("Export To");
+//            menuItem.addActionListener(this);
+//            fileMenu.add(menuItem);
 
             fileMenu.addSeparator();
 
-            menuItem = new JMenuItem("Delete");
-            menuItem.addActionListener(this);
-            fileMenu.add(menuItem);
+//            menuItem = new JMenuItem("Delete");
+//            menuItem.addActionListener(this);
+//            fileMenu.add(menuItem);
 
-            menuItem = new JMenuItem("Rename");
-            menuItem.addActionListener(this);
-            fileMenu.add(menuItem);
+//            menuItem = new JMenuItem("Rename");
+//            menuItem.addActionListener(this);
+//            fileMenu.add(menuItem);
 
             menuItem = new JMenuItem("Properties");
             menuItem.addActionListener(this);
@@ -498,32 +499,32 @@ public class Session extends JDialog implements ActionListener {
             fileMenu.add(menuItem);
 
             // The Edit menu.
-            JMenu editMenu = new JMenu("Edit");
-            menuBar.add(editMenu);
+//            JMenu editMenu = new JMenu("Edit");
+//            menuBar.add(editMenu);
 
-            menuItem = new JMenuItem("Cut");
-            menuItem.addActionListener(this);
-            editMenu.add(menuItem);
+//            menuItem = new JMenuItem("Cut");
+//            menuItem.addActionListener(this);
+//            editMenu.add(menuItem);
 
-            menuItem = new JMenuItem("Copy");
-            menuItem.addActionListener(this);
-            editMenu.add(menuItem);
+//            menuItem = new JMenuItem("Copy");
+//            menuItem.addActionListener(this);
+//            editMenu.add(menuItem);
 
-            menuItem = new JMenuItem("Paste");
-            menuItem.addActionListener(this);
-            editMenu.add(menuItem);
+//            menuItem = new JMenuItem("Paste");
+//            menuItem.addActionListener(this);
+//            editMenu.add(menuItem);
 
             // The View menu.
             JMenu viewMenu = new JMenu("View");
             menuBar.add(viewMenu);
 
-            menuItem = new JMenuItem("More tiers");
-            menuItem.addActionListener(this);
-            viewMenu.add(menuItem);
+//            menuItem = new JMenuItem("More tiers");
+//            menuItem.addActionListener(this);
+//            viewMenu.add(menuItem);
 
-            menuItem = new JMenuItem("Fewer tiers");
-            menuItem.addActionListener(this);
-            viewMenu.add(menuItem);
+//            menuItem = new JMenuItem("Fewer tiers");
+//            menuItem.addActionListener(this);
+//            viewMenu.add(menuItem);
 
             viewMenu.addSeparator();
 
@@ -549,9 +550,9 @@ public class Session extends JDialog implements ActionListener {
             menuItem.addActionListener(this);
             toolsMenu.add(menuItem);
 
-            menuItem = new JMenuItem("Run command...");
-            menuItem.addActionListener(this);
-            toolsMenu.add(menuItem);
+//            menuItem = new JMenuItem("Run command...");
+//            menuItem.addActionListener(this);
+//            toolsMenu.add(menuItem);
 
             /* (steveq) deleted */
             // menuItem = new JMenuItem("Composer");
@@ -562,17 +563,17 @@ public class Session extends JDialog implements ActionListener {
             // menuItem.addActionListener(this);
             // toolsMenu.add(menuItem);
 
-            menuItem = new JMenuItem("RTF Editor");
-            menuItem.addActionListener(this);
-            toolsMenu.add(menuItem);
+//            menuItem = new JMenuItem("RTF Editor");
+//            menuItem.addActionListener(this);
+//            toolsMenu.add(menuItem);
 
-            menuItem = new JMenuItem("Admin Tool");
-            menuItem.addActionListener(this);
-            toolsMenu.add(menuItem);
+//            menuItem = new JMenuItem("Admin Tool");
+//            menuItem.addActionListener(this);
+//            toolsMenu.add(menuItem);
 
-            menuItem = new JMenuItem("Word");
-            menuItem.addActionListener(this);
-            toolsMenu.add(menuItem);
+//            menuItem = new JMenuItem("Word");
+//            menuItem.addActionListener(this);
+//            toolsMenu.add(menuItem);
 
             toolsMenu.addSeparator();
 
@@ -586,42 +587,42 @@ public class Session extends JDialog implements ActionListener {
             // menuItem.addActionListener(this);
             // configureMenu.add(menuItem);
 
-            menuItem = new JMenuItem("Set startups");
-            menuItem.addActionListener(this);
-            configureMenu.add(menuItem);
+//            menuItem = new JMenuItem("Set startups");
+//            menuItem.addActionListener(this);
+//            configureMenu.add(menuItem);
 
             toolsMenu.add(configureMenu);
 
             // The user popup menu.
             pmUserPopup = new JPopupMenu();
 
-            menuItem = new JMenuItem("Test connect");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
+//            menuItem = new JMenuItem("Test connect");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
 
-            menuItem = new JMenuItem("Test read file");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
+//            menuItem = new JMenuItem("Test read file");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
 
-            menuItem = new JMenuItem("Test request permissions...");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
+//            menuItem = new JMenuItem("Test request permissions...");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
 
-            pmUserPopup.addSeparator();
+//            pmUserPopup.addSeparator();
 
-            menuItem = new JMenuItem("New");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
+//            menuItem = new JMenuItem("New");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
 
-            pmUserPopup.addSeparator();
+//            pmUserPopup.addSeparator();
 
             menuItem = new JMenuItem("Open");
             menuItem.addActionListener(this);
             pmUserPopup.add(menuItem);
 
-            menuItem = new JMenuItem("Open With TH");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
+//            menuItem = new JMenuItem("Open With TH");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
 
             pmUserPopup.addSeparator();
 
@@ -629,37 +630,37 @@ public class Session extends JDialog implements ActionListener {
             menuItem.addActionListener(this);
             pmUserPopup.add(menuItem);
 
-            menuItem = new JMenuItem("Send To...");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
+//            menuItem = new JMenuItem("Send To...");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
 
-            menuItem = new JMenuItem("Export To...");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
-
-            pmUserPopup.addSeparator();
-
-            menuItem = new JMenuItem("Cut");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
-
-            menuItem = new JMenuItem("Copy");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
-
-            menuItem = new JMenuItem("Delete");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
-
-            menuItem = new JMenuItem("Rename");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
+//            menuItem = new JMenuItem("Export To...");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
 
             pmUserPopup.addSeparator();
 
-            menuItem = new JMenuItem("Select as startup");
-            menuItem.addActionListener(this);
-            pmUserPopup.add(menuItem);
+//            menuItem = new JMenuItem("Cut");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
+//
+//            menuItem = new JMenuItem("Copy");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
+//
+//            menuItem = new JMenuItem("Delete");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
+//
+//            menuItem = new JMenuItem("Rename");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
+//
+//            pmUserPopup.addSeparator();
+//
+//            menuItem = new JMenuItem("Select as startup");
+//            menuItem.addActionListener(this);
+//            pmUserPopup.add(menuItem);
 
             pmUserPopup.addSeparator();
 
@@ -670,11 +671,11 @@ public class Session extends JDialog implements ActionListener {
             // The admin popup menu.
             pmAdminPopup = new JPopupMenu();
 
-            menuItem = new JMenuItem("Edit");
-            menuItem.addActionListener(this);
-            pmAdminPopup.add(menuItem);
-
-            pmAdminPopup.addSeparator();
+//            menuItem = new JMenuItem("Edit");
+//            menuItem.addActionListener(this);
+//            pmAdminPopup.add(menuItem);
+//
+//            pmAdminPopup.addSeparator();
 
             menuItem = new JMenuItem("Add policy class...");
             menuItem.addActionListener(this);
@@ -696,9 +697,9 @@ public class Session extends JDialog implements ActionListener {
             menuItem.addActionListener(this);
             pmAdminPopup.add(menuItem);
 
-            menuItem = new JMenuItem("Add object...");
-            menuItem.addActionListener(this);
-            pmAdminPopup.add(menuItem);
+//            menuItem = new JMenuItem("Add object...");
+//            menuItem.addActionListener(this);
+//            pmAdminPopup.add(menuItem);
 
             pmAdminPopup.addSeparator();
 
@@ -825,7 +826,7 @@ public class Session extends JDialog implements ActionListener {
 
         Packet res = null;
         try {
-            Packet cmd = CommandUtil.makeCmd("setKStorePaths", sSessionUserId,
+            Packet cmd = CommandUtil.makeCmd("setKStorePaths", null, sSessionUserId,
                     sHost, sKsPath, sTsPath);
             res = simClient.sendReceive(cmd, null);
             if (res.hasError()) {

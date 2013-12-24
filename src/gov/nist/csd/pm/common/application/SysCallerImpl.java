@@ -542,7 +542,26 @@ public class SysCallerImpl implements SysCaller  {
             return false;
         }
     }
-
+    
+    public boolean deassignObjFromOattr3(String sObjName, String sUserName) {
+        sLastError = null;
+        try {
+            Packet cmd = makeCmd(DEASSIGN_OBJ_FROM_OATTR_WITH_PROP, sSessionId,
+                    sProcessId, sObjName, "homeof=" + sUserName);
+            Packet res = simClient.sendReceive(cmd, null);
+            if (res.hasError()) {
+                sLastError = "Error in deassignObjFromHomeOf: "
+                        + res.getErrorMessage();
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            sLastError = "Exception in deassignObjFromHomeOf: "
+                    + e.getMessage();
+            return false;
+        }
+    }
     public boolean assignObjToWinboxOf(String sObjName, String sUserName) {
         sLastError = null;
         try {

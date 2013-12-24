@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static gov.nist.csd.pm.common.info.PMCommand.DEASSIGN_OBJ_FROM_OATTR_WITH_PROP;
 import static gov.nist.csd.pm.common.net.Packet.nullPacket;
+import static gov.nist.csd.pm.common.util.CommandUtil.makeCmd;
 
 /**
  * Created by IntelliJ IDEA.
@@ -124,6 +126,11 @@ public class NullSysCaller implements SysCaller {
 
     @Override
     public boolean deassignObjFromHomeOf(String sObjName, String sUserName) {
+        return false;
+    }
+    
+    @Override
+    public boolean deassignObjFromOattr3(String sObjName, String sUserName) {
         return false;
     }
 

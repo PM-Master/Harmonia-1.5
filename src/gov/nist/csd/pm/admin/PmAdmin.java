@@ -457,17 +457,21 @@ public class PmAdmin extends JFrame implements ActionListener, TreeExpansionList
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        menuItem = new JMenuItem("Import configuration (in block)...");
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
+// Commented out by Gopi - 12/16/13
+// Commented out unused menu item          
+//        menuItem = new JMenuItem("Import configuration (in block)...");
+//        menuItem.addActionListener(this);
+//        menu.add(menuItem);
 
         menuItem = new JMenuItem("Export configuration...");
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        menuItem = new JMenuItem("Test export");
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
+// Commented out by Gopi - 12/16/13
+// Commented out unused menu item          
+//        menuItem = new JMenuItem("Test export");
+//        menuItem.addActionListener(this);
+//        menu.add(menuItem);
 
         menuItem = new JMenuItem("Migrate to PM objects...");
         menuItem.addActionListener(this);
@@ -633,17 +637,19 @@ public class PmAdmin extends JFrame implements ActionListener, TreeExpansionList
         // Create the popup menus.
         pmPopup = new JPopupMenu();
 
-        menuItem = new JMenuItem("Get connector");
-        menuItem.addActionListener(this);
-        pmPopup.add(menuItem);
-
-        menuItem = new JMenuItem("Get containers of");
-        menuItem.addActionListener(this);
-        pmPopup.add(menuItem);
-
-        menuItem = new JMenuItem("Get members of");
-        menuItem.addActionListener(this);
-        pmPopup.add(menuItem);
+// Commented out by Gopi - 12/16/13
+// Commented out unused menu items        
+//        menuItem = new JMenuItem("Get connector");
+//        menuItem.addActionListener(this);
+//        pmPopup.add(menuItem);
+//
+//        menuItem = new JMenuItem("Get containers of");
+//        menuItem.addActionListener(this);
+//        pmPopup.add(menuItem);
+//
+//        menuItem = new JMenuItem("Get members of");
+//        menuItem.addActionListener(this);
+//        pmPopup.add(menuItem);
 
         menuItem = new JMenuItem("Request perms on node...");
         menuItem.addActionListener(this);
