@@ -1,7 +1,0 @@
-script demo
-
-// For
-when any user performs "Object write"
-    on any object of attribute "SharedContainer"
-  do deny user user_default()
-    operation "File write" on attribute oattr_of_default_obj()
