@@ -2,3 +2,26 @@ body{
 margin: 70px, 100px;
 padding: 25px;
 }
+
+.slide{
+  background-attachment:fixed;
+  width:100%;
+  height:100%;
+  box-shadow:inset 0px -10px 10px rgba(0, 0, 0, 0.3);
+  padding:40px 20px;
+}
+
+.button{
+  z-index: 10;
+  position: fixed;
+  top:70px;
+  left: 65%;
+}
+
+.button a{
+  border:2px solid black;
+  background-color:black;
+  color: white;
+  border-radius: 10px;
+  padding:5px;
+}
