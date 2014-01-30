@@ -1,8 +1,7 @@
 html, body{
   margin:0;
   padding: 0;
-  
-  font-size: 22px;
+  font-size: 16px;
 }
 
 .slide{
@@ -37,7 +36,7 @@ html, body{
 }
 
 #slide2{
-  background-color:rgba(236, 240, 241,1.0);
+  background-color:rgba(41, 128, 185,1.0);
   color:rgba(236, 240, 241,1.0);
 }
 
