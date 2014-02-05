@@ -1,42 +1,90 @@
-html, body{
-  margin:0;
-  padding: 0;
-  font-size: 16px;
+body{
+  background-image:url("imagesForweb/grey_wash_wall/grey_wash_wall.png");
+  background-repeat:repeat;
+/*  background-size:cover;
+*/  color:rgba(236, 240, 241,1.0);
+  width: 100%;
 }
 
-.slide{
-  background-attachment:fixed;
-  width:100%;
-  height:100%;
-  box-shadow:inset 0px -10px 10px rgba(0, 0, 0, 0.3);
-  padding:40px 20px;
+.container{
+  padding: 10px 0px;
+  margin-top: 0px;
 }
-
-.button{
-  z-index: 10;
-  position: fixed;
-  top:20px;
-  left: 65%;
-}  
 
 .button a{
   border:2px solid rgba(231, 76, 60,0.6);
   background-color:rgba(192, 57, 43,1.0);
   color: rgba(44, 62, 80,1.0);
   border-radius: 10px;
+  margin: 5px 10px;
   padding:5px;
   font:0.5em;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+li a:link, li a:visited{
+  color:rgba(236, 240, 241,1.0);
+}
+
+li a:hover, li a:active{
+  color:rgba(236, 240, 241,1.0);
+}
+
+.slides{
+  max-height: 1000px;
+  padding:30px 50px;
 }
 
 #slide1{
-  background-image:url("imagesForweb/grey_wash_wall/grey_wash_wall_@2X.png");
-  background-repeat:repeat;
-  background-size:cover;
-  color:rgba(236, 240, 241,1.0);
+  height:550px;
+  color:rgba(44, 62, 80,1.0);
+}
+
+#slide1 h1, #slide1 h2{
+  position: relative;
+  top:-65%;
+  z-index: 3;
+}
+
+#slide1 h1{  
+  font-size: 2.8em;
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 700;  
+  text-align: center;
+}
+
+#slide1 h2{
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  text-align:right;
+  padding-right: 50%;
+}
+
+#slide1 img{
+  position: relative;
+  left: 59%;
+  top:115px;
+  max-width:400px;
+  z-index: 0;
 }
 
 #slide2{
-  background-color:rgba(41, 128, 185,1.0);
-  color:rgba(236, 240, 241,1.0);
+  box-shadow: inset 0 5px 5px rgba(44, 62, 80,.6);
+  font-family: 'Ovo', sans-serif;
+  background-color: rgba(41, 128, 185,.5);
+  height:500px;
+}
+#slide2 h2, #slide3 h2, #slide4 h2{
+  font-family: 'Gilda Display', serif;
+} 
+#slide3{
+  box-shadow: 0 -5px 5px rgba(44, 62, 80,.6);
+  background-color: rgba(192, 57, 43,.5);
+  height:500px;
 }
 
+#slide4{
+  box-shadow: inset 0 5px 5px rgba(44, 62, 80,.6);
+  height:300px;
+  padding-bottom: 100px;
+}

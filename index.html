@@ -9,56 +9,88 @@
   <meta name="author" content="Nicole Keller">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="main.css">
+  <link href='http://fonts.googleapis.com/css?family=Gilda+Display|Ovo|Quattrocento+Sans:400,400italic,700|Cinzel:400,700|Cinzel+Decorative:400,700' rel='stylesheet' type='text/css'>
  
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body>
+<body>  
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Harmonia</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href = "#slide2">Definition</a></li>
+            <li><a href = "#slide3">Features</a></li>
+          </ul>
+          <ul class="nav navbar-nav pull-right">
+            <li class = "button"><a href = "#">Download GitHub Source</a></li>
+            <li class = "button"><a href = "#">GitHub Page</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+<!--     <div class = "container">
+ -->      <div class = "slides" id = "slide1">
+          <img class = "img-resonsive" src="imagesForWeb/harmonia.png"/>
+          <h1>Introducing the Policy Machine</h1>
+          <h2>Harmonia 1.5</h2>
+        </div>
+        <div class = "slides" id = "slide2">
+          <h2>Definition: </h2>
+          <p>Definition of the Policy Machine</p>
+        </div>
+        <div class = "slides" id = "slide3">
+          <h2>Features</h2>
+          <ul>
+            <li>Access Control</li>
+            <li>Etc.</li>
+            <li>Etc.</li>
+          </ul>
+          <div id = "screenshot">
+            <img src = "" alt=""/>
+          </div>
+        </div>
+        <div class = "slides" id = "slide4">
+          <h2>Help Us Develop</h2>
+          <p>
+            We want developers to start developing enhancements, additions, and fixes to our code.
+            If you want any guidence to what tasks we have look at our issues page on GitHub. 
+          </p>
+        
+          <h2>Contact Us</h2>
+          <p>You can contact us at:</p>
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <p>
+            And if you want a more indepth explaination of the policy machine you can visit our official NIST website  
+          <a href = "csrc.nist.gov/pm">here</a>
+          </p>  
+      </div>
+<!--   </div>
+ -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery.js"></script>
 
-  <div class = "slide" id = "slide1">
-    <div class = "button">
-    <a href = "#">Download GitHub Source</a>
-    <a href = "#">Goto GitHub Page</a>
-    </div>
-    <h1>Policy Machine</h1>
-    <h2>Harmonia 1.5</h2>
-    <h3>Definition: </h3>
-    <p>Definition of the Policy Machine</p>
-  </div>
-  <div class = "slide" id = "slide2">
-    <h3>Features</h3>
-    <ul>
-      <li>Access Control</li>
-      <li>Etc.</li>
-      <li>Etc.</li>
-    </ul>
-    <div id = "screenshot">
-      <img src = "" alt=""/>
-    </div>
-  </div>
-  
-  <div class = "slide" id = "slide3">
-    <h3>Help Us Develop</h3>
-    <p>
-      We want developers to start developing enhancements, additions, and fixes to our code.
-      If you want any guidence to what tasks we have look at our issues page on GitHub. 
-    </p>
-  </div>
-  
-  <div class = "slide" id = "slide4">
-    <h3>Contact Us</h3>
-    <p>You can contact us at:</p>
-    <ul>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
-    <p>
-      And if you want a more indepth explaination of the policy machine you can visit our official NIST website  
-    <a href = "csrc.nist.gov/pm">here</a>
-    </p>
+    <script src="../js/bootstrap.min.js"></script> 
+
     
 </body>
 </html>
