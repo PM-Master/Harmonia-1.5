@@ -18,7 +18,7 @@
   <![endif]-->
 </head>
 <body>  
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -42,48 +42,82 @@
         </div>
       </div>
     </nav>
-<!--     <div class = "container">
- -->      <div class = "slides" id = "slide1">
-          <img class = "img-resonsive" src="imagesForWeb/harmonia.png"/>
-          <h1>Introducing the Policy Machine</h1>
-          <h2>Harmonia 1.5</h2>
-        </div>
-        <div class = "slides" id = "slide2">
-          <h2>Definition: </h2>
-          <p>Definition of the Policy Machine</p>
-        </div>
-        <div class = "slides" id = "slide3">
-          <h2>Features</h2>
-          <ul>
-            <li>Access Control</li>
-            <li>Etc.</li>
-            <li>Etc.</li>
-          </ul>
-          <div id = "screenshot">
-            <img src = "" alt=""/>
-          </div>
-        </div>
-        <div class = "slides" id = "slide4">
-          <h2>Help Us Develop</h2>
-          <p>
-            We want developers to start developing enhancements, additions, and fixes to our code.
-            If you want any guidence to what tasks we have look at our issues page on GitHub. 
-          </p>
-        
-          <h2>Contact Us</h2>
-          <p>You can contact us at:</p>
-          <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-          <p>
-            And if you want a more indepth explaination of the policy machine you can visit our official NIST website  
-          <a href = "csrc.nist.gov/pm">here</a>
-          </p>  
+    <div class = "container">  
+      <div class = "jumbotron">
+        <h1>Introducing the Policy Machine</h1>
+        <h2>Harmonia 1.5</h2>
+<!--         <img class = "img-responsive" src="imagesForWeb/harmonia.png"/>
+ -->      </div> 
+
+      <div class = "row" id = "sec1">
+        <div class = "leftsec col-md-8 col-lg-8 col-sm-12">
+          <h2>Definition of the Policy Machine: </h2>
+          <p>The Policy Machine is an access control mechanism that comprises: (1) Access control data used to express access control policies and deliver capabilities of data services to perform operations on objects; (2) a set of administrative operations for configuring the access control; and (3) a set of functions for enforcing policy on requests to execute operations on objects and for computing access decisions to accommodate or reject those requests based on the current state of the access control data. What distinguish the Policy Machine from other mechanisms are the data elements and relations that define its access control data, the type of operations that are recognized, and the functions that it implements. These specifics are driven by a redefinition of access control and data services in terms of what is believed to be their common and underlying elements, relations, and functions.</p>
       </div>
-<!--   </div>
- -->
+      <div class = "rightsec col-md-4 col-lg-4 col-sm-12">
+        <h2>Features:</h2>
+        <ul>
+          <li>Access Control</li>
+          <li>Multiple Users</li>
+          <li>Custom Applications
+            <ul>
+              <li>Email</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+      <div class = "row" id = "sec2">
+        <div class = "col-md-12 col-lg-12 col-sm-12">
+          <h2>Quick Install Guide:<br><small>* Follow these steps to install Harmonia. Uninstall Harmonia if it is already installed on your computer before executing these steps.</small></h2>
+           <ul> 
+            <li>This quick guide will log you on as one of the sample users - 'bob', which is setup in Harmonia as part of installation. </li>
+            <li>If you want to create other users for different client machines, please go through the installation guide provided in C:\PM\doc\Manuals.</li>
+            </ul>
+            <h3>Steps:</h3>
+              <ol>
+                <li> Extract this zip file to the directory of your choice.</li>
+                <li> Run Harmonia.exe (Under directory called 'install') file on your computer and follow the instructions. Keep the default installation directory to C: drive.</li>
+                <li> Once installed, run server.bat from your desktop to start the server.</li> 
+                <li>Once server is started successfully, run super.bat from desktop to run the Admin tool. </li>
+                <li>Enter the default password for the keystores is 'aaaaaa' (you can change this password in your super.bat file).</li> 
+                <li>Pick keystore under C:\PM\keystores\superKeystore and truststore under C:\PM\keystores\clientTruststore.</li>
+                <li>Once Admin tool is up and running, import file C:\PM\conf\PMServerConfiguration.pm using File-->Import menu.</li>
+                <li>Start the Simlator.bat from your desktop</li>
+                <li>Start session.bat to start the client on your computer. </li>
+                <li> At the logon screen enter user/password as bob/bob to logon as Bob. </li>
+              </ol>
+          </p>
+        </div> 
+      </div>
+      <div class = "row" id = "sec3">
+        <div class = "leftsec col-md-6 col-lg-6 col-sm-12">
+          <h2>Contact Us:</h2>
+          <address>
+            <strong>Full Name</strong><br>
+            <a href="mailto:#">first.last@example.com</a>
+          </address>
+          <address>
+            <strong>Full Name</strong><br>
+            <a href="mailto:#">first.last@example.com</a>
+          </address>
+          <address>
+            <strong>Full Name</strong><br>
+            <a href="mailto:#">first.last@example.com</a>
+          </address>
+          <address>
+            <strong>Full Name</strong><br>
+            <a href="mailto:#">first.last@example.com</a>
+          </address>
+        </div>
+        <div class = "rightsec col-md-6 col-lg-6 col-sm-12">
+            <h2>Contribute to the Project:</h2>
+            <p>Fork Us...</p>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -1,25 +1,32 @@
 body{
   background-image:url("imagesForweb/grey_wash_wall/grey_wash_wall.png");
   background-repeat:repeat;
-/*  background-size:cover;
-*/  color:rgba(236, 240, 241,1.0);
+  background-attachment: fixed;
+  padding-top: 75px;
+  color: rgba(44, 62, 80,1.0);
   width: 100%;
 }
-
-.container{
-  padding: 10px 0px;
-  margin-top: 0px;
-}
-
 .button a{
   border:2px solid rgba(231, 76, 60,0.6);
-  background-color:rgba(192, 57, 43,1.0);
-  color: rgba(44, 62, 80,1.0);
+  background-color:rgba(44, 62, 80,1.0);
   border-radius: 10px;
   margin: 5px 10px;
   padding:5px;
-  font:0.5em;
+  font-size: 1.2em;
+  color: rgba(236, 240, 241,1.0);
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.button li a:link, .button li a:visited{
+  border:2px solid rgba(231, 76, 60,0.6);
+  background-color:rgba(44, 62, 80,1.0);
+  
+}
+
+.button li a:hover, .button li a:active{
+  border:2px solid #2980b9;
+  background-color:rgba(44, 62, 80,1.0);
+  
 }
 
 li a:link, li a:visited{
@@ -30,61 +37,58 @@ li a:hover, li a:active{
   color:rgba(236, 240, 241,1.0);
 }
 
-.slides{
-  max-height: 1000px;
-  padding:30px 50px;
+.container{
+  padding: 10px 0px;
+  margin-top: 0px;
 }
 
-#slide1{
-  height:550px;
-  color:rgba(44, 62, 80,1.0);
+.row{
+  font-size: 1.5em;
 }
 
-#slide1 h1, #slide1 h2{
-  position: relative;
-  top:-65%;
-  z-index: 3;
+.jumbotron{
+  background-image: url("imagesForWeb/harmoniaDark.png");
+  background-position: right;
+  background-size:30%;
+  background-repeat: no-repeat;
+  box-shadow: 0px 10px 10px rgba(44, 62, 80,1.0);
 }
 
-#slide1 h1{  
-  font-size: 2.8em;
-  font-family: 'Cinzel Decorative', serif;
-  font-weight: 700;  
-  text-align: center;
+h1{
+  font-family: "Cinzel Decorative", serif;
 }
 
-#slide1 h2{
-  font-family: 'Cinzel', serif;
-  font-weight: 700;
-  text-align:right;
-  padding-right: 50%;
+h2, h3{
+  font-family: "Cinzel", serif;
 }
 
-#slide1 img{
-  position: relative;
-  left: 59%;
-  top:115px;
-  max-width:400px;
-  z-index: 0;
+p, li, address{
+  font-family: "Quattrocento Sans", sans-serif;
 }
 
-#slide2{
-  box-shadow: inset 0 5px 5px rgba(44, 62, 80,.6);
-  font-family: 'Ovo', sans-serif;
-  background-color: rgba(41, 128, 185,.5);
-  height:500px;
-}
-#slide2 h2, #slide3 h2, #slide4 h2{
-  font-family: 'Gilda Display', serif;
-} 
-#slide3{
-  box-shadow: 0 -5px 5px rgba(44, 62, 80,.6);
-  background-color: rgba(192, 57, 43,.5);
-  height:500px;
+#sec1, #sec2, #sec3{
+  background-color: rgba(236, 240, 241,0.6);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+
 }
 
-#slide4{
-  box-shadow: inset 0 5px 5px rgba(44, 62, 80,.6);
-  height:300px;
-  padding-bottom: 100px;
+.leftsec{
+  border-right:3px dashed rgba(44, 62, 80,1.0);
 }
+
+/*Media Queries*/
+@media(max-width: 980px){
+  .jumbotron{
+    padding-right:25%;
+  }
+  
+}
+
+
+
+
+
+
+
