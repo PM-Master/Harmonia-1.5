@@ -47,7 +47,7 @@ li a:hover, li a:active{
 }
 
 .jumbotron{
-  background-image: url("imagesForWeb/harmoniaDark.png");
+  background-image: url("imagesForweb/harmoniaDark.png");
   background-position: right;
   background-size:30%;
   background-repeat: no-repeat;
