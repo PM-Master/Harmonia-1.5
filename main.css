@@ -56,7 +56,10 @@ li a:hover, li a:active{
 
 h1{
   font-family: "Cinzel Decorative", serif;
+  padding-right: 200px;
 }
+
+
 
 h2, h3{
   font-family: "Cinzel", serif;
@@ -81,12 +84,12 @@ p, li, address{
 /*Media Queries*/
 @media(min-width: 768px){
   .jumbotron{
+
   }
 }
 
 @media(max-width: 991px){
-  .jumbotron{
-    padding-right:25%;
+  .jumbotron{   
   }
 
   .leftsec{
