@@ -1,19 +1,34 @@
 QUICK GUIDE to install Harmonia and log on as a sample user provided with the installation.
+
 ===========================================================================================
 
 
-* Follow these steps to install Harmonia. Uninstall Harmonia if it is already installed on your computer before executing these steps. 
-  - This quick guide will log you on as one of the sample users - 'bob', which is setup in Harmonia as part of installation. 
-  - If you want to create other users for different client machines, please go through the installation guide provided in C:\PM\doc\Manuals.
+* 
+Follow these steps to install Harmonia. Uninstall Harmonia if it is already installed on your computer before executing these steps.
+
+- This quick guide will log you on as one of the sample users - 'bob', which is setup in Harmonia as part of installation. 
+  
+- If you want to create other users for different client machines, please go through the installation guide provided in C:\PM\doc\Manuals.
+
+
 
 1. Extract this zip file to the directory of your choice.
+
 2. Run Harmonia.exe (Under directory called 'install') file on your computer and follow the instructions. Keep the default installation directory to C: drive.
+
 3. Once installed, run server.bat from your desktop to start the server.
+
 4. Once server is started successfully, run super.bat from desktop to run the Admin tool. 
+
 5. Enter the default password for the keystores is 'aaaaaa' (you can change this password in your super.bat file).  
+
 6. Pick keystore under C:\PM\keystores\superKeystore and truststore under C:\PM\keystores\clientTruststore
+
 7. Once Admin tool is up and running, import file C:\PM\conf\PMServerConfiguration.pm using File-->Import menu.
+
 8. Start the Simlator.bat from your desktop
+
 9. Start session.bat to start the client on your computer. 
+
 10. At the logon screen enter user/password as bob/bob to logon as Bob. 
 
