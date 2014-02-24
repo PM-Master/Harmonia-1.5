@@ -105,6 +105,7 @@ a img{
   border-radius: 20px;
   padding: 20px;
   width: 50%;
+  margin-left: 25%;
 }
 
 a img:hover{
@@ -117,7 +118,7 @@ a img:hover{
   .jumbotron{
 
   }
-  
+
 }
 
 @media(max-width: 991px){
