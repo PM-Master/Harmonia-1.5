@@ -113,6 +113,10 @@ a img:hover{
 
 }
 
+small{
+  color: rgba(52, 73, 94,0.6);
+}
+
 /*Media Queries*/
 @media(min-width: 768px){
   .jumbotron{
