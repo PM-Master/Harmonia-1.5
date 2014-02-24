@@ -42,6 +42,18 @@ li a:hover, li a:active{
   font-size: 20px;
 }
 
+.navbar .nav>li.button>a{
+  color:rgba(236, 240, 241,1.0);
+}
+
+.navbar .nav>li.button>a:link, .navbar .nav>li.button>a:visited{
+  color:rgba(236, 240, 241,1.0);
+}
+
+.navbar .nav>li.button>a:hover, .navbar .nav>li.button>a:active{
+  color:rgba(52, 73, 94,1.0);
+}
+
 .container{
   padding: 10px 0px;
   margin-top: 0px;
@@ -74,7 +86,7 @@ p, li, address{
   font-family: "Quattrocento Sans", sans-serif;
 }
 
-#sec1, #sec2, #sec3{
+#sec1, #sec2, #sec3, #sec4{
   background-color: rgba(236, 240, 241,0.6);
   border-radius: 10px;
   margin-bottom: 10px;
@@ -86,11 +98,26 @@ p, li, address{
   border-right:3px dashed rgba(44, 62, 80,1.0);
 }
 
+a img{
+  text-align: center;
+  border:2px solid rgba(192, 57, 43,.5);
+  background-color: rgba(44, 62, 80,.7);
+  border-radius: 20px;
+  padding: 20px;
+  width: 50%;
+}
+
+a img:hover{
+    background-color: rgba(44, 62, 80,1.0);
+
+}
+
 /*Media Queries*/
 @media(min-width: 768px){
   .jumbotron{
 
   }
+  
 }
 
 @media(max-width: 991px){
@@ -102,7 +129,7 @@ p, li, address{
     border-right:none;
   }
 
-  #sec1, #sec2, #sec3{
+  #sec1, #sec2, #sec3, #sec4{
     margin: 10px;
     padding: 10px;
   }
