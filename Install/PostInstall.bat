@@ -42,7 +42,7 @@ stringUtil %ldfFile4% [DOMAIN] "%dom%"
 
 ldifde -i -f C:\PM\doc\ADSchema\PMAttributes.ldf
 ldifde -i -f C:\PM\doc\ADSchema\PMClasses.ldf
-ldifde –i –f C:\PM\doc\ADSchema\PMContainers.ldf
+ldifde -i -f C:\PM\doc\ADSchema\PMContainers.ldf
 ldifde -i -f C:\PM\doc\ADSchema\PMNames.ldf
 
 REM -- replace DOMAIN with domain --- fart C:\PM\doc\ADSchema\*.ldf [DOMAIN] %USERDNSDOMAIN%

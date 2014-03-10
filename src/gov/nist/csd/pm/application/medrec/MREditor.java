@@ -624,17 +624,17 @@ public class MREditor extends JFrame implements ActionListener {
         if (sClass.equalsIgnoreCase(SysCaller.PM_CLASS_FILE_NAME)) {
                 if (sIdOrPath.toLowerCase().endsWith(".rtf")) {
                   invokeRtfEditor(sObjName);
-                  // new Editor code
-//                	if(sObjName.equals(sTreatmentName)){
-//                        createNewTreat();
-//                	}else if(sObjName.equals(sDiagName)){
-//                		createNewDiagnosis();
-//                	}else if(sObjName.equals(sHistoryName)){
-//                		createNewHistory();
-//                	}else{
-//                		invokeRtfEditor(sObjName);
-//                	}
-
+                  /* new Editor code
+                	if(sObjName.equals(sTreatmentName)){
+                        createNewTreat();
+                	}else if(sObjName.equals(sDiagName)){
+                		createNewDiagnosis();
+                	}else if(sObjName.equals(sHistoryName)){
+                		createNewHistory();
+                	}else{
+                		invokeRtfEditor(sObjName);
+                	}
+				*/
                 // Doesn't happen
             } else if (sIdOrPath.toLowerCase().endsWith(".wkf")) {
                 invokeWorkflow(sObjName);
