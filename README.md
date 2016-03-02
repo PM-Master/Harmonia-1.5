@@ -42,7 +42,6 @@ Public Release 1.5</p>
 You can contact either: <br>
 David Ferriolo <br>
 Serban Gaverillo <br>
-Nikki Keller nicole.keller@nist.gov<br>
 Gopi Katwala</p>
 
 <p><strong>Date or copyright date, and other legal information:</strong><br>
