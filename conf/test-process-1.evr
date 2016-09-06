@@ -1,0 +1,6 @@
+script demo
+
+when any user performs "Object read"
+     on any object
+  do
+    deny process process_default() operation "File read" on "Med Records"

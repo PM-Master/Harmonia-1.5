@@ -1,4 +1,3 @@
-##############  Server Configuration Commands ##############
 add|p|MLS|c|PM
 add|prop|type=mls|p|MLS
 add|prop|levels=Secret,Top secret|p|MLS
@@ -10,26 +9,14 @@ add|p|Confine|c|PM
 add|prop|type=confinement|p|Confine
 add|a|Secret|p|MLS
 add|prop|correspondsto=S|a|Secret
-add|b|S_TS|p|MLS
 add|ob|TS rep|Object attribute|no|TS|97946C24894C83121992A368042A3A0F|p|MLS
 add|ob|S rep|Object attribute|no|S|176ED2D3E560F82E260CC207BDDFE447|p|MLS
+add|b|S_TS|p|MLS
 add|a|Acct Mgr|p|DAC
 add|a|Acct Repr|p|DAC
 add|a|Nurse|p|DAC
 add|a|Adm Clerk|p|DAC
 add|a|DAC uattrs|p|DAC
-add|b|witems|p|DAC
-add|prop|containerof=witems|b|witems
-add|b|katie home|p|DAC
-add|prop|homeof=katie|b|katie home
-add|b|inboxes|p|DAC
-add|prop|containerof=inboxes|b|inboxes
-add|b|charlie home|p|DAC
-add|prop|homeof=charlie|b|charlie home
-add|b|bob home|p|DAC
-add|prop|homeof=bob|b|bob home
-add|b|alice home|p|DAC
-add|prop|homeof=alice|b|alice home
 add|prop|usersof=discretionary|a|DAC uattrs
 add|ob|Acct Recs rep|Object attribute|yes|Acct Recs|4DD337BDB071C3682DF49C9329D54646|p|DAC
 add|ob|Alice Med Records rep|Object attribute|yes|Alice Med Records|77482D7CEAEFF5284590C5D23C057897|p|DAC
@@ -44,6 +31,18 @@ add|ob|CMRecs rep|Object attribute|yes|CMRecs|47561254E70FAA7EFD2650E1AECC770A|p
 add|b|Acct Recs|p|DAC
 add|b|Today|p|DAC
 add|b|Populated Forms|p|DAC
+add|b|witems|p|DAC
+add|prop|containerof=witems|b|witems
+add|b|katie home|p|DAC
+add|prop|homeof=katie|b|katie home
+add|b|inboxes|p|DAC
+add|prop|containerof=inboxes|b|inboxes
+add|b|charlie home|p|DAC
+add|prop|homeof=charlie|b|charlie home
+add|b|bob home|p|DAC
+add|prop|homeof=bob|b|bob home
+add|b|alice home|p|DAC
+add|prop|homeof=alice|b|alice home
 add|ob|DAC uattrs rep|User attribute|yes|DAC uattrs|9E6061CBD864A896CE5A642507F72AE1|p|DAC
 add|b|outboxes|p|DAC
 add|prop|containerof=outboxes|b|outboxes
@@ -58,12 +57,10 @@ add|a|Accts Rcv|p|RBAC
 add|a|Acquisition|p|RBAC
 add|a|Secretary|p|RBAC
 add|a|Intern|p|RBAC
-add|b|Records|p|RBAC
-add|prop|type=Records|b|Records
-add|b|Acct Columns|p|RBAC
-add|b|CMR Columns|p|RBAC
 add|ob|Acct Columns rep|Object attribute|yes|Acct Columns|20A7462A510C7E61524C082B261B6BA4|p|RBAC
 add|ob|CMR Columns rep|Object attribute|yes|CMR Columns|41C6FF29155D50CC28BC6B6A0C747E04|p|RBAC
+add|b|Acct Columns|p|RBAC
+add|b|CMR Columns|p|RBAC
 add|b|Accts Pbl witems|p|RBAC
 add|prop|witemsof=Accts Pbl|b|Accts Pbl witems
 add|b|Contracting witems|p|RBAC
@@ -76,7 +73,7 @@ add|b|Med Records|p|RBAC
 add|a|OU users|p|Confine
 add|ob|OU messages rep|Object attribute|yes|OU messages|B3BB895308E980DA3FEE4BF0E6F68F22|p|Confine
 add|b|OU messages|p|Confine
-add|u|bob|fn|Robert|a|Top Secret
+add|u|bob|fn|Robert|a|Secret
 add|eml|Robert|bob@nist.gov|email.nist.gov|email.nist.gov|nist|bob|u|bob
 add|a|Top secret|a|Secret
 add|prop|correspondsto=TS|a|Top secret
@@ -85,9 +82,11 @@ add|op|Object attribute assign to|s|033A0D1C
 add|op|Object attribute create object|s|033A0D1C
 add|s|C2CF01CD|oc|Ignored|a|Secret
 add|op|File read|s|C2CF01CD
-asg|s|C2CF01CD|b|S
 add|s|20DE6FEB|oc|Ignored|a|Secret
 add|op|File write|s|20DE6FEB
+add|s|650F246B|oc|Ignored|b|TS rep
+add|op|Object attribute assign to|s|650F246B
+add|op|Object attribute create object|s|650F246B
 asg|s|033A0D1C|b|S rep
 add|b|S|b|S_TS
 add|b|TS|b|S_TS
@@ -275,9 +274,9 @@ add|prop|patientsof=alice|b|Alice Med Records
 add|s|B254FA19|oc|Ignored|b|alice home
 add|op|File read|s|B254FA19
 add|op|File write|s|B254FA19
-add|s|12345679|oc|Ignored|b|DAC uattrs rep
-add|op|User assign|s|12345679
-add|op|User attribute assign to operation set|s|12345679
+add|s|12345678|oc|Ignored|b|DAC uattrs rep
+add|op|User assign|s|12345678
+add|op|User attribute assign to operation set|s|12345678
 add|s|15E69BE1|oc|Ignored|b|DAC uattrs rep
 add|op|User assign|s|15E69BE1
 add|op|User attribute assign to operation set|s|15E69BE1
@@ -357,7 +356,7 @@ add|ob|PatTreatment rep|Object attribute|no|PatTreatment|1FFD4BDD2546CEA8FB53558
 add|ob|PatDiag rep|Object attribute|no|PatDiag|6EBBF70A37DD42C4B8D9E6D401EA792F|b|CMR Columns
 add|ob|PatHistory rep|Object attribute|no|PatHistory|A753D0570DCE8F1FD843E4613F47970D|b|CMR Columns
 add|b|PatDrafts|b|CMR Columns
-add|prop|prop=PatDrafts|b|PatDrafts
+add|prop|PatDrafts|b|PatDrafts
 add|b|PatTreatment|b|CMR Columns
 add|b|PatDiag|b|CMR Columns
 add|b|PatSymptoms|b|CMR Columns
@@ -369,16 +368,16 @@ asg|s|16A11DA2|b|Accts Pbl witems
 asg|s|18E9B035|b|Contracting witems
 asg|s|B3FD2394|b|Accts Rcv witems
 asg|s|D6F23181|b|Approved Orders
-add|ob|poForm|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\poForm.wkf|b|Forms
+add|ob|poForm|File|no|WIN-DNAR5079LMF|C:\pmworkArea\poForm.wkf|b|Forms
 asg|s|D7048A1C|b|Forms
-add|ob|mrec33|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\mrec33.rtf|b|Med Records
-add|ob|mrec22|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\mrec22.rtf|b|Med Records
-add|ob|mrec11|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\mrec11.rtf|b|Med Records
-add|ob|mrec3|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\mrec3.doc|b|Med Records
-add|ob|mrec2|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\mrec2.doc|b|Med Records
-add|ob|mrec1|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\mrec1.doc|b|Med Records
-add|ob|mrec4|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\mrec4.doc|b|Med Records
-add|ob|mrec5|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\mrec5.rtf|b|Med Records
+add|ob|mrec33|File|no|WIN-DNAR5079LMF|C:\pmworkArea\mrec33.rtf|b|Med Records
+add|ob|mrec22|File|no|WIN-DNAR5079LMF|C:\pmworkArea\mrec22.rtf|b|Med Records
+add|ob|mrec11|File|no|WIN-DNAR5079LMF|C:\pmworkArea\mrec11.rtf|b|Med Records
+add|ob|mrec3|File|no|WIN-DNAR5079LMF|C:\pmworkArea\mrec3.doc|b|Med Records
+add|ob|mrec2|File|no|WIN-DNAR5079LMF|C:\pmworkArea\mrec2.doc|b|Med Records
+add|ob|mrec1|File|no|WIN-DNAR5079LMF|C:\pmworkArea\mrec1.doc|b|Med Records
+add|ob|mrec4|File|no|WIN-DNAR5079LMF|C:\pmworkArea\mrec4.doc|b|Med Records
+add|ob|mrec5|File|no|WIN-DNAR5079LMF|C:\pmworkArea\mrec5.rtf|b|Med Records
 asg|s|945358F8|b|Med Records
 add|s|5C59BE03|oc|Ignored|b|Med Records
 add|op|File write|s|5C59BE03
@@ -394,14 +393,15 @@ add|op|File read|s|EBBE3FE1
 add|op|File write|s|EBBE3FE1
 asg|s|359268CA|b|OU messages rep
 asg|s|EBBE3FE1|b|OU messages
-asg|u|alice|a|Secret
-#asg|a|Top secret|s|650F246B
+asg|u|alice|a|Top secret
+asg|a|Top secret|s|650F246B
 add|s|61FAF91D|oc|Ignored|a|Top secret
 add|op|File write|s|61FAF91D
 asg|a|Top secret|s|78E5ABCE
 asg|b|mrec22|b|S
 asg|b|mrec2|b|S
 asg|b|mrec4|b|S
+asg|s|C2CF01CD|b|S
 asg|b|mrec11|b|TS
 asg|b|mrec1|b|TS
 asg|s|61FAF91D|b|TS
@@ -417,7 +417,7 @@ add|op|File read|s|11AE564E
 add|s|39D1BFC8|oc|Ignored|a|Katherine
 add|op|File read|s|39D1BFC8
 add|op|File write|s|39D1BFC8
-asg|a|Katherine|s|12345679
+asg|a|Katherine|s|12345678
 add|s|708FA799|oc|Ignored|a|Katherine
 add|op|Object attribute assign|s|708FA799
 add|op|Object attribute assign to|s|708FA799
@@ -515,10 +515,10 @@ add|s|4FA145EA|oc|Ignored|a|Alicia
 add|op|Object attribute create object|s|4FA145EA
 add|op|Object attribute assign to|s|4FA145EA
 add|u|exporter|fn|Exporter|a|Exporter
-add|ob|FC15B612|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\FC15B612.txt|b|12345678
-add|ob|C9CFE6DE|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\C9CFE6DE.txt|b|12345678
-add|ob|30A44CB5|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\30A44CB5.txt|b|12345678
-add|ob|237D8FA7|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\237D8FA7.txt|b|12345678
+add|ob|FC15B612|File|no|WIN-DNAR5079LMF|C:\pmworkArea\FC15B612.txt|b|12345678
+add|ob|C9CFE6DE|File|no|WIN-DNAR5079LMF|C:\pmworkArea\C9CFE6DE.txt|b|12345678
+add|ob|30A44CB5|File|no|WIN-DNAR5079LMF|C:\pmworkArea\30A44CB5.txt|b|12345678
+add|ob|237D8FA7|File|no|WIN-DNAR5079LMF|C:\pmworkArea\237D8FA7.txt|b|12345678
 asg|s|39D1BFC8|b|katie witems
 asg|s|E2327C18|b|charlie witems
 asg|s|FE4A7080|b|bob witems
@@ -536,7 +536,7 @@ add|b|Charlie recipes|b|SharedContainer
 asg|b|mrec4|b|Bob Med Records
 asg|b|mrec5|b|Bob Med Records
 add|b|8E094FF2|b|Bob Med Records
-add|ob|prop1|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\prop1.rtf|b|Proposals
+add|ob|prop1|File|no|WIN-DNAR5079LMF|C:\pmworkArea\prop1.rtf|b|Proposals
 asg|b|mrec11|b|Alice Med Records
 asg|b|mrec22|b|Alice Med Records
 asg|b|mrec33|b|Alice Med Records
@@ -545,9 +545,9 @@ asg|b|mrec2|b|Alice Med Records
 asg|b|mrec3|b|Alice Med Records
 add|b|8B54E24B|b|Alice Med Records
 asg|s|708FA799|b|katie OUTBOX rep
-add|ob|charlie OUTBOX rep|Object attribute|yes|charlie OUTBOX|608654BCBDD02256D1C034690A6613DC|b|OU outboxes
-add|ob|bob OUTBOX rep|Object attribute|yes|bob OUTBOX|3A1CF076CCA56F130B1E2136BC154F99|b|OU outboxes
-add|ob|alice OUTBOX rep|Object attribute|yes|alice OUTBOX|5C178D357D65A26FB8D73F589867535A|b|OU outboxes
+add|ob|charlie OUTBOX rep|Object attribute|yes|charlie OUTBOX|91B97113D4259B5F52E7C4A9CE630941|b|OU outboxes
+add|ob|bob OUTBOX rep|Object attribute|yes|bob OUTBOX|661A59D174E6790AE9410C49FFB0026A|b|OU outboxes
+add|ob|alice OUTBOX rep|Object attribute|yes|alice OUTBOX|756DFE76FBDC10C305800E0DD9514AB4|b|OU outboxes
 add|b|charlie OUTBOX|b|OU outboxes
 add|prop|outboxof=charlie|b|charlie OUTBOX
 add|b|bob OUTBOX|b|OU outboxes
@@ -596,45 +596,45 @@ asg|s|011D8B80|b|PatTreatment rep
 asg|s|690D3A30|b|PatDiag rep
 asg|s|C74AAC05|b|PatHistory rep
 add|b|PatHistoryDrafts|b|PatDrafts
-add|prop|prop=PatHistoryDrafts|b|PatHistoryDrafts
+add|prop|PatHistoryDrafts|b|PatHistoryDrafts
 add|b|PatDiagDrafts|b|PatDrafts
-add|prop|prop=PatDiagDrafts|b|PatDiagDrafts
+add|prop|PatDiagDrafts|b|PatDiagDrafts
 add|b|PatTreatmentDrafts|b|PatDrafts
-add|prop|prop=PatTreatmentDrafts|b|PatTreatmentDrafts
+add|prop|PatTreatmentDrafts|b|PatTreatmentDrafts
 asg|s|17D90B49|b|PatDrafts
-add|ob|E4B48FB1|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\E4B48FB1.rtf|b|PatTreatment
-add|ob|E294203A|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\E294203A.rtf|b|PatTreatment
+add|ob|E4B48FB1|File|no|WIN-DNAR5079LMF|C:\pmworkArea\E4B48FB1.rtf|b|PatTreatment
+add|ob|E294203A|File|no|WIN-DNAR5079LMF|C:\pmworkArea\E294203A.rtf|b|PatTreatment
 asg|s|6DB75F58|b|PatTreatment
 asg|s|6523425D|b|PatTreatment
 asg|s|F14BB514|b|PatTreatment
-add|ob|53C1525D|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\53C1525D.rtf|b|PatDiag
-add|ob|D9971E4A|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\D9971E4A.rtf|b|PatDiag
+add|ob|53C1525D|File|no|WIN-DNAR5079LMF|C:\pmworkArea\53C1525D.rtf|b|PatDiag
+add|ob|D9971E4A|File|no|WIN-DNAR5079LMF|C:\pmworkArea\D9971E4A.rtf|b|PatDiag
 asg|s|ADFA7E54|b|PatDiag
 asg|s|D36773F1|b|PatDiag
 asg|s|24214879|b|PatDiag
-add|ob|d4cb3401|File|no|[SERVER_COMPUTER_NAME]|C:\PMWorkArea\d4cb3401.rtf|b|PatSymptoms
-add|ob|33EAA2DF|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\33EAA2DF.rtf|b|PatSymptoms
-add|ob|FB40D908|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\FB40D908.rtf|b|PatSymptoms
+add|ob|d4cb3401|File|no|WIN-DNAR5079LMF|C:\PMWorkArea\d4cb3401.rtf|b|PatSymptoms
+add|ob|33EAA2DF|File|no|WIN-DNAR5079LMF|C:\pmworkArea\33EAA2DF.rtf|b|PatSymptoms
+add|ob|FB40D908|File|no|WIN-DNAR5079LMF|C:\pmworkArea\FB40D908.rtf|b|PatSymptoms
 asg|s|E664D534|b|PatSymptoms
 asg|s|4EBE4892|b|PatSymptoms
-add|ob|933161a3|File|no|[SERVER_COMPUTER_NAME]|C:\PMWorkArea\933161a3.rtf|b|PatAllergies
-add|ob|E9663596|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\E9663596.rtf|b|PatAllergies
-add|ob|7002DA15|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\7002DA15.rtf|b|PatAllergies
+add|ob|933161a3|File|no|WIN-DNAR5079LMF|C:\PMWorkArea\933161a3.rtf|b|PatAllergies
+add|ob|E9663596|File|no|WIN-DNAR5079LMF|C:\pmworkArea\E9663596.rtf|b|PatAllergies
+add|ob|7002DA15|File|no|WIN-DNAR5079LMF|C:\pmworkArea\7002DA15.rtf|b|PatAllergies
 asg|s|6D223F10|b|PatAllergies
 asg|s|6121EE87|b|PatAllergies
 asg|s|6BB7EBA7|b|PatAllergies
-add|ob|6411940B|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\6411940B.doc|b|PatHistory
-add|ob|FE2CA75B|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\FE2CA75B.doc|b|PatHistory
+add|ob|6411940B|File|no|WIN-DNAR5079LMF|C:\pmworkArea\6411940B.doc|b|PatHistory
+add|ob|FE2CA75B|File|no|WIN-DNAR5079LMF|C:\pmworkArea\FE2CA75B.doc|b|PatHistory
 asg|s|53811547|b|PatHistory
 asg|s|7F91A035|b|PatHistory
 asg|s|D1687D6A|b|PatHistory
-add|ob|9ce0521d|File|no|[SERVER_COMPUTER_NAME]|C:\PMWorkArea\9ce0521d.bio|b|PatBio
-add|ob|39FA5BA8|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\39FA5BA8.bio|b|PatBio
-add|ob|4902BD22|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\4902BD22.bio|b|PatBio
+add|ob|9ce0521d|File|no|WIN-DNAR5079LMF|C:\PMWorkArea\9ce0521d.bio|b|PatBio
+add|ob|39FA5BA8|File|no|WIN-DNAR5079LMF|C:\pmworkArea\39FA5BA8.bio|b|PatBio
+add|ob|4902BD22|File|no|WIN-DNAR5079LMF|C:\pmworkArea\4902BD22.bio|b|PatBio
 asg|s|46A18983|b|PatBio
-add|ob|91c1aa7f|File|no|[SERVER_COMPUTER_NAME]|C:\PMWorkArea\91c1aa7f.pid|b|PatId
-add|ob|58423CA7|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\58423CA7.pid|b|PatId
-add|ob|9435D63E|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\9435D63E.pid|b|PatId
+add|ob|91c1aa7f|File|no|WIN-DNAR5079LMF|C:\PMWorkArea\91c1aa7f.pid|b|PatId
+add|ob|58423CA7|File|no|WIN-DNAR5079LMF|C:\pmworkArea\58423CA7.pid|b|PatId
+add|ob|9435D63E|File|no|WIN-DNAR5079LMF|C:\pmworkArea\9435D63E.pid|b|PatId
 asg|s|AF698BEF|b|PatId
 asg|s|09C9B277|b|PatId
 asg|s|D7B13327|b|PatId
@@ -648,8 +648,8 @@ asg|s|94E4DFD4|b|charlie INBOX
 add|b|bob wINBOX|b|bob INBOX
 add|prop|winboxof=bob|b|bob wINBOX
 asg|s|F7D14F3F|b|bob INBOX
-add|ob|Italian recipes|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\Italian recipes.rtf|b|Charlie recipes
-add|ob|Chili recipes|File|no|[SERVER_COMPUTER_NAME]|C:\pmworkArea\Chili recipes.rtf|b|Charlie recipes
+add|ob|Italian recipes|File|no|WIN-DNAR5079LMF|C:\pmworkArea\Italian recipes.rtf|b|Charlie recipes
+add|ob|Chili recipes|File|no|WIN-DNAR5079LMF|C:\pmworkArea\Chili recipes.rtf|b|Charlie recipes
 add|ob|8E094FF2-Drafts rep|Object attribute|yes|8E094FF2-Drafts|877E87232726C348B9F2C74A8BE49AA8|b|8E094FF2
 add|ob|8E094FF2-Treatments rep|Object attribute|no|8E094FF2-Treatments|1662525EAF8045A81B21CFC5B3AE6B4F|b|8E094FF2
 add|ob|8E094FF2-History rep|Object attribute|no|8E094FF2-History|45BFA9BE2A90CA90C8A261EC25D88F63|b|8E094FF2
@@ -725,6 +725,24 @@ add|prop|DraftHistory=8B54E24B|b|8B54E24B-DraftHistory
 add|b|8B54E24B-DraftDiagnoses|b|8B54E24B-Drafts
 add|prop|DraftDiagnoses=8B54E24B|b|8B54E24B-DraftDiagnoses
 asg|s|46C6EC2B|b|8B54E24B-Drafts
+add|app|Admin|C:\PM\dist\pm-admin-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.admin.PmAdmin|Admin >> |WIN-DNAR5079LMF
+add|app|Rich Text Editor|C:\PM\dist\pm-app-rtf-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.rtf.RTFEditor|RTF Editor >> |WIN-DNAR5079LMF
+add|app|Workflow Editor|C:\PM\dist\pm-app-wkf-pdf-1.5.jar;C:\PM\dist\pm-app-pdf-view-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.workflow.WorkflowPDF|Workflow Editor >>|WIN-DNAR5079LMF
+add|app|PDF Viewer|C:\PM\dist\pm-app-pdf-view-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.pdfviewer.PDFViewer|PDF Viewer >> |WIN-DNAR5079LMF
+add|app|e-grant|C:\PM\dist\pm-app-grant-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.grantor.Grantor|e-grant >> |WIN-DNAR5079LMF
+add|app|Exporter|C:\PM\dist\pm-exporter-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.exporter.Exporter|Exporter >> |WIN-DNAR5079LMF
+add|app|Open Office|C:\PM\dist\pm-app-openoffice-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar;C:\Program Files (x86)\OpenOffice.org 3\Basis\program\classes\unoil.jar;C:\Program Files (x86)\OpenOffice.org 3\URE\java\juh.jar;C:\Program Files (x86)\OpenOffice.org 3\URE\java\jurt.jar;C:\Program Files (x86)\OpenOffice.org 3\URE\java\ridl.jar;C:\Program Files (x86)\OpenOffice.org 3\program|gov.nist.csd.pm.application.openoffice.OfficeLauncher|Open Office >>|WIN-DNAR5079LMF
+add|app|Microsoft Office Launcher|C:\PM\dist\pm-app-msoffice-1.5.jar|gov.nist.csd.pm.application.office.MSOfficeLauncher|MS Office >>|WIN-DNAR5079LMF
+add|app|Med-Rec|C:\PM\dist\pm-app-medrec-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.medrec.MREditor|Med-Rec >>|WIN-DNAR5079LMF
+add|app|Acct-Rec|C:\PM\dist\pm-app-acctrec-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.acctrec.AcctEditor|Acct-Rec >>|WIN-DNAR5079LMF
+add|app|Workflow Old|C:\PM\dist\pm-app-wkf-old-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.oldworkflow.Wkflow|Workflow Old >>|WIN-DNAR5079LMF
+add|ks|C:\PM\keystores\katieKeystore|C:\PM\keystores\clientTruststore|h|WIN-DNAR5079LMF|u|katie
+add|ks|C:\PM\keystores\daveKeystore|C:\PM\keystores\clientTruststore|h|WIN-DNAR5079LMF|u|dave
+add|ks|C:\PM\keystores\bobKeystore|C:\PM\keystores\clientTruststore|h|WIN-DNAR5079LMF|u|bob
+add|ks|C:\PM\keystores\charlieKeystore|C:\PM\keystores\clientTruststore|h|WIN-DNAR5079LMF|u|charlie
+add|ks|C:\PM\keystores\aliceKeystore|C:\PM\keystores\clientTruststore|h|WIN-DNAR5079LMF|u|alice
+add|ks|C:\PM\keystores\superKeystore|C:\PM\keystores\clientTruststore|h|WIN-DNAR5079LMF|u|super
+add|ks|C:\PM\keystores\exporterKeystore|C:\PM\keystores\clientTruststore|h|WIN-DNAR5079LMF|u|exporter
 add|tpl|mrecTpl|conts|PatId:PatBio:PatAllergies:PatHistory:PatSymptoms:PatDiag:PatTreatment
 add|key|last name|tpl|mrecTpl
 add|key|home phone|tpl|mrecTpl
@@ -747,39 +765,9 @@ add|key|mrn=0DAB52862379|b|8E094FF2
 add|tpl|acctTpl|b|12345678
 add|comps|FC15B612:C9CFE6DE:30A44CB5:237D8FA7|b|12345678
 add|key|acctnum=12345678|b|12345678
-#add|prop|alice.signature.file|v|C:\PM\resources\signatures\alice.jpg
-#add|prop|bob.signature.file|v|C:\PM\resources\signatures\bob.jpg
-#add|prop|charlie.signature.file|v|C:\PM\resources\signatures\charlie.jpg
-#add|prop|dave.signature.file|v|C:\PM\resources\signatures\dave.jpg
-#add|prop|gavrila.signature.file|v|C:\PM\resources\signatures\gavrila.jpg
-#add|prop|katie.signature.file|v|C:\PM\resources\signatures\katie.jpg
-
-##############  Client Configuration Commands ##############
-add|app|Admin|C:\PM\dist\pm-admin-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.admin.PmAdmin|Admin >> |[SERVER_COMPUTER_NAME]
-add|app|Rich Text Editor|C:\PM\dist\pm-app-rtf-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.rtf.RTFEditor|RTF Editor >> |[SERVER_COMPUTER_NAME]
-add|app|Workflow Editor|C:\PM\dist\pm-app-wkf-pdf-1.5.jar;C:\PM\dist\pm-app-pdf-view-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.workflow.WorkflowPDF|Workflow Editor >>|[SERVER_COMPUTER_NAME]
-add|app|PDF Viewer|C:\PM\dist\pm-app-pdf-view-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.pdfviewer.PDFViewer|PDF Viewer >> |[SERVER_COMPUTER_NAME]
-add|app|e-grant|C:\PM\dist\pm-app-grant-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.grantor.Grantor|e-grant >> |[SERVER_COMPUTER_NAME]
-add|app|Exporter|C:\PM\dist\pm-exporter-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.exporter.Exporter|Exporter >> |[SERVER_COMPUTER_NAME]
-add|app|Open Office|C:\PM\dist\pm-app-openoffice-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar;C:\Program Files (x86)\OpenOffice.org 3\Basis\program\classes\unoil.jar;C:\Program Files (x86)\OpenOffice.org 3\URE\java\juh.jar;C:\Program Files (x86)\OpenOffice.org 3\URE\java\jurt.jar;C:\Program Files (x86)\OpenOffice.org 3\URE\java\ridl.jar;C:\Program Files (x86)\OpenOffice.org 3\program|gov.nist.csd.pm.application.openoffice.OfficeLauncher|Open Office >>|[SERVER_COMPUTER_NAME]
-add|app|Microsoft Office Launcher|C:\PM\dist\pm-app-msoffice-1.5.jar|gov.nist.csd.pm.application.office.MSOfficeLauncher|MS Office >>|[SERVER_COMPUTER_NAME]
-add|app|Med-Rec|C:\PM\dist\pm-app-medrec-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.medrec.MREditor|Med-Rec >>|[SERVER_COMPUTER_NAME]
-add|app|Acct-Rec|C:\PM\dist\pm-app-acctrec-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.acctrec.AcctEditor|Acct-Rec >>|[SERVER_COMPUTER_NAME]
-add|app|Workflow Old|C:\PM\dist\pm-app-wkf-old-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.oldworkflow.Wkflow|Workflow Old >>|[SERVER_COMPUTER_NAME]
-add|app|Schema Builder|C:\PM\dist\pm-app-schemabuilder-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.schema.builder.SchemaBuilder3|SB>>|[SERVER_COMPUTER_NAME]
-add|app|Employee Record|C:\PM\dist\pm-app-emprec-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.appeditor.EmployeeRecord|ER>>|[SERVER_COMPUTER_NAME]
-add|app|Table Editor|C:\PM\dist\pm-app-tableeditor-1.5.jar;C:\PM\dist\pm-commons-1.5.jar;C:\PM\lib\activation-1.1.jar;C:\PM\lib\aopalliance-1.0.jar;C:\PM\lib\asm-3.1.jar;C:\PM\lib\bcmail-jdk15-1.44.jar;C:\PM\lib\bcprov-jdk15-1.44.jar;C:\PM\lib\cglib-2.2.1-v20090111.jar;C:\PM\lib\colorchooser-1.0.jar;C:\PM\lib\commons-logging-1.1.1.jar;C:\PM\lib\fontbox-1.6.0.jar;C:\PM\lib\guava-r09.jar;C:\PM\lib\guice-3.0.jar;C:\PM\lib\icu4j-3.8.jar;C:\PM\lib\jarjar-1.0.jar;C:\PM\lib\javax.inject-1.jar;C:\PM\lib\javax.mail-1.4.4.jar;C:\PM\lib\jempbox-1.6.0.jar;C:\PM\lib\jfontchooser-1.0.5-pm.jar;C:\PM\lib\jna-3.2.7-pm-platform.jar;C:\PM\lib\jna-3.2.7-pm.jar;C:\PM\lib\jsr305-1.3.7.jar;C:\PM\lib\miglayout-3.7.3.1-swing.jar;C:\PM\lib\pdfbox-1.6.0.jar;C:\PM\lib\wrapper-3.2.3.jar;C:\PM\lib\wrapper.jar|gov.nist.csd.pm.application.schema.tableeditor.TableEditor|TE>>|[SERVER_COMPUTER_NAME]
-
-add|ks|C:\PM\keystores\superKeystore|C:\PM\keystores\clientTruststore|h|[SERVER_COMPUTER_NAME]|u|super
-
-add|ks|C:\PM\keystores\aliceKeystore|C:\PM\keystores\clientTruststore|h|[SERVER_COMPUTER_NAME]|u|alice
-
-add|ks|C:\PM\keystores\katieKeystore|C:\PM\keystores\clientTruststore|h|[SERVER_COMPUTER_NAME]|u|katie
-
-add|ks|C:\PM\keystores\daveKeystore|C:\PM\keystores\clientTruststore|h|[SERVER_COMPUTER_NAME]|u|dave
-
-add|ks|C:\PM\keystores\bobKeystore|C:\PM\keystores\clientTruststore|h|[SERVER_COMPUTER_NAME]|u|bob
-
-add|ks|C:\PM\keystores\charlieKeystore|C:\PM\keystores\clientTruststore|h|[SERVER_COMPUTER_NAME]|u|charlie
-
-add|ks|C:\PM\keystores\exporterKeystore|C:\PM\keystores\clientTruststore|h|[SERVER_COMPUTER_NAME]|u|exporter
+add|prop|alice.signature.file|v|C:\PM\resources\signatures\alice.jpg
+add|prop|bob.signature.file|v|C:\PM\resources\signatures\bob.jpg
+add|prop|charlie.signature.file|v|C:\PM\resources\signatures\charlie.jpg
+add|prop|dave.signature.file|v|C:\PM\resources\signatures\dave.jpg
+add|prop|gavrila.signature.file|v|C:\PM\resources\signatures\gavrila.jpg
+add|prop|katie.signature.file|v|C:\PM\resources\signatures\katie.jpg

@@ -1,0 +1,19 @@
+script demo
+
+
+when any user performs "Object write"
+on any object of attribute "PatTreatment"
+do deny user user_default()
+operation "File write" on attribute oattr_of_default_obj()
+
+//For diagnosis
+when any user performs "Object write"
+on any object of attribute "PatDiag"
+do deny user user_default()
+operation "File write" on attribute oattr_of_default_obj()
+
+//For history
+when any user performs "Object write"
+on any object of attribute "PatHistory"
+do deny user user_default()
+operation "File write" on attribute oattr_of_default_obj()
